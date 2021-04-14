@@ -21,10 +21,12 @@ public class MoveRobot extends CommandBase
     private double dT = 0.02;
     private boolean m_endFlag = false;
     private int m_profType;
-    private final TrapezoidProfile.Constraints m_constraints;
+    private TrapezoidProfile.Constraints m_constraints;
     private TrapezoidProfile.State m_goal = new TrapezoidProfile.State();
-    public TrapezoidProfile.State m_setpoint = new TrapezoidProfile.State();
-    private final int m_dir;
+    private static TrapezoidProfile.State m_setpoint = new TrapezoidProfile.State();
+    private int m_dir;
+    public static double distMoved;
+    private final double _startSpeed;
 
     /**
      * Constructor
@@ -32,8 +34,7 @@ public class MoveRobot extends CommandBase
     //This move the robot a certain distance following a trapezoidal speed profile.
     public MoveRobot(int type, double dist, double startSpeed, double endSpeed, double maxSpeed)
     {
-        addRequirements(m_drive); // Adds the subsystem to the command
-
+        _startSpeed = startSpeed;
         m_profType = type;
         if (type==2){
             m_constraints = new TrapezoidProfile.Constraints(maxSpeed, 2.0*Math.PI);
@@ -41,7 +42,7 @@ public class MoveRobot extends CommandBase
         else{
             m_constraints = new TrapezoidProfile.Constraints(maxSpeed, 0.8);
         }
-        m_setpoint = new TrapezoidProfile.State(0, startSpeed);
+        m_setpoint = new TrapezoidProfile.State(0, _startSpeed);
         
         //Negative distance don't seem to work with the library function????
         //Easier to make distance positive and use m_dir to keep track of negative speed.
@@ -50,6 +51,8 @@ public class MoveRobot extends CommandBase
         
         m_goal = new TrapezoidProfile.State(dist, endSpeed);
 
+        addRequirements(m_drive); // Adds the subsystem to the command
+        
     }
 
     /**
@@ -58,7 +61,8 @@ public class MoveRobot extends CommandBase
     @Override
     public void initialize()
     {
-        
+        m_setpoint = new TrapezoidProfile.State(0, _startSpeed);
+        m_endFlag = false;
     }
     /**
      * Condition to end speed profile
@@ -104,6 +108,10 @@ public class MoveRobot extends CommandBase
     public boolean isFinished()
     {
         return m_endFlag;
+    }
+
+    public static double getDistMoved() {
+        return m_setpoint.position;
     }
 
 }

@@ -31,6 +31,7 @@ public class Robot extends TimedRobot {
   private Command m_autonomousCommand;
   private Command m_teleopCommand;
   private RobotContainer m_robotContainer;
+  private Command m_startButton;
 
 
   private void generateEnabledDsPacket(byte[] data, short sendCount) {

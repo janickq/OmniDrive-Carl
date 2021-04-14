@@ -6,7 +6,7 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Robot;
 //RobotContainer import
 import frc.robot.RobotContainer;
-import frc.robot.commands.auto.Globals;
+import frc.robot.Globals;
 import frc.robot.commands.auto.MoveRobot;
 import frc.robot.subsystems.Sensor;
 

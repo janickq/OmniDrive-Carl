@@ -1,12 +1,10 @@
 package frc.robot.commands.auto.MoveTypes;
 
-import edu.wpi.first.wpilibj.Timer;
 //WPI imports
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.Robot;
 //RobotContainer import
 import frc.robot.RobotContainer;
-import frc.robot.commands.auto.Globals;
+import frc.robot.Globals;
 import frc.robot.commands.auto.MoveRobot;
 import frc.robot.subsystems.Sensor;
 
@@ -20,12 +18,14 @@ import frc.robot.subsystems.OmniDrive;
  */
 public class MoveType2 extends CommandBase
 {
-    private final static OmniDrive m_drive = RobotContainer.m_omnidrive;
-    private final static Sensor m_sensor = RobotContainer.m_sensor;
+    private static final OmniDrive m_drive = RobotContainer.m_omnidrive;
+    private static final Sensor m_sensor = RobotContainer.m_sensor;
     private boolean endFlag = false;
     double speed;
     double distance;
-    double sensDist, tgtDist, curDist = 0;
+    double sensDist;
+    double tgtDist;
+    double curDist = 0;
     double dT = 0.02;
     int state = 0;
     public MoveType2(double spd, double dist, double tgtDist)
@@ -53,12 +53,7 @@ public class MoveType2 extends CommandBase
         if(state == 1)
         {
             new MoveRobot(0, 0.4, 0, 0, 0.5);
-            /*m_drive.setRobotSpeedXYW(speed, 0, 0);
-            curDist += speed*dT;
-            if (curDist>=distance)
-            {
-                endFlag = true;
-            }*/
+
             endFlag = true;
         }
         Globals.distCount += speed*dT + 0.4;

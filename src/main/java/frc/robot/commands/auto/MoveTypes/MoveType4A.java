@@ -5,7 +5,7 @@ import edu.wpi.first.wpilibj.trajectory.TrapezoidProfile;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 //RobotContainer import
 import frc.robot.RobotContainer;
-import frc.robot.commands.auto.Globals;
+import frc.robot.Globals;
 //Subsystem imports
 import frc.robot.subsystems.OmniDrive;
 

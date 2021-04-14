@@ -1,16 +1,15 @@
 package frc.robot.commands.auto.MoveTypes;
 
-import edu.wpi.first.wpilibj.Timer;
+
 //WPI imports
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.Robot;
+
 //RobotContainer import
 import frc.robot.RobotContainer;
-import frc.robot.commands.auto.Globals;
+import frc.robot.Globals;
 //Subsystem imports
 import frc.robot.subsystems.OmniDrive;
 import frc.robot.subsystems.Sensor;
-import frc.robot.commands.auto.MoveRobot;
 
 /**
  * SimpleDrive class
@@ -20,8 +19,8 @@ import frc.robot.commands.auto.MoveRobot;
 
 public class MoveType1 extends CommandBase
 {
-    private final static OmniDrive m_drive = RobotContainer.m_omnidrive;
-    private final static Sensor m_sensor = RobotContainer.m_sensor;
+    private static final OmniDrive m_drive = RobotContainer.m_omnidrive;
+    private static final Sensor m_sensor = RobotContainer.m_sensor;
     private boolean endFlag = false;
     double speed;
     double distance;

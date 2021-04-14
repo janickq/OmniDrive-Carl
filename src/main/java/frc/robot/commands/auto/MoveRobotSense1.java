@@ -3,6 +3,7 @@ package frc.robot.commands.auto;
 import frc.robot.RobotContainer;
 import frc.robot.commands.auto.MoveRobot;
 import frc.robot.subsystems.Sensor;
+import frc.robot.Globals;
 
 
 /**
@@ -32,18 +33,17 @@ public class MoveRobotSense1 extends MoveRobot
 
     @Override
     public void initialize() {
-        endDist = (Globals.distCount + 0.5);
+        endDist = (distMoved+ 0.5);
     }
 
     @Override
     public boolean endCondition()
     {
         for(int i=0; i<4; i++) {
-            
 			totalCobraValue += m_sensor.getCobraRawValue(i);
         }
         avgCobraValue = totalCobraValue/4;
-        moveDist = m_setpoint.position;
+        moveDist = getDistMoved();
         if(moveDist >= endDist || avgCobraValue > 1400)
         {
             m_endFlag = true;

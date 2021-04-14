@@ -17,9 +17,12 @@ import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 //WPI imports
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
+import frc.robot.RobotContainer;
+import frc.robot.commands.gamepad.OI;
 
 public class OmniDrive extends SubsystemBase
 {
+    private final OI m_oi = RobotContainer.m_oi;
     //Creates all necessary hardware interface here for omni-drive
 
     //Motors and encoders

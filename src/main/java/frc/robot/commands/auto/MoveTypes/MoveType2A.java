@@ -5,7 +5,8 @@ import edu.wpi.first.wpilibj.trajectory.TrapezoidProfile;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 //RobotContainer import
 import frc.robot.RobotContainer;
-import frc.robot.commands.auto.Globals;
+import frc.robot.commands.auto.MoveRobot;
+import frc.robot.Globals;
 //Subsystem imports
 import frc.robot.subsystems.OmniDrive;
 import frc.robot.subsystems.Sensor;
@@ -17,8 +18,8 @@ import frc.robot.subsystems.Sensor;
 public class MoveType2A extends CommandBase
 {
     //Grab the subsystem instance from RobotContainer
-    private final static OmniDrive m_drive = RobotContainer.m_omnidrive;
-    private final static Sensor m_sensor = RobotContainer.m_sensor;
+    private static final OmniDrive m_drive = RobotContainer.m_omnidrive;
+    private static final Sensor m_sensor = RobotContainer.m_sensor;
     private double dT = 0.02;
     private boolean m_endFlag = false;
     private int m_profType;
@@ -84,7 +85,6 @@ public class MoveType2A extends CommandBase
             //sensor value etc.
             m_drive.setRobotSpeedType(m_profType, m_goal.velocity*m_dir);
             m_endFlag = true;
-            Globals.distCount = m_setpoint.position;
         }
 //
     }
@@ -92,11 +92,7 @@ public class MoveType2A extends CommandBase
     /**
      * Called when the command is told to end or is interrupted
      */
-    @Override
-    public void end(boolean interrupted)
-    {
 
-    }
 
     /**
      * Creates an isFinished condition if needed
@@ -105,6 +101,11 @@ public class MoveType2A extends CommandBase
     public boolean isFinished()
     {
         return m_endFlag;
+    }
+
+    @Override
+    public void end(boolean interrupted){
+        MoveRobot.distMoved = MoveRobot.getDistMoved();
     }
 
 }

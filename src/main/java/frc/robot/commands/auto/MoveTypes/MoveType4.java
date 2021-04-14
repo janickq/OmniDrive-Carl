@@ -1,6 +1,6 @@
 package frc.robot.commands.auto.MoveTypes;
 
-import frc.robot.commands.auto.Globals;
+import frc.robot.Globals;
 import frc.robot.commands.auto.MoveRobot;
 import frc.robot.commands.auto.MoveTypes.MoveType2;
 import edu.wpi.first.wpilibj.Timer;

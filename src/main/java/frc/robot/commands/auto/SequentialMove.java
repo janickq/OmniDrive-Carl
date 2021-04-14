@@ -5,9 +5,10 @@ import frc.robot.commands.auto.MoveTypes.MoveType2A;
 import frc.robot.commands.auto.MoveTypes.MoveType3A;
 import frc.robot.commands.auto.MoveTypes.MoveType4;
 import frc.robot.commands.auto.MoveTypes.MoveType4A;
+import edu.wpi.first.wpilibj2.command.CommandBase;
+import edu.wpi.first.wpilibj2.command.CommandGroupBase;
 import frc.robot.RobotContainer;
-import frc.robot.commands.auto.Globals;
-
+import frc.robot.Globals;
 public class SequentialMove extends AutoCommand
 {
     static double spd = 0.3;
@@ -30,3 +31,4 @@ public class SequentialMove extends AutoCommand
              Globals.distCount = 0;
     }
 }
+

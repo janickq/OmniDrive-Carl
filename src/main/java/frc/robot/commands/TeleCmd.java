@@ -1,8 +1,10 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import frc.robot.RobotContainer;
 import frc.robot.commands.gamepad.OI;
+import frc.robot.subsystems.Menu;
 import frc.robot.subsystems.OmniDrive;
 
 public class TeleCmd extends CommandBase
@@ -12,6 +14,7 @@ public class TeleCmd extends CommandBase
      */
     private final OmniDrive m_omnidrive = RobotContainer.m_omnidrive;
     private final OI m_oi = RobotContainer.m_oi;
+    private final Menu m_menu = RobotContainer.m_menu;
 
     /**
      * Joystick inputs
@@ -39,6 +42,7 @@ public class TeleCmd extends CommandBase
 
     }
 
+
     /**
      * Code here will run continously every robot loop until the command is stopped
      */
@@ -53,14 +57,18 @@ public class TeleCmd extends CommandBase
         x = m_oi.getRightDriveX();
         y = -m_oi.getRightDriveY();//Down is positive. Need to negate
         w = -m_oi.getLeftDriveX(); //X-positive is CW. Need to negate
-
+        
         
         m_omnidrive.setRobotSpeedXYW(x, y, w*Math.PI);
+
+        //m_oi.buttonTest();
 
         //hardware.setMotorSpeed012(speed0, speed1, speed2);
         //m_hardware.setPIDSpeed012(speed0, speed1, speed2);
         //hardware.doPID();
     }
+
+
 
     /**
      * When the comamnd is stopped or interrupted this code is run

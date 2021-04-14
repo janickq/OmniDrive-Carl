@@ -6,6 +6,7 @@ import edu.wpi.first.wpilibj2.command.SelectCommand;
 import frc.robot.RobotContainer;
 // import the commands
 import frc.robot.commands.auto.MoveRobotSense;
+import frc.robot.Globals;
 
 /**
  * DriveMotor class
@@ -15,57 +16,34 @@ import frc.robot.commands.auto.MoveRobotSense;
 public class MoveTest extends AutoCommand
 {
     private enum CommandSelector {
-        ONE, TWO, THREE
+        ONE, TWO, THREE, FOUR
     }
 
     static public CommandSelector selectCmd123() {
-        if (RobotContainer.m_sensor.getIRDistance()<20)
+        if (Globals.cmdState == 1)
             return CommandSelector.ONE;
-        else if (RobotContainer.m_sensor.getIRDistance()<40)
+        else if (Globals.cmdState == 2)
             return CommandSelector.TWO;
-        else
+        else if (Globals.cmdState == 3)
             return CommandSelector.THREE;
+        else
+            return CommandSelector.FOUR;
     }
 
-    static public Command selectCmd123_B() {
-        if (RobotContainer.m_sensor.getIRDistance()<20){
-        return new MoveLeft();
-    }
-    else if (RobotContainer.m_sensor.getIRDistance()<40)
-        return new MoveBack();
-    else
-        return new MoveRight();
-    }
-
-    // Use limit switch to select
-   /* static public boolean selectCmd12_SW() {
-        return RobotContainer.m_sensor.getSwitch();
-    } */
-    // use IR to select
-    static public boolean selectCmd12_IR() {
-        return RobotContainer.m_sensor.getIRDistance()>30?true:false;
-    }
 	public MoveTest()
     {
 
         super(
-            new MoveRobotSense(1, 0.5, 0, 0.0, 0.5, ()->RobotContainer.m_sensor.getIRDistance()<60)
-
-
-            //selectCmd123_B() // Didn't work
-
-            //Select one of two commands
-            //new ConditionalCommand( new MoveLeft(), new MoveRight(),  MoveTest::selectCmdA ) 
-            
             //Select one of many commands
             //Selection command in selectCmd123
-            /*new SelectCommand(
+            new SelectCommand(
                 Map.ofEntries(
                     Map.entry(CommandSelector.ONE, new MoveLeft()),
                     Map.entry(CommandSelector.TWO, new MoveBack()),
-                    Map.entry(CommandSelector.THREE, new MoveCurve()) ),
+                    Map.entry(CommandSelector.THREE, new MoveBack()),
+                    Map.entry(CommandSelector.FOUR, new MoveCurve()) ),
                 MoveTest::selectCmd123
-            ) */
+            ) 
         );
     }
 }

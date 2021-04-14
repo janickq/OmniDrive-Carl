@@ -25,7 +25,7 @@ import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 //WPI imports
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
-import frc.robot.commands.auto.Globals;
+import frc.robot.Globals;
 
 public class Sensor extends SubsystemBase
 {
@@ -194,7 +194,7 @@ public class Sensor extends SubsystemBase
         //D_sharpIR.setDouble(getIRDistance());
         //D_ultraSonic1.setDouble(getSonicDistance1(true)); //set to true because we want metric
        // D_ultraSonic2.setDouble(getSonicDistance2(true));
-        D_cobraRaw.setDouble(offset()); //Just going to use channel 0 for demo
+        //D_cobraRaw.setDouble(offset()); //Just going to use channel 0 for demo
         //D_cobraVoltage.setDouble(getCobraVoltage(0));
         D_cobra1.setDouble(cobraValue[0]);
         D_cobra2.setDouble(cobraValue[1]);
@@ -203,6 +203,6 @@ public class Sensor extends SubsystemBase
         //outDebug11.set(false);
         //D_globals.setDouble(Globals.distCount);
         //D_globals.setBoolean(Globals.endFlag);
-        //D_globalstate.setNumber(Globals.state);
+       // D_globalstate.setNumber(Globals.cmdState);
     }
 }

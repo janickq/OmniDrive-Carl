@@ -1,7 +1,7 @@
 package frc.robot.commands.auto;
 
 // import the commands
-import frc.robot.commands.auto.MoveRobot;;
+import frc.robot.commands.auto.MoveRobot;
 
 /**
  * DriveMotor class
