@@ -32,8 +32,7 @@ public class Sensor extends SubsystemBase
     private final DigitalOutput outDebug11;
 
     double cobraValue[];
-    private final Servo servo1;
-    private final Servo servo2;
+
     //private final ServoContinuous servoC;
 
     /**
@@ -69,9 +68,7 @@ public class Sensor extends SubsystemBase
     public Sensor() {
         outDebug11 = new DigitalOutput(10);
         cobraValue = new double[4];
-        servo1 = new Servo(Constants.SERVO1);
-        servo2 = new Servo(Constants.SERVO2);
-        //servoC = new ServoContinuous(Constants.SERVO_C);
+
 
         // Sensors
         cobra = new Cobra();
@@ -140,19 +137,7 @@ public class Sensor extends SubsystemBase
 
 
   
-    /**
-     * Sets the servo angle
-     * <p>
-     * 
-     * @param degrees degree to set the servo to, range 0° - 300°
-     */
-    public void setServo1Angle(final double degrees) {
-        servo1.setAngle(degrees);
-    }
 
-    public void setServo2Angle(final double degrees) {
-        servo2.setAngle(degrees);
-    }
 
 
     /**
@@ -203,6 +188,6 @@ public class Sensor extends SubsystemBase
         //outDebug11.set(false);
         //D_globals.setDouble(Globals.distCount);
         //D_globals.setBoolean(Globals.endFlag);
-       // D_globalstate.setNumber(Globals.cmdState);
+        //D_globalstate.setNumber(Globals.cmdState);
     }
 }

@@ -11,6 +11,7 @@ import frc.robot.commands.auto.MoveRobot;;
  */
 public class MoveLeft extends AutoCommand
 {
+
     public MoveLeft()
     {
         super(

@@ -8,16 +8,20 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.Subsystem;
 import frc.robot.commands.TeleCmd;
+import frc.robot.commands.auto.ArmTest;
 import frc.robot.commands.auto.AutoCommand;
 import frc.robot.commands.auto.MoveOnce;
 import frc.robot.commands.auto.MoveRight;
 import frc.robot.commands.auto.MoveTest;
 import frc.robot.commands.gamepad.OI;
+import frc.robot.subsystems.Arm;
 import frc.robot.subsystems.Menu;
 import frc.robot.subsystems.OmniDrive;
 import frc.robot.commands.auto.MoveTypes.*;
 import frc.robot.commands.auto.SequentialMove;
+//import frc.robot.commands.auto.TestMove;
 import frc.robot.subsystems.Sensor;
 
 public class RobotContainer {
@@ -30,8 +34,8 @@ public class RobotContainer {
   public final static TeleCmd m_teleCmd = new TeleCmd();
   public final static Sensor m_sensor = new Sensor();
   public final static Menu m_menu = new Menu();
-  //public final static MoveRobotSense1 m_movesense1 = new MoveRobotSense1();
-  //public final static MoveType2 M_TYPE2 = new MoveType2();
+  public final static Arm m_arm = new Arm();
+
   public RobotContainer()
   {
       //Create new instances
@@ -48,7 +52,7 @@ public class RobotContainer {
    */
   public Command getAutonomousCommand() {
     // An ExampleCommand will run in autonomous
-    return new SequentialMove();
+    return new ArmTest();
   }
   public Command getTeleopCommand() {
     // An ExampleCommand will run in autonomous
