@@ -2,8 +2,11 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
+import frc.robot.Globals;
 import frc.robot.RobotContainer;
+//import frc.robot.commands.auto.MoveArm;
 import frc.robot.commands.gamepad.OI;
+import frc.robot.subsystems.Arm;
 import frc.robot.subsystems.Menu;
 import frc.robot.subsystems.OmniDrive;
 
@@ -13,6 +16,7 @@ public class TeleCmd extends CommandBase
      * Bring in Subsystem and Gamepad code
      */
     private final OmniDrive m_omnidrive = RobotContainer.m_omnidrive;
+    private final Arm m_arm = RobotContainer.m_arm;
     private final OI m_oi = RobotContainer.m_oi;
     private final Menu m_menu = RobotContainer.m_menu;
 
@@ -23,14 +27,17 @@ public class TeleCmd extends CommandBase
     double x=0;
     double y=0;
     double w=0;
+    double z=0;
 
     /**
      * Constructor
      */
-    public TeleCmd()
+    public TeleCmd()//(Arm arm, OmniDrive drive)
     {
-
-        addRequirements(m_omnidrive); //add the traning subsystem as a requirement 
+        //addRequirements(m_omnidrive);
+        //m_arm = arm;
+        //m_omnidrive = drive;
+        addRequirements(m_arm); //add the traning subsystem as a requirement 
     }
 
     /**
@@ -57,10 +64,14 @@ public class TeleCmd extends CommandBase
         x = m_oi.getRightDriveX();
         y = -m_oi.getRightDriveY();//Down is positive. Need to negate
         w = -m_oi.getLeftDriveX(); //X-positive is CW. Need to negate
+        z = -m_oi.getLeftDriveY();
         
         
-        m_omnidrive.setRobotSpeedXYW(x, y, w*Math.PI);
-
+        //m_omnidrive.setRobotSpeedXYW(x, y, w*Math.PI);
+        //m_arm.setServo1Angle((Globals.curAngle1+=y*2));
+        //m_arm.setServo2Angle((Globals.curAngle2+=z*2));
+       // m_arm.setServo3Angle((Globals.curAngle3+=w*2));
+        //Globals.debug3 = y;
         //m_oi.buttonTest();
 
         //hardware.setMotorSpeed012(speed0, speed1, speed2);

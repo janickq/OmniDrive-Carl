@@ -15,7 +15,7 @@ import frc.robot.Constants;
 import frc.robot.Globals;
 import frc.robot.RobotContainer;
 import frc.robot.commands.auto.AutoCommand;
-import frc.robot.commands.auto.MoveArm;
+//import frc.robot.commands.auto.MoveArm;
 import frc.robot.commands.auto.MoveBack;
 import frc.robot.commands.auto.MoveCurve;
 import frc.robot.commands.auto.MoveLeft;

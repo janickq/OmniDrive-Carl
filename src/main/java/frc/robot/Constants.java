@@ -23,8 +23,9 @@ public final class Constants
     public static final int TITAN_ID        = 42; 
     public static final int MOTOR_NUM       = 3;
     public static final int SERVO1          = 8;
-    public static final int SERVO2          = 5 ;
-    public static final int SERVO_C         = 9;
+    public static final int SERVO2          = 7;
+    public static final int SERVO3          = 6;
+    public static final int SERVO_C         = 0;
 
     /**
      * Sensors
