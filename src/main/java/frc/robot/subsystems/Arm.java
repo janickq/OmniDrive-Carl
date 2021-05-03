@@ -29,7 +29,7 @@ public class Arm extends SubsystemBase
     private final NetworkTableEntry D_Goal = tab.add("Goal", 0).getEntry();
     private final NetworkTableEntry D_debug1 = tab.add("curAngle1", 0).getEntry();
     private final NetworkTableEntry D_debug2 = tab.add("curAngle2", 0).getEntry();
-    private final NetworkTableEntry D_debug3 = tab.add("linear velocity", 0).getEntry();
+    private final NetworkTableEntry D_debug3 = tab.add("velocity", 0).getEntry();
     private final NetworkTableEntry D_xCur = tab.add("xCur", 0).getEntry();
     private final NetworkTableEntry D_yCur = tab.add("yCur", 0).getEntry();
     private final NetworkTableEntry D_dist = tab.add("dist", 0).getEntry();
@@ -37,9 +37,9 @@ public class Arm extends SubsystemBase
     private final NetworkTableEntry D_startCo2 = tab.add("startCo2", 0).getEntry();
 
     public Arm(){
-
-        servo1 = new Servo(Constants.SERVO1);
         servo2 = new Servo(Constants.SERVO2);
+        servo1 = new Servo(Constants.SERVO1);
+
         servo3 = new Servo(Constants.SERVO3);
         servoC = new ServoContinuous(Constants.SERVO_C);
 
@@ -64,11 +64,11 @@ public class Arm extends SubsystemBase
      * @param degrees degree to set the servo to, range 0° - 300°
      */
     public void setServo1Angle(final double degrees) {
-        servo1.setAngle(degrees);
+        servo1.setAngle(degrees + 2);
     }
 
     public void setServo2Angle(final double degrees) {
-        servo2.setAngle(degrees);
+        servo2.setAngle(degrees - 5);
     }
 
     public void setServo3Angle(final double degrees) {
@@ -83,8 +83,8 @@ public class Arm extends SubsystemBase
     */
     public double[] setArmAngle(double x, double y){
         double[] h = new double[2];
-        h[1] = (Math.acos((Math.pow(x, 2)+Math.pow(y, 2)-0.14045)/(0.14045))); 
-        h[0] = (Math.atan(y/x)+Math.atan((0.265*Math.sin(h[1])/(0.265+0.265*Math.cos(h[1])))));
+        h[1] = (Math.acos((Math.pow(x, 2) + Math.pow(y, 2) - 0.14045)/(0.14045))); 
+        h[0] = (Math.atan(y/x) + Math.atan((0.265*Math.sin(h[1])/(0.265 + 0.265*Math.cos(h[1])))));
         return h;
     }
 
@@ -112,7 +112,7 @@ public class Arm extends SubsystemBase
     */
     public double getAngle(double x1, double x2, double y1, double y2){
 
-        return Math.atan((y2-y1)/(x2-x1));
+        return Math.abs(Math.atan((y2-y1)/(x2-x1)));
     }
 
 
@@ -141,6 +141,8 @@ public class Arm extends SubsystemBase
         D_dist.setDouble(Globals.debug4);
         D_startCo1.setDouble(Globals.debug5);
         D_startCo2.setDouble(Globals.debug6);       
+        setServo1Angle(Globals.curAngle1);
+        setServo2Angle(Globals.curAngle2);
         
     }
 

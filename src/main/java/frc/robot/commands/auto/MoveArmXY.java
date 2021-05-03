@@ -39,6 +39,7 @@ public class MoveArmXY extends CommandBase {
     private final double ygoal;
     private double[] startCo = new double[2];
     private double trajectoryAngle;
+    private double time = 0;
 
     /**
      * Constructor
@@ -51,7 +52,7 @@ public class MoveArmXY extends CommandBase {
         _startSpeed = startSpeed;
         _maxSpeed = maxSpeed;
         _endSpeed = endSpeed;
-        m_constraints = new TrapezoidProfile.Constraints(_maxSpeed, 0.05);
+        m_constraints = new TrapezoidProfile.Constraints(_maxSpeed, 0.2);
 
         // Negative distance don't seem to work with the libr ary function????
         // Easier to make distance positive and use m_dir to keep track of negative
@@ -78,13 +79,20 @@ public class MoveArmXY extends CommandBase {
         m_setpoint = new TrapezoidProfile.State(0, _startSpeed);
         m_goal = new TrapezoidProfile.State(dist, _endSpeed);
         m_endFlag = false;
+
     }
     /**
      * Condition to end speed profile
      */
     public boolean endCondition()
     {
-        return false;
+        if(Math.sqrt(Math.pow(xgoal, 2)+Math.pow(ygoal, 2)) > (0.265+0.265)){
+            return true;
+        }
+        else{
+            return false;
+        }
+        
     }
     /**
      * Called continously until command is ended
@@ -98,41 +106,36 @@ public class MoveArmXY extends CommandBase {
         double[] setAngle = new double[2];
         var profile = new TrapezoidProfile(m_constraints, m_goal, m_setpoint);
         m_setpoint = profile.calculate(dT);
-        if(xgoal >= Globals.xCur){
+        if(xgoal >= startCo[0]){
             Globals.xCur += m_setpoint.velocity*dT*Math.cos(trajectoryAngle);
         }
-        else if(xgoal < Globals.xCur){
+        else if(xgoal < startCo[0]){
             Globals.xCur -= m_setpoint.velocity*dT*Math.cos(trajectoryAngle);
         }
-        if(ygoal >= Globals.yCur){
+        if(ygoal >= startCo[1]){
             Globals.yCur += m_setpoint.velocity*dT*Math.sin(trajectoryAngle);
         }
-        else if(ygoal < Globals.yCur){
+        else if(ygoal < startCo[1]){
             Globals.yCur -= m_setpoint.velocity*dT*Math.sin(trajectoryAngle);
         }
         setAngle = m_arm.setArmAngle(Globals.xCur, Globals.yCur);
         Globals.curAngle1 = setAngle[0]*(180/Math.PI);
         Globals.curAngle2 = setAngle[1]*(180/Math.PI);
-        m_arm.setServo1Angle(Globals.curAngle1);
-        m_arm.setServo2Angle(Globals.curAngle2);
+
 
 
         if ((m_setpoint.position>=m_goal.position) || endCondition()) {
             //distance reached or end condition met. End the command
             //This class should be modified so that the profile can end on other conditions like
             //sensor value etc.
-            m_arm.setServo1Angle(Globals.curAngle1);
-            m_arm.setServo2Angle(Globals.curAngle2);
+
             m_endFlag = true;
         }
-        
-        /*
-        m_arm.setServo1Angle(63.718487);
-        m_arm.setServo2Angle(37.436973);
-        */
-        if (m_setpoint.velocity >= Globals.debug2){
-            Globals.debug2 = m_setpoint.velocity;
-        }
+
+
+        // if (m_setpoint.velocity >= Globals.debug2){
+        //     Globals.debug2 = m_setpoint.velocity;
+        // }
 
         
 
@@ -144,7 +147,7 @@ public class MoveArmXY extends CommandBase {
     @Override
     public void end(boolean interrupted)
     {
-       
+
     }
 
     /**
@@ -156,8 +159,5 @@ public class MoveArmXY extends CommandBase {
         return m_endFlag;
     }
 
-    public  double getDistMoved() {
-        return m_setpoint.position;
-    }
 
 }
