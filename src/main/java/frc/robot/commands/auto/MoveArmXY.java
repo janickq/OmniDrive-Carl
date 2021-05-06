@@ -25,11 +25,9 @@ public class MoveArmXY extends CommandBase {
     private final static Arm m_arm = RobotContainer.m_arm;
     private double dT = 0.02;
     private boolean m_endFlag = false;
-    private int m_profType;
     private TrapezoidProfile.Constraints m_constraints;
     private TrapezoidProfile.State m_goal = new TrapezoidProfile.State();
     private TrapezoidProfile.State m_setpoint = new TrapezoidProfile.State();
-    private int m_dir;
     public static double distMoved;
     private final double _startSpeed;
     private final double _maxSpeed;
@@ -39,7 +37,6 @@ public class MoveArmXY extends CommandBase {
     private final double ygoal;
     private double[] startCo = new double[2];
     private double trajectoryAngle;
-    private double time = 0;
 
     /**
      * Constructor
@@ -52,7 +49,7 @@ public class MoveArmXY extends CommandBase {
         _startSpeed = startSpeed;
         _maxSpeed = maxSpeed;
         _endSpeed = endSpeed;
-        m_constraints = new TrapezoidProfile.Constraints(_maxSpeed, 0.2);
+        m_constraints = new TrapezoidProfile.Constraints(_maxSpeed, 1);
 
         // Negative distance don't seem to work with the libr ary function????
         // Easier to make distance positive and use m_dir to keep track of negative
@@ -67,31 +64,38 @@ public class MoveArmXY extends CommandBase {
      */
     @Override
     public void initialize() {
-        Globals.debug2 = 0;
+        
+        // gets parameters for speed profile
         startCo = m_arm.getCoordinate(Globals.curAngle1, Globals.curAngle2);
         dist = m_arm.getDistance(startCo[0], xgoal, startCo[1], ygoal);
         trajectoryAngle = m_arm.getAngle(startCo[0], xgoal, startCo[1], ygoal);
+
+        Globals.xArm = startCo[0];
+        Globals.yArm = startCo[1];
+
+        m_setpoint = new TrapezoidProfile.State(0, _startSpeed);
+        m_goal = new TrapezoidProfile.State(dist, _endSpeed);
+
+        //checks if target coordinates are within boundaries
+        if(Math.sqrt(Math.pow(xgoal, 2)+Math.pow(ygoal, 2)) > (0.255+0.255)){
+            m_endFlag = true;
+        }
+        else{
+            m_endFlag = false;
+        }
+        
+        //debug stuff
+        Globals.debug2 = 0;
         Globals.debug4 = dist;
         Globals.debug5 = startCo[0];
         Globals.debug6 = startCo[1];
-        Globals.xCur = startCo[0];
-        Globals.yCur = startCo[1];
-        m_setpoint = new TrapezoidProfile.State(0, _startSpeed);
-        m_goal = new TrapezoidProfile.State(dist, _endSpeed);
-        m_endFlag = false;
-
     }
     /**
      * Condition to end speed profile
      */
     public boolean endCondition()
     {
-        if(Math.sqrt(Math.pow(xgoal, 2)+Math.pow(ygoal, 2)) > (0.265+0.265)){
-            return true;
-        }
-        else{
-            return false;
-        }
+        return false;
         
     }
     /**
@@ -107,18 +111,18 @@ public class MoveArmXY extends CommandBase {
         var profile = new TrapezoidProfile(m_constraints, m_goal, m_setpoint);
         m_setpoint = profile.calculate(dT);
         if(xgoal >= startCo[0]){
-            Globals.xCur += m_setpoint.velocity*dT*Math.cos(trajectoryAngle);
+            Globals.xArm += m_setpoint.velocity*dT*Math.cos(trajectoryAngle);
         }
         else if(xgoal < startCo[0]){
-            Globals.xCur -= m_setpoint.velocity*dT*Math.cos(trajectoryAngle);
+            Globals.xArm -= m_setpoint.velocity*dT*Math.cos(trajectoryAngle);
         }
         if(ygoal >= startCo[1]){
-            Globals.yCur += m_setpoint.velocity*dT*Math.sin(trajectoryAngle);
+            Globals.yArm += m_setpoint.velocity*dT*Math.sin(trajectoryAngle);
         }
         else if(ygoal < startCo[1]){
-            Globals.yCur -= m_setpoint.velocity*dT*Math.sin(trajectoryAngle);
+            Globals.yArm -= m_setpoint.velocity*dT*Math.sin(trajectoryAngle);
         }
-        setAngle = m_arm.setArmAngle(Globals.xCur, Globals.yCur);
+        setAngle = m_arm.setArmAngle(Globals.xArm, Globals.yArm);
         Globals.curAngle1 = setAngle[0]*(180/Math.PI);
         Globals.curAngle2 = setAngle[1]*(180/Math.PI);
 
@@ -133,9 +137,6 @@ public class MoveArmXY extends CommandBase {
         }
 
 
-        // if (m_setpoint.velocity >= Globals.debug2){
-        //     Globals.debug2 = m_setpoint.velocity;
-        // }
 
         
 
@@ -147,7 +148,7 @@ public class MoveArmXY extends CommandBase {
     @Override
     public void end(boolean interrupted)
     {
-
+        
     }
 
     /**

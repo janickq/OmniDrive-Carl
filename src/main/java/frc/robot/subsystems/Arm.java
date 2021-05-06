@@ -21,6 +21,8 @@ public class Arm extends SubsystemBase
     private final Servo servo3;
     private final ServoContinuous servoC;
     private double[] startCo = new double[2];
+    private double a1 = 0.255; //arm length
+    private double a2 = 0.255;
 
 
     private final ShuffleboardTab tab = Shuffleboard.getTab("Arm");
@@ -52,8 +54,8 @@ public class Arm extends SubsystemBase
         setServo3Angle(Globals.curAngle3);
 
         startCo = getCoordinate(Globals.curAngle1, Globals.curAngle2);
-        Globals.xCur = startCo[0];
-        Globals.yCur = startCo[1];
+        Globals.xArm = startCo[0];
+        Globals.yArm = startCo[1];
         
     }
 
@@ -64,11 +66,11 @@ public class Arm extends SubsystemBase
      * @param degrees degree to set the servo to, range 0° - 300°
      */
     public void setServo1Angle(final double degrees) {
-        servo1.setAngle(degrees + 2);
+        servo1.setAngle(degrees + 5 );
     }
 
     public void setServo2Angle(final double degrees) {
-        servo2.setAngle(degrees - 5);
+        servo2.setAngle(degrees - 7);
     }
 
     public void setServo3Angle(final double degrees) {
@@ -83,8 +85,8 @@ public class Arm extends SubsystemBase
     */
     public double[] setArmAngle(double x, double y){
         double[] h = new double[2];
-        h[1] = (Math.acos((Math.pow(x, 2) + Math.pow(y, 2) - 0.14045)/(0.14045))); 
-        h[0] = (Math.atan(y/x) + Math.atan((0.265*Math.sin(h[1])/(0.265 + 0.265*Math.cos(h[1])))));
+        h[1] = (Math.acos((Math.pow(x, 2) + Math.pow(y, 2) - Math.pow(a1, 2) - Math.pow(a2, 2))/(2*a1*a2))); 
+        h[0] = (Math.atan(y/x) + Math.atan((a2*Math.sin(h[1])/(a1 + a2*Math.cos(h[1])))));
         return h;
     }
 
@@ -93,10 +95,10 @@ public class Arm extends SubsystemBase
     */
     public double[] getCoordinate(double a, double b){
         double[] xy = new double [2];
-        double a1 = a*(Math.PI/180);
-        double a2 = b*(Math.PI/180);
-        xy[0] = (0.265*Math.cos(a1 - a2) + 0.265*Math.cos(a1));
-        xy[1] = (0.265*Math.sin(a1 - a2) + 0.265*Math.sin(a1));
+        double angle1 = a*(Math.PI/180);
+        double angle2 = b*(Math.PI/180);
+        xy[0] = (a1*Math.cos(angle1 - angle2) + a2*Math.cos(angle1));
+        xy[1] = (a2*Math.sin(angle1 - angle2) + a1*Math.sin(angle1));
         return xy;
     }
 
@@ -136,8 +138,8 @@ public class Arm extends SubsystemBase
         D_debug1.setDouble(Globals.curAngle1);
         D_debug2.setDouble(Globals.curAngle2);
         D_debug3.setDouble(Globals.debug2);
-        D_xCur.setDouble(Globals.xCur);
-        D_yCur.setDouble(Globals.yCur);
+        D_xCur.setDouble(Globals.xArm);
+        D_yCur.setDouble(Globals.yArm);
         D_dist.setDouble(Globals.debug4);
         D_startCo1.setDouble(Globals.debug5);
         D_startCo2.setDouble(Globals.debug6);       
