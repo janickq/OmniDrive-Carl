@@ -6,6 +6,9 @@ import edu.wpi.first.wpilibj2.command.SelectCommand;
 import frc.robot.RobotContainer;
 // import the commands
 import frc.robot.commands.auto.MoveRobotSense;
+import frc.robot.commands.auto.MoveTypes.MoveBack;
+import frc.robot.commands.auto.MoveTypes.MoveCurve;
+import frc.robot.commands.auto.MoveTypes.MoveLeft;
 import frc.robot.Globals;
 
 /**
@@ -43,6 +46,8 @@ public class MoveTest extends AutoCommand
                     Map.entry(CommandSelector.THREE, new MoveBack()),
                     Map.entry(CommandSelector.FOUR, new MoveCurve()) ),
                 MoveTest::selectCmd123
+
+                //can use clearGroupedCommands() to reuse commands
             ) 
         );
     }

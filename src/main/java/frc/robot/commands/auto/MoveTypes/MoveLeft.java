@@ -1,5 +1,7 @@
-package frc.robot.commands.auto;
 
+package frc.robot.commands.auto.MoveTypes;
+
+import frc.robot.commands.auto.AutoCommand;
 // import the commands
 import frc.robot.commands.auto.MoveRobot;;
 
@@ -8,14 +10,15 @@ import frc.robot.commands.auto.MoveRobot;;
  * <p>
  * This class creates the inline auto command to drive the motor
  */
-public class MoveRight extends AutoCommand
+public class MoveLeft extends AutoCommand
 {
-    public MoveRight()
+
+    public MoveLeft()
     {
         super(
-            new MoveRobot(0, 0.5, 0, 0.0, 0.5)  
+            new MoveRobot(0, -0.5, 0, 0.0, 0.5)  
             //new MoveRobot(1, -0.5, 0, 0.0, 0.5),
-            //new MoveRobot(0, -0.5, 0, 0.0, 0.5)  
+            //new MoveRobot(0, 0.5, 0, 0.0, 0.5)  
             );
     }
 }

@@ -1,10 +1,7 @@
 package frc.robot.commands.auto;
 
-import frc.robot.commands.auto.MoveTypes.MoveType1;
+
 import frc.robot.commands.auto.MoveTypes.MoveType2A;
-import frc.robot.commands.auto.MoveTypes.MoveType3A;
-import frc.robot.commands.auto.MoveTypes.MoveType4;
-import frc.robot.commands.auto.MoveTypes.MoveType4A;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.CommandGroupBase;
 import frc.robot.RobotContainer;

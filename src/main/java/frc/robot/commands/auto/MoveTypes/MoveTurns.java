@@ -1,5 +1,6 @@
-package frc.robot.commands.auto;
+package frc.robot.commands.auto.MoveTypes;
 
+import frc.robot.commands.auto.AutoCommand;
 // import the commands
 import frc.robot.commands.auto.MoveRobot;;
 

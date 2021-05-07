@@ -15,13 +15,13 @@ import frc.robot.Constants;
 import frc.robot.Globals;
 import frc.robot.RobotContainer;
 import frc.robot.commands.auto.AutoCommand;
-//import frc.robot.commands.auto.MoveArm;
-import frc.robot.commands.auto.MoveBack;
-import frc.robot.commands.auto.MoveCurve;
-import frc.robot.commands.auto.MoveLeft;
-import frc.robot.commands.auto.MoveRight;
+
 import frc.robot.commands.auto.MoveTest;
 import frc.robot.commands.auto.SequentialMove;
+import frc.robot.commands.auto.MoveTypes.MoveBack;
+import frc.robot.commands.auto.MoveTypes.MoveCurve;
+import frc.robot.commands.auto.MoveTypes.MoveLeft;
+import frc.robot.commands.auto.MoveTypes.MoveRight;
 //import frc.robot.commands.auto.TestMove;
 import frc.robot.commands.gamepad.OI;
 
@@ -49,6 +49,8 @@ public class Menu extends SubsystemBase
                 Map.entry(menuNum++, new MoveLeft()),
                 Map.entry(menuNum++, new MoveCurve()) ),
             ()->Globals.menuItem
+
+            // use clearGroupedCommands() to reuse commands
             )
         );
 
