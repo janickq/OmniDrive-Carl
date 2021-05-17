@@ -36,7 +36,7 @@ public final class Constants
     public static final int SONIC_ECHO1      = 6;
     public static final int SONIC_TRIGG2     = 9;
     public static final int SONIC_ECHO2      = 8;
-
+    
     //Wheels
     public static final double KWHEELDIAMETER = 0.1;  //wheel diameter
     public static final double KENCODERCNTPR = 1440;  //Count per output shaft rev

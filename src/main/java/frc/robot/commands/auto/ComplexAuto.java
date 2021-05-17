@@ -2,6 +2,8 @@ package frc.robot.commands.auto;
 
 import java.util.Set;
 
+import frc.robot.RobotContainer;
+
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.CommandGroupBase;
@@ -11,18 +13,19 @@ import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.Globals;
 
 
-public abstract class ComplexAuto extends CommandGroupBase {
+public class ComplexAuto extends AutoCommand {
 
-  public ComplexAuto(Command... commands) {
+  private static double spd = 0.5;
 
-    parallel(commands);
+  public ComplexAuto() {
+
+    super(
+
+      //new MoveRobotSense(2, 2*Math.PI, 0.0, 0.0, spd, ()-> )
+
+    );
   }
 
-  @Override
-  public void addCommands(Command... commands) {
-    // TODO Auto-generated method stub
-
-  }
 
 
 

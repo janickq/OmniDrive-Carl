@@ -14,9 +14,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import frc.robot.Globals;
 import frc.robot.RobotContainer;
-import frc.robot.commands.auto.AutoCommand;
-
-import frc.robot.commands.auto.MoveTest;
+import frc.robot.commands.auto.AutoCommand;    
 import frc.robot.commands.auto.SequentialMove;
 import frc.robot.commands.auto.MoveTypes.MoveBack;
 import frc.robot.commands.auto.MoveTypes.MoveCurve;

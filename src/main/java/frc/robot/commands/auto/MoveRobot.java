@@ -41,7 +41,7 @@ public class MoveRobot extends CommandBase
             m_constraints = new TrapezoidProfile.Constraints(maxSpeed, 2.0*Math.PI);
         }
         else{
-            m_constraints = new TrapezoidProfile.Constraints(maxSpeed, 0.8);
+            m_constraints = new TrapezoidProfile.Constraints(maxSpeed, 1);
         }
         m_setpoint = new TrapezoidProfile.State(0, _startSpeed);
         

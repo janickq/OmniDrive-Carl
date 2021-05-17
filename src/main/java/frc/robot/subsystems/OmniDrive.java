@@ -12,6 +12,7 @@ import edu.wpi.first.wpilibj.DigitalOutput;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj.controller.PIDController;
+import edu.wpi.first.wpilibj.controller.SimpleMotorFeedforward;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 //WPI imports
@@ -22,9 +23,10 @@ import frc.robot.commands.gamepad.OI;
 
 public class OmniDrive extends SubsystemBase
 {
+    private final Sensor m_sensor = RobotContainer.m_sensor; 
     private final OI m_oi = RobotContainer.m_oi;
     //Creates all necessary hardware interface here for omni-drive
-
+    
     //Motors and encoders
     private final TitanQuad[] motors;
     //private final TitanQuadEncoder[] encoders;
@@ -191,6 +193,7 @@ public class OmniDrive extends SubsystemBase
         //See formula below
         double speedX = (-(encoderSpeeds[0] + encoderSpeeds[2]) + encoderSpeeds[1])/2;
         double speedY = (-encoderSpeeds[0] + encoderSpeeds[2])/(0.866025*2);
+
 
         //PID control for x and y speed
         pidOutputs[0] = pidControllers[0].calculate(speedX, pidInputs[0]);
