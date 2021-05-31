@@ -66,7 +66,6 @@ public class TeleCmd extends CommandBase
         w = -m_oi.getLeftDriveX(); //X-positive is CW. Need to negate
         z = -m_oi.getLeftDriveY();
         
-        
         m_omnidrive.setRobotSpeedXYW(x, y, w*Math.PI);
         //m_arm.setServo1Angle((Globals.curAngle1+=y*2));
         //m_arm.setServo2Angle((Globals.curAngle2+=z*2));

@@ -5,7 +5,8 @@ package frc.robot.subsystems;
 //Vendor imports
 import com.kauailabs.navx.frc.AHRS;
 import com.studica.frc.TitanQuad;
-//import com.studica.frc.TitanQuadEncoder;
+
+import com.studica.frc.TitanQuadEncoder;
 
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.wpilibj.DigitalOutput;
@@ -30,7 +31,7 @@ public class OmniDrive extends SubsystemBase
     //Motors and encoders
     private final TitanQuad[] motors;
     //private final TitanQuadEncoder[] encoders;
-    private final Encoder[] encoders;
+    private final TitanQuadEncoder[] encoders;
 
     //PID stuff
     private PIDController[] pidControllers;
@@ -46,7 +47,6 @@ public class OmniDrive extends SubsystemBase
     private double dT = 0.02;
 
     // Sensors
-    private final DigitalOutput outDebug11;
 
     private final AHRS gyro;
 
@@ -60,11 +60,12 @@ public class OmniDrive extends SubsystemBase
     private final NetworkTableEntry D_encoderDisp1 = tab.add("Encoder1", 0).getEntry();
     private final NetworkTableEntry D_encoderDisp2 = tab.add("Encoder2", 0).getEntry();
     private final NetworkTableEntry D_inputW = tab.add("inputW", 0).getEntry();
+    private final NetworkTableEntry D_LimitSwitch = tab.add("LimitSwitch", 1).getEntry();
+    private final NetworkTableEntry D_LimitSwitch2 = tab.add("LimitSwitch2", 1).getEntry();
 
     //Subsystem for omnidrive
     public OmniDrive() {
         
-        outDebug11 = new DigitalOutput(11);
 
         //Omni drive motors
         motors = new TitanQuad[Constants.MOTOR_NUM];
@@ -72,27 +73,27 @@ public class OmniDrive extends SubsystemBase
             motors[i] = new TitanQuad(Constants.TITAN_ID, i);
             motors[i].setInverted(true);   //Positive is CW. Need to reverse
         }
-
+        
 
         //encoders = new TitanQuadEncoder[Constants.MOTOR_NUM];
-        encoders = new Encoder[Constants.MOTOR_NUM];
+        encoders = new TitanQuadEncoder[Constants.MOTOR_NUM];
         encoderDists = new double[Constants.MOTOR_NUM];
         encoderDists_2 = new double[Constants.MOTOR_NUM];
         encoderSpeeds = new double[Constants.MOTOR_NUM];
         motorOuts = new double[Constants.MOTOR_NUM];
 
         for (int i=0; i<Constants.MOTOR_NUM; i++) {
-            encoders[i] = new Encoder(i*2, i*2+1, false, Encoder.EncodingType.k4X);
-            encoders[i].setDistancePerPulse(Constants.KENCODERDISTPERPULSE);
-            //encoders[i] = new TitanQuadEncoder(motors[i], i, Constants.KencoderDistPerPulse);
-            //encoders[i].reset();
-            encoderDists[i] = encoders[i].getDistance();
+            // encoders[i] = new Encoder(i*2, i*2+1, false, Encoder.EncodingType.k4X);
+            // encoders[i].setDistancePerPulse(Constants.KENCODERDISTPERPULSE);
+            encoders[i] = new TitanQuadEncoder(motors[i], i, Constants.KENCODERDISTPERPULSE);
+            encoders[i].reset();
+            encoderDists[i] = encoders[i].getEncoderDistance();
         }
         
         // x, y and w speed controler
         pidControllers = new PIDController[Constants.PID_NUM];
-        pidControllers[0] = new PIDController(2.0,32.0,0.02);  //x
-        pidControllers[1] = new PIDController(2.0,32.0,0.02);  //y
+        pidControllers[0] = new PIDController(0.5,16.0,0.0);  //x .5 16 0
+        pidControllers[1] = new PIDController(0.5,16.0,0.00);  //y 2.0,32.0,0.02
         pidControllers[2] = new PIDController(2.0,0.0,0.1);    //w
         pidControllers[2].enableContinuousInput(-Math.PI, Math.PI);
 
@@ -144,6 +145,10 @@ public class OmniDrive extends SubsystemBase
         }
         
     }
+
+
+
+
     // CCW is positive
     public void setMotorSpeed012(double speed0, double speed1, double speed2)
     {
@@ -175,7 +180,7 @@ public class OmniDrive extends SubsystemBase
         //First calculate wheel speed from encoder feedback
         double dcValue = 0.0;
         for (int i=0; i<Constants.MOTOR_NUM; i++) {
-            encoderDists[i] = encoders[i].getDistance();
+            encoderDists[i] = encoders[i].getEncoderDistance();
             encoderSpeeds[i] = (encoderDists[i]-encoderDists_2[i])/dT;
             dcValue += encoderSpeeds[i];
             encoderDists_2[i] = encoderDists[i];
@@ -234,6 +239,8 @@ public class OmniDrive extends SubsystemBase
              motors[i].set(motorOuts[i]/max);
         }   
    }
+
+
     /**
      * Code that runs once every robot loop
      */
@@ -248,10 +255,9 @@ public class OmniDrive extends SubsystemBase
             curHeading = targetHeading = getYawRad();
             return;
         }
-        outDebug11.set(true);
+
 
         doPID();
-
         /**
          * Updates for outputs to the shuffleboard
          */
@@ -260,10 +266,14 @@ public class OmniDrive extends SubsystemBase
         D_curHeading.setDouble(curHeading*180/Math.PI);
         D_tgtHeading.setDouble(targetHeading*180/Math.PI);
         D_navYaw.setDouble(-gyro.getYaw());
-        D_encoderDisp0.setDouble(encoders[0].getDistance());//encoderSpeeds[0]);
-        D_encoderDisp1.setDouble(encoders[1].getDistance());//encoderSpeeds[1]);
-        D_encoderDisp2.setDouble(encoders[2].getDistance());//encoderSpeeds[2]);
-        D_inputW.setDouble(pidInputs[2]);
-        outDebug11.set(false);
+        D_encoderDisp0.setDouble(encoders[0].getEncoderDistance());//encoderSpeeds[0]);
+        D_encoderDisp1.setDouble(encoders[1].getEncoderDistance());//encoderSpeeds[1]);
+        D_encoderDisp2.setDouble(encoders[2].getEncoderDistance());//encoderSpeeds[2]);
+        D_inputW.setDouble(m_oi.getLeftDriveX());
+        // outDebug11.set(false);
+
+
+
+
     }
 }

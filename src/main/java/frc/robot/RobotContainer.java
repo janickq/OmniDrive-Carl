@@ -30,7 +30,7 @@ public class RobotContainer {
   /**
    * Create the subsystems and gamepad objects
    */
-  public final static Elevator m_elvator = new Elevator();
+  // public final static Elevator m_elevator = new Elevator();
   public final static OI m_oi = new OI();
   public final static Sensor m_sensor = new Sensor(); 
   public final static OmniDrive m_omnidrive = new OmniDrive();

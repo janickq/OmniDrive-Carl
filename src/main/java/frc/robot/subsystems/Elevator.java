@@ -7,12 +7,12 @@ import frc.robot.Constants;
 
 public class Elevator extends SubsystemBase{
   
-  private final TitanQuad motor;
+  // private final TitanQuad motor;
 
   public Elevator(){
 
-    motor = new TitanQuad(Constants.TITAN_ID, 3);
-    motor.set(1);
+    // motor = new TitanQuad(Constants.TITAN_ID, 3);
+    // motor.set(1);
 
 
   }
@@ -21,8 +21,8 @@ public class Elevator extends SubsystemBase{
   public void periodic() {
 
     
-    motor.set(motor.getLimitSwitch(3, true));
-    motor.set(motor.getLimitSwitch(3, false));
+    // motor.set(motor.getLimitSwitch(3, true));
+    //motor.set(motor.getLimitSwitch(3, false));
     
 
   }
