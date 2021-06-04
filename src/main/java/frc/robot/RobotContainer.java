@@ -8,29 +8,22 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.Subsystem;
 import frc.robot.commands.TeleCmd;
 import frc.robot.commands.auto.ArmTest;
-import frc.robot.commands.auto.AutoCommand;
-import frc.robot.commands.auto.ComplexAuto;
-import frc.robot.commands.auto.MoveTest;
-import frc.robot.commands.auto.Pick;
 import frc.robot.commands.gamepad.OI;
 import frc.robot.subsystems.Arm;
-import frc.robot.subsystems.Elevator;
 import frc.robot.subsystems.Menu;
 import frc.robot.subsystems.OmniDrive;
-import frc.robot.commands.auto.MoveTypes.*;
-import frc.robot.commands.auto.SequentialMove;
 //import frc.robot.commands.auto.TestMove;
 import frc.robot.subsystems.Sensor;
+import frc.robot.subsystems.Vision;
 
 public class RobotContainer {
 
   /**
    * Create the subsystems and gamepad objects
    */
-  // public final static Elevator m_elevator = new Elevator();
+  public final static Vision m_vision = new Vision();
   public final static OI m_oi = new OI();
   public final static Sensor m_sensor = new Sensor(); 
   public final static OmniDrive m_omnidrive = new OmniDrive();

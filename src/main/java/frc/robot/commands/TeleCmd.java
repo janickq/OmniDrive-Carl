@@ -1,7 +1,6 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import frc.robot.Globals;
 import frc.robot.RobotContainer;
 //import frc.robot.commands.auto.MoveArm;
@@ -18,7 +17,7 @@ public class TeleCmd extends CommandBase
     private final OmniDrive m_omnidrive = RobotContainer.m_omnidrive;
     private final Arm m_arm = RobotContainer.m_arm;
     private final OI m_oi = RobotContainer.m_oi;
-    private final Menu m_menu = RobotContainer.m_menu;
+
 
     /**
      * Joystick inputs
@@ -70,7 +69,7 @@ public class TeleCmd extends CommandBase
         //m_arm.setServo1Angle((Globals.curAngle1+=y*2));
         //m_arm.setServo2Angle((Globals.curAngle2+=z*2));
        // m_arm.setServo3Angle((Globals.curAngle3+=w*2));
-        //Globals.debug3 = y;
+        Globals.debug3 = y;
         //m_oi.buttonTest();
 
         //hardware.setMotorSpeed012(speed0, speed1, speed2);

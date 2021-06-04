@@ -1,7 +1,5 @@
 package frc.robot.subsystems;
 
-import frc.robot.Constants;
-import frc.robot.Globals;
 import com.studica.frc.Servo;
 //import edu.wpi.first.wpilibj.Servo;
 import com.studica.frc.ServoContinuous;
@@ -10,7 +8,8 @@ import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import edu.wpi.first.wpiutil.math.MathUtil;
+import frc.robot.Constants;
+import frc.robot.Globals;
 
 
 public class Arm extends SubsystemBase

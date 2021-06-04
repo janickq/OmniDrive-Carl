@@ -7,19 +7,11 @@
 
 package frc.robot;
 
-import java.net.DatagramPacket;
-import java.net.DatagramSocket;
-import java.net.InetSocketAddress;
-import java.net.SocketException;
-import java.io.File;
-import java.io.IOException;
-
-import edu.wpi.cscore.CvSink;
-import edu.wpi.cscore.CvSource;
-import edu.wpi.first.cameraserver.CameraServer;
+import edu.wpi.first.wpilibj.Notifier;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import frc.robot.subsystems.OmniDrive;
 
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to
@@ -32,32 +24,39 @@ public class Robot extends TimedRobot {
   private Command m_teleopCommand;
   private RobotContainer m_robotContainer;
   private Command m_startButton;
+  private OmniDrive m_omnidrive;
 
-
-  private void generateEnabledDsPacket(byte[] data, short sendCount) {
-    data[0] = (byte) (sendCount >> 8);
-    data[1] = (byte) sendCount;
-    data[2] = 0x01; // general data tag
-    data[3] = 0x04; // teleop enabled
-    data[4] = 0x10; // normal data request
-    data[5] = 0x00; // red 1 station
-  }
+  // private void generateEnabledDsPacket(byte[] data, short sendCount) {
+  //   data[0] = (byte) (sendCount >> 8);
+  //   data[1] = (byte) sendCount;
+  //   data[2] = 0x01; // general data tag
+  //   data[3] = 0x04; // teleop enabled
+  //   data[4] = 0x10; // normal data request
+  //   data[5] = 0x00; // red 1 station
+  // }
 
   /**
-   * This function is run when the robot is first started up and should be used for any
-   * initialization code.
+   * This function is run when the robot is first started up and should be used
+   * for any initialization code.
    */
   @Override
   public void robotInit() {
-    // Instantiate our RobotContainer. 
+    // Instantiate our RobotContainer.
     m_robotContainer = new RobotContainer();
+    m_omnidrive = RobotContainer.m_omnidrive;
 
-    //dsThread.setDaemon(true);
-    //dsThread.start();
+    //Run PID in different thread at higher rate
+    if (Constants.PID_THREAD) 
+    {
+      Notifier follower = new Notifier(() -> { m_omnidrive.doPID(); });
+      follower.startPeriodic(Constants.PID_DT);
+    }
+    // dsThread.setDaemon(true);
+    // dsThread.start();
 
-    CameraServer.getInstance().startAutomaticCapture();
-    CvSink cvSink = CameraServer.getInstance().getVideo();
-    CvSource outputStream = CameraServer.getInstance().putVideo("camera", 640, 480);
+    // CameraServer.getInstance().startAutomaticCapture();
+    // CvSink cvSink = CameraServer.getInstance().getVideo();
+    // CvSource outputStream = CameraServer.getInstance().putVideo("camera", 640, 480);
   }
 
   /**
@@ -92,7 +91,7 @@ public class Robot extends TimedRobot {
   @Override
   public void autonomousInit() {
     m_autonomousCommand = m_robotContainer.getAutonomousCommand();
-    RobotContainer.m_omnidrive.resetHeading();
+    //RobotContainer.m_omnidrive.resetHeading();
 
     // schedule the autonomous command (example)
     if (m_autonomousCommand != null) {

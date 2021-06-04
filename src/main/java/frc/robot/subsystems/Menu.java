@@ -5,21 +5,16 @@ import java.util.Map;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
-import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.CommandBase;
-import edu.wpi.first.wpilibj2.command.PrintCommand;
 import edu.wpi.first.wpilibj2.command.SelectCommand;
 //WPI imports
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.Constants;
 import frc.robot.Globals;
 import frc.robot.RobotContainer;
-import frc.robot.commands.auto.AutoCommand;    
 import frc.robot.commands.auto.SequentialMove;
-import frc.robot.commands.auto.MoveTypes.MoveBack;
-import frc.robot.commands.auto.MoveTypes.MoveCurve;
-import frc.robot.commands.auto.MoveTypes.MoveLeft;
-import frc.robot.commands.auto.MoveTypes.MoveRight;
+// import frc.robot.commands.auto.MoveTypes.MoveBack;
+// import frc.robot.commands.auto.MoveTypes.MoveCurve;
+// import frc.robot.commands.auto.MoveTypes.MoveLeft;
+// import frc.robot.commands.auto.MoveTypes.MoveRight;
 //import frc.robot.commands.auto.TestMove;
 import frc.robot.commands.gamepad.OI;
 
@@ -42,10 +37,11 @@ public class Menu extends SubsystemBase
             new SelectCommand(
             Map.ofEntries(
                 Map.entry(menuNum++, new SequentialMove()),
-                Map.entry(menuNum++, new MoveBack()),
-                Map.entry(menuNum++, new MoveRight()),
-                Map.entry(menuNum++, new MoveLeft()),
-                Map.entry(menuNum++, new MoveCurve()) ),
+                Map.entry(menuNum++, new SequentialMove()),
+                Map.entry(menuNum++, new SequentialMove()),
+                Map.entry(menuNum++, new SequentialMove()),
+                Map.entry(menuNum++, new SequentialMove()) 
+                ),
             ()->Globals.menuItem
 
             // use clearGroupedCommands() to reuse commands

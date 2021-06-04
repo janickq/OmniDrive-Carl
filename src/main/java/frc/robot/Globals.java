@@ -25,5 +25,18 @@ public class Globals {
     public static double debug4;
     public static double debug5;
     public static double debug6;
+    public static double debug7;
+
+    public static double kitkatx;
+    public static double kitkaty;
+
+    public static double chipsx;
+    public static double chipsy;
+
+    public static double nissinx;
+    public static double nissiny;
+
+    public static double ballx;
+    public static double bally;
 
 }

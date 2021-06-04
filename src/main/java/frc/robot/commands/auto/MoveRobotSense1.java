@@ -1,9 +1,7 @@
 package frc.robot.commands.auto;
 
 import frc.robot.RobotContainer;
-import frc.robot.commands.auto.MoveRobot;
 import frc.robot.subsystems.Sensor;
-import frc.robot.Globals;
 
 
 /**

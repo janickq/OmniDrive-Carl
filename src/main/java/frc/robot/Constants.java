@@ -31,9 +31,10 @@ public final class Constants
     /**
      * Sensors
      */
-    public static final int SHARP            = 0;
-    public static final int SONIC_TRIGG1     = 7;
-    public static final int SONIC_ECHO1      = 6;
+    public static final int SHARP1           = 0;
+    public static final int SHARP2           = 1;
+    public static final int SONIC_TRIGG1     = 1;
+    public static final int SONIC_ECHO1      = 0;
     public static final int SONIC_TRIGG2     = 9;
     public static final int SONIC_ECHO2      = 8;
     
@@ -44,5 +45,7 @@ public final class Constants
 
     //PIDs
     public static final int PID_NUM = 3;
+    public static final double PID_DT = 0.005;
+    public static final boolean PID_THREAD = true;
 
 }

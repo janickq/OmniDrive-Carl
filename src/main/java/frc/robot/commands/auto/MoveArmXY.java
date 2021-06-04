@@ -1,19 +1,13 @@
 package frc.robot.commands.auto;
 
-import edu.wpi.first.networktables.NetworkTableEntry;
-import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
-import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import edu.wpi.first.wpilibj.trajectory.TrapezoidProfile;
 //WPI imports
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import edu.wpi.first.wpilibj2.command.Subsystem;
+import frc.robot.Globals;
 //RobotContainer import
 import frc.robot.RobotContainer;
-
-
 //Subsystem imports
 import frc.robot.subsystems.Arm;
-import frc.robot.Globals;
 
 /**
  * SimpleDrive class
