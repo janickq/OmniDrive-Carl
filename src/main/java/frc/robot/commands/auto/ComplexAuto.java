@@ -8,7 +8,7 @@ public class ComplexAuto extends AutoCommand {
 
     super(
 
-      //new MoveRobotSense(2, 2*Math.PI, 0.0, 0.0, spd, ()-> )
+      new MoveRobot(0, spd, 0, 0, spd)
 
     );
   }

@@ -37,6 +37,16 @@ public class Vision extends SubsystemBase
         SmartDashboard.putString("Barcode Data", data.getString("Nothing was read"));
     }
 
+    public double getChips(int xy){
+
+      double[] chips = new double[2];
+
+      chips[0] = (SmartDashboard.getNumber("Chipsx",0));
+      chips[1] = (SmartDashboard.getNumber("Chipsy",0));
+
+      return chips[xy]*0.00043160218;
+    }
+
     @Override
     public void periodic()
     {
@@ -44,20 +54,20 @@ public class Vision extends SubsystemBase
         getNewBarcode = SmartDashboard.getBoolean("Get New Barcode", false);
         Globals.debug7 = SmartDashboard.getNumber("dsTime" ,1);
 
-        Globals.kitkatx = SmartDashboard.getNumber("KitKatx",1);
+        Globals.kitkatx = SmartDashboard.getNumber("KitKatx",0);
         Globals.kitkatx = Globals.kitkatx*0.0002645833;
-        Globals.kitkaty = SmartDashboard.getNumber("KitKaty",1);
+        Globals.kitkaty = SmartDashboard.getNumber("KitKaty",0);
         Globals.kitkaty = Globals.kitkaty*0.0002645833;
-        Globals.chipsx = SmartDashboard.getNumber("Chipsx",1);
-        Globals.chipsy = SmartDashboard.getNumber("Chipsy",1);
+        Globals.chipsx = SmartDashboard.getNumber("Chipsx",0);
+        Globals.chipsy = SmartDashboard.getNumber("Chipsy",0);
 
-        Globals.nissinx = SmartDashboard.getNumber("Nissinx",1);
-        Globals.nissiny = SmartDashboard.getNumber("Nissiny",1);
+        Globals.nissinx = SmartDashboard.getNumber("Nissinx",0);
+        Globals.nissiny = SmartDashboard.getNumber("Nissiny",0);
 
-        Globals.ballx = SmartDashboard.getNumber("Ballx",1);
-        Globals.ballx = SmartDashboard.getNumber("Bally",1);
+        Globals.ballx = SmartDashboard.getNumber("Ballx",0);
+        Globals.ballx = SmartDashboard.getNumber("Bally",0);
 
-        
+        SmartDashboard.putNumber("chipx", getChips(0));
         
    
 

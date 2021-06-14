@@ -180,25 +180,25 @@ public class Sensor extends SubsystemBase
         /**
          * Updates for outputs to the shuffleboard
          */
-        //D_inputDisp.setBoolean(getSwitch());
-        //  if( x%2 == 0){
-        //      D_sharpIR2.setDouble(getIRDistance2());
-        //      D_sharpIR1.setDouble(getIRDistance1());
-        //      D_ultraSonic1.setDouble(getSonicDistance1(true)); //set to true because we want metric
-        //      D_ultraSonic2.setDouble(getSonicDistance2(true));
-        //  }
 
-        //  else{
-        //      D_Compass.setDouble(gyro.getCompassHeading());
-        //      for(int i=0; i<4; i++) {
-        //          cobraValue[i] = getCobraRawValue(i);
-        //      }
-        //      D_cobra1.setDouble(cobraValue[0]);
-        //      D_cobra2.setDouble(cobraValue[1]);
-        //      D_cobra3.setDouble(cobraValue[2]);
-        //      D_cobra4.setDouble(cobraValue[3]);
-        //  }
-        //  x++;
+         if( x%2 == 0){
+             D_sharpIR2.setDouble(getIRDistance2());
+             D_sharpIR1.setDouble(getIRDistance1());
+             D_ultraSonic1.setDouble(getSonicDistance1(true)); //set to true because we want metric
+             D_ultraSonic2.setDouble(getSonicDistance2(true));
+         }
+
+         else{
+             D_Compass.setDouble(gyro.getCompassHeading());
+             for(int i=0; i<4; i++) {
+                 cobraValue[i] = getCobraRawValue(i);
+             }
+             D_cobra1.setDouble(cobraValue[0]);
+             D_cobra2.setDouble(cobraValue[1]);
+             D_cobra3.setDouble(cobraValue[2]);
+             D_cobra4.setDouble(cobraValue[3]);
+         }
+         x++;
         // D_cobraRaw.setDouble(offset()); //Just going to use channel 0 for demo
         // D_cobraVoltage.setDouble(getCobraVoltage(0));
 

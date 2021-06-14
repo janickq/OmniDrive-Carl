@@ -33,8 +33,8 @@ public class Globals {
     public static double chipsx;
     public static double chipsy;
 
-    public static double nissinx;
-    public static double nissiny;
+    public static double nissinx = 0.2;
+    public static double nissiny = 0.2;
 
     public static double ballx;
     public static double bally;
