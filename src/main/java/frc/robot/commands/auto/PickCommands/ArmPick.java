@@ -41,7 +41,7 @@ public class ArmPick extends CommandBase {
      * Constructor
      */
     // This move the robot a certain distance following a trapezoidal speed profile.
-    public ArmPick(int itemPick, double startSpeed, double endSpeed, double maxSpeed) {
+    public ArmPick(int itemType, double startSpeed, double endSpeed, double maxSpeed) {
 
         /*
         item 0 = chips
@@ -49,7 +49,7 @@ public class ArmPick extends CommandBase {
              2 = kitkat
              3 = nissin
         */
-        item = itemPick;
+        item = itemType;
         _startSpeed = startSpeed;
         _maxSpeed = maxSpeed;
         _endSpeed = endSpeed;
@@ -68,9 +68,10 @@ public class ArmPick extends CommandBase {
      */
     @Override
     public void initialize() {
-        
-        xgoal = getItem(item);
+
         // gets parameters for speed profile
+        xgoal = getItem(item);
+
         startCo = m_arm.getCoordinate(Globals.curAngle1, Globals.curAngle2);
         dist = m_arm.getDistance(startCo[0], xgoal, startCo[1], ygoal);
         trajectoryAngle = m_arm.getAngle(startCo[0], xgoal, startCo[1], ygoal);
@@ -95,11 +96,15 @@ public class ArmPick extends CommandBase {
 
     public double getItem(int item){
 
+        //gets item type to pick and returns item coordinate
         double [] itemCo = new double[4];
+
         itemCo[0] = m_vision.getChips(1);
         itemCo[1] = m_vision.getBall(1);
         itemCo[2] = m_vision.getKitkat(1);
         itemCo[3] = m_vision.getNissin(1);
+
+        // add offset of arm to camera
         return itemCo[item] + 0.355;
     }
     /**
@@ -118,10 +123,13 @@ public class ArmPick extends CommandBase {
     public void execute()
     {
         
-        //Create a new profile to calculate the next setpoint(speed) for the profile
+        //Create a new profile to calculate the next setpoint for the profile
         double[] setAngle = new double[2];
+
         var profile = new TrapezoidProfile(m_constraints, m_goal, m_setpoint);
         m_setpoint = profile.calculate(dT);
+
+    
         if(xgoal >= startCo[0]){
             Globals.xArm += m_setpoint.velocity*dT*Math.cos(trajectoryAngle);
         }
@@ -134,6 +142,8 @@ public class ArmPick extends CommandBase {
         else if(ygoal < startCo[1]){
             Globals.yArm -= m_setpoint.velocity*dT*Math.sin(trajectoryAngle);
         }
+
+        //gets and assigns individual angles based on current coordinates
         setAngle = m_arm.setArmAngle(Globals.xArm, Globals.yArm);
 
         Globals.curAngle1 = setAngle[0]*(180/Math.PI);

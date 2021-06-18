@@ -4,13 +4,11 @@ package frc.robot.commands.auto.PickCommands;
 import edu.wpi.first.wpilibj.trajectory.TrapezoidProfile;
 //WPI imports
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.Constants;
 import frc.robot.Globals;
 //RobotContainer import
-import frc.robot.RobotContainer;
+
 //Subsystem imports
-import frc.robot.subsystems.Arm;
-import frc.robot.subsystems.Vision;
+
 
 public class GripperPick extends CommandBase{
 
@@ -33,7 +31,7 @@ public class GripperPick extends CommandBase{
      * Constructor
      */
     // This move the robot a certain distance following a trapezoidal speed profile.
-    public GripperPick(int itemPick) {
+    public GripperPick(int itemType) {
 
         /*
         item 0 = chips
@@ -41,7 +39,7 @@ public class GripperPick extends CommandBase{
             2 = kitkat
             3 = nissin
         */
-        item = itemPick;
+        item = itemType;
         _startSpeed = 0;
         _maxSpeed = 0.5;
         _endSpeed = 0;
@@ -71,11 +69,14 @@ public class GripperPick extends CommandBase{
 
     public double getItem(int item){
 
+        //get item type and returns gripper servo value
         double [] itemCo = new double[4];
+
         itemCo[0] = 100.0;
         itemCo[1] = 100.0;
         itemCo[2] = 100.0;
         itemCo[3] = 100.0;
+        
         return itemCo[item];
     }
     /**

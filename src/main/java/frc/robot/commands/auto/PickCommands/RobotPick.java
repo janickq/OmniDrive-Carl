@@ -38,7 +38,7 @@ public class RobotPick extends CommandBase
      * Constructor
      */
     //This move the robot a certain distance following a trapezoidal speed profile.
-    public RobotPick(int itemPick, double startSpeed, double endSpeed, double maxSpeed)
+    public RobotPick(int itemType, double startSpeed, double endSpeed, double maxSpeed)
     {
         /*
         item 0 = chips
@@ -46,7 +46,7 @@ public class RobotPick extends CommandBase
              2 = kitkat
              3 = nissin
         */
-        item = itemPick;
+        item = itemType;
         _endSpeed = endSpeed;
         _startSpeed = startSpeed;
         m_constraints = new TrapezoidProfile.Constraints(maxSpeed, 0.6);
@@ -78,11 +78,16 @@ public class RobotPick extends CommandBase
 
     public double getItem(int item){
 
+        //gets item type to pick and returns item coordinate
+        
         double [] itemCo = new double[4];
+
         itemCo[0] = m_vision.getChips(0);
         itemCo[1] = m_vision.getBall(0);
         itemCo[2] = m_vision.getKitkat(0);
         itemCo[3] = m_vision.getNissin(0);
+
+        // adds offset of arm to camera
         return itemCo[item] + 0.145;
     }
 
