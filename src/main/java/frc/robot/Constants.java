@@ -48,4 +48,8 @@ public final class Constants
     public static final double PID_DT = 0.005;
     public static final boolean PID_THREAD = true;
 
+    //Arm
+    public static final double ARM1 = 0.24;
+    public static final double ARM2 = 0.325;
+
 }

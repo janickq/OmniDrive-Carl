@@ -1,9 +1,5 @@
 package frc.robot.commands.auto;
 
-import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.CommandBase;
-import edu.wpi.first.wpilibj2.command.CommandGroupBase;
-import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.RobotContainer;
 import frc.robot.subsystems.Sensor;
@@ -26,8 +22,16 @@ public class ArmTest extends AutoCommand{
                 new MoveRobot(1, -0.2, 0, 0, spd2),
                 new MoveRobotSense(0, 5, 0, 0, spd2, () -> m_sensor.getCobraTotal() > 6000),
                 new MoveRobot(1, 0.2, 0, 0, spd2),
-                new WaitCommand(2), 
-                new MoveTest()
+                new WaitCommand(3), 
+                new Pick(),
+                new WaitCommand(3), 
+                new Pick(),
+                new WaitCommand(3), 
+                new Pick(),
+                new WaitCommand(3), 
+                new Pick()
+                // new ArmPick(3, 0, 0, 0.1)
+                //new MoveArmXY(0.4, -0.1, 0, 0, 0.5)
 
         );
     }

@@ -47,6 +47,36 @@ public class Vision extends SubsystemBase
       return chips[xy]*0.00043160218;
     }
 
+    public double getBall(int xy){
+
+      double[] ball = new double[2];
+
+      ball[0] = (SmartDashboard.getNumber("Ballx",0));
+      ball[1] = (SmartDashboard.getNumber("Bally",0));
+
+      return ball[xy]*0.00043160218;
+    }
+
+    public double getNissin(int xy){
+
+      double[] nissin = new double[2];
+
+      nissin[0] = (SmartDashboard.getNumber("Nissinx",0));
+      nissin[1] = (SmartDashboard.getNumber("Nissiny",0));
+
+      return nissin[xy]*0.00043;
+    }
+
+    public double getKitkat(int xy){
+
+      double[] kitkat = new double[2];
+
+      kitkat[0] = (SmartDashboard.getNumber("KitKatx",0));
+      kitkat[1] = (SmartDashboard.getNumber("KitKaty",0));
+
+      return kitkat[xy]*0.00043160218;
+    }
+
     @Override
     public void periodic()
     {
@@ -68,8 +98,10 @@ public class Vision extends SubsystemBase
         Globals.ballx = SmartDashboard.getNumber("Bally",0);
 
         SmartDashboard.putNumber("chipx", getChips(0));
+        SmartDashboard.putNumber("chipy", getChips(1));
         
-   
+        SmartDashboard.putNumber("nissinx", getNissin(0));
+        SmartDashboard.putNumber("nissiny", getNissin(1));  
 
 
 

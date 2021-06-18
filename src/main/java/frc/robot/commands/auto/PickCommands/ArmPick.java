@@ -1,21 +1,24 @@
-package frc.robot.commands.auto;
+package frc.robot.commands.auto.PickCommands;
 
 import edu.wpi.first.wpilibj.trajectory.TrapezoidProfile;
 //WPI imports
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.Constants;
 import frc.robot.Globals;
 //RobotContainer import
 import frc.robot.RobotContainer;
 //Subsystem imports
 import frc.robot.subsystems.Arm;
+import frc.robot.subsystems.Vision;
 
 /**
  * SimpleDrive class
  * <p>
  * This class drives a motor
  */
-public class MoveArmXY extends CommandBase {
+public class ArmPick extends CommandBase {
     // Grab the subsystem instance from RobotContainer
+    private final static Vision m_vision = RobotContainer.m_vision;
     private final static Arm m_arm = RobotContainer.m_arm;
     private double dT = 0.02;
     private boolean m_endFlag = false;
@@ -27,21 +30,26 @@ public class MoveArmXY extends CommandBase {
     private final double _maxSpeed;
     private final double _endSpeed;
     private double dist;
-    private final double xgoal;
-    private final double ygoal;
     private double[] startCo = new double[2];
     private double trajectoryAngle;
-    private double angleDiff1 = 0;
-    private double angleDiff2 = 0;
+    private int item;
+    private double ygoal = -0.15;
+    private double xgoal;
+
 
     /**
      * Constructor
      */
     // This move the robot a certain distance following a trapezoidal speed profile.
-    public MoveArmXY(double x, double y, double startSpeed, double endSpeed, double maxSpeed) {
+    public ArmPick(int itemPick, double startSpeed, double endSpeed, double maxSpeed) {
 
-        xgoal = x;
-        ygoal = y;
+        /*
+        item 0 = chips
+             1 = ball
+             2 = kitkat
+             3 = nissin
+        */
+        item = itemPick;
         _startSpeed = startSpeed;
         _maxSpeed = maxSpeed;
         _endSpeed = endSpeed;
@@ -61,6 +69,7 @@ public class MoveArmXY extends CommandBase {
     @Override
     public void initialize() {
         
+        xgoal = getItem(item);
         // gets parameters for speed profile
         startCo = m_arm.getCoordinate(Globals.curAngle1, Globals.curAngle2);
         dist = m_arm.getDistance(startCo[0], xgoal, startCo[1], ygoal);
@@ -73,7 +82,7 @@ public class MoveArmXY extends CommandBase {
         m_goal = new TrapezoidProfile.State(dist, _endSpeed);
 
         //checks if target coordinates are within boundaries
-        if(Math.sqrt(Math.pow(xgoal, 2)+Math.pow(ygoal, 2)) > (0.24+0.328)){
+        if(Math.sqrt(Math.pow(xgoal, 2)+Math.pow(ygoal, 2)) > (Constants.ARM1 + Constants.ARM2)){
             m_endFlag = true;
         }
         else{
@@ -81,10 +90,17 @@ public class MoveArmXY extends CommandBase {
         }
         
         //debug stuff
-        Globals.debug2 = 0;
-        Globals.debug4 = dist;
-        Globals.debug5 = startCo[0];
-        Globals.debug6 = startCo[1];
+
+    }
+
+    public double getItem(int item){
+
+        double [] itemCo = new double[4];
+        itemCo[0] = m_vision.getChips(1);
+        itemCo[1] = m_vision.getBall(1);
+        itemCo[2] = m_vision.getKitkat(1);
+        itemCo[3] = m_vision.getNissin(1);
+        return itemCo[item] + 0.355;
     }
     /**
      * Condition to end speed profile

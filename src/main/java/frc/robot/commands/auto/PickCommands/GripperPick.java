@@ -1,69 +1,82 @@
-package frc.robot.commands.auto;
+package frc.robot.commands.auto.PickCommands;
+
 
 import edu.wpi.first.wpilibj.trajectory.TrapezoidProfile;
 //WPI imports
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.Constants;
+import frc.robot.Globals;
 //RobotContainer import
 import frc.robot.RobotContainer;
-
 //Subsystem imports
-import frc.robot.subsystems.OmniDrive;
-import frc.robot.Globals;
+import frc.robot.subsystems.Arm;
+import frc.robot.subsystems.Vision;
 
-/**
- * SimpleDrive class
- * <p>
- * This class drives a motor 
- */
-public class MoveRobot extends CommandBase
-{
-    //Grab the subsystem instance from RobotContainer
-    private final static OmniDrive m_drive = RobotContainer.m_omnidrive;
+public class GripperPick extends CommandBase{
+
     private double dT = 0.02;
     private boolean m_endFlag = false;
-    private int m_profType;
     private TrapezoidProfile.Constraints m_constraints;
     private TrapezoidProfile.State m_goal = new TrapezoidProfile.State();
-    private static TrapezoidProfile.State m_setpoint = new TrapezoidProfile.State();
-    private int m_dir;
+    private TrapezoidProfile.State m_setpoint = new TrapezoidProfile.State();
     public static double distMoved;
     private final double _startSpeed;
+    private final double _maxSpeed;
+    private final double _endSpeed;
+    private double dist;
+    private int item;
+    private int m_dir;
+
+
 
     /**
      * Constructor
      */
-    //This move the robot a certain distance following a trapezoidal speed profile.
-    public MoveRobot(int type, double dist, double startSpeed, double endSpeed, double maxSpeed)
-    {
-        _startSpeed = startSpeed;
-        m_profType = type;
-        if (type==2){
-            m_constraints = new TrapezoidProfile.Constraints(maxSpeed, 2.0*Math.PI);
-        }
-        else{
-            m_constraints = new TrapezoidProfile.Constraints(maxSpeed, 0.6);
-        }
-        m_setpoint = new TrapezoidProfile.State(0, _startSpeed);
-        
-        //Negative distance don't seem to work with the library function????
-        //Easier to make distance positive and use m_dir to keep track of negative speed.
-        m_dir = (dist>0)?1:-1;
-        dist *= m_dir;          
-        
-        m_goal = new TrapezoidProfile.State(dist, endSpeed);
+    // This move the robot a certain distance following a trapezoidal speed profile.
+    public GripperPick(int itemPick) {
 
-        addRequirements(m_drive); // Adds the subsystem to the command
-        
+        /*
+        item 0 = chips
+            1 = ball
+            2 = kitkat
+            3 = nissin
+        */
+        item = itemPick;
+        _startSpeed = 0;
+        _maxSpeed = 0.5;
+        _endSpeed = 0;
+        m_constraints = new TrapezoidProfile.Constraints(_maxSpeed, 1);
+
+        // Negative distance don't seem to work with the libr ary function????
+        // Easier to make distance positive and use m_dir to keep track of negative
+        // speed.
+        // Adds the subsystem to the command
+
     }
 
     /**
      * Runs before execute
      */
     @Override
-    public void initialize()
-    {
+    public void initialize() {
+        
+        dist = Globals.curAngle3 - getItem(item);
+        m_dir = (dist>0)?1:-1;
+        dist *= m_dir;      
         m_setpoint = new TrapezoidProfile.State(0, _startSpeed);
+        m_goal = new TrapezoidProfile.State(dist, _endSpeed);
         m_endFlag = false;
+
+    }
+
+    public double getItem(int item){
+
+        double [] itemCo = new double[4];
+        itemCo[0] = 100.0;
+        itemCo[1] = 100.0;
+        itemCo[2] = 100.0;
+        itemCo[3] = 100.0;
+        return itemCo[item];
     }
     /**
      * Condition to end speed profile
@@ -71,26 +84,33 @@ public class MoveRobot extends CommandBase
     public boolean endCondition()
     {
         return false;
+        
     }
     /**
      * Called continously until command is ended
      */
+        
     @Override
     public void execute()
     {
-
+        
         //Create a new profile to calculate the next setpoint(speed) for the profile
         var profile = new TrapezoidProfile(m_constraints, m_goal, m_setpoint);
         m_setpoint = profile.calculate(dT);
-        m_drive.setRobotSpeedType(m_profType, m_setpoint.velocity*m_dir);
+        Globals.curAngle3 += m_setpoint.velocity;
 
         if ((m_setpoint.position>=m_goal.position) || endCondition()) {
             //distance reached or end condition met. End the command
             //This class should be modified so that the profile can end on other conditions like
             //sensor value etc.
-            m_drive.setRobotSpeedType(m_profType, m_goal.velocity*m_dir);
+
             m_endFlag = true;
         }
+
+
+
+        
+
     }
 
     /**
@@ -99,7 +119,7 @@ public class MoveRobot extends CommandBase
     @Override
     public void end(boolean interrupted)
     {
-        Globals.distCount += m_setpoint.position;
+        
     }
 
     /**
@@ -109,10 +129,6 @@ public class MoveRobot extends CommandBase
     public boolean isFinished()
     {
         return m_endFlag;
-    }
-
-    public static double getDistMoved() {
-        return m_setpoint.position;
     }
 
 }

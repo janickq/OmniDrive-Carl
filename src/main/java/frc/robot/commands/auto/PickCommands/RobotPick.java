@@ -1,4 +1,4 @@
-package frc.robot.commands.auto;
+package frc.robot.commands.auto.PickCommands;
 
 import edu.wpi.first.wpilibj.trajectory.TrapezoidProfile;
 //WPI imports
@@ -8,6 +8,7 @@ import frc.robot.RobotContainer;
 
 //Subsystem imports
 import frc.robot.subsystems.OmniDrive;
+import frc.robot.subsystems.Vision;
 import frc.robot.Globals;
 
 /**
@@ -15,10 +16,11 @@ import frc.robot.Globals;
  * <p>
  * This class drives a motor 
  */
-public class MoveRobot extends CommandBase
+public class RobotPick extends CommandBase
 {
     //Grab the subsystem instance from RobotContainer
     private final static OmniDrive m_drive = RobotContainer.m_omnidrive;
+    private final static Vision m_vision = RobotContainer.m_vision;
     private double dT = 0.02;
     private boolean m_endFlag = false;
     private int m_profType;
@@ -28,29 +30,33 @@ public class MoveRobot extends CommandBase
     private int m_dir;
     public static double distMoved;
     private final double _startSpeed;
+    private final double _endSpeed;
+    private int item;
+    private double dist;
 
     /**
      * Constructor
      */
     //This move the robot a certain distance following a trapezoidal speed profile.
-    public MoveRobot(int type, double dist, double startSpeed, double endSpeed, double maxSpeed)
+    public RobotPick(int itemPick, double startSpeed, double endSpeed, double maxSpeed)
     {
+        /*
+        item 0 = chips
+             1 = ball
+             2 = kitkat
+             3 = nissin
+        */
+        item = itemPick;
+        _endSpeed = endSpeed;
         _startSpeed = startSpeed;
-        m_profType = type;
-        if (type==2){
-            m_constraints = new TrapezoidProfile.Constraints(maxSpeed, 2.0*Math.PI);
-        }
-        else{
-            m_constraints = new TrapezoidProfile.Constraints(maxSpeed, 0.6);
-        }
+        m_constraints = new TrapezoidProfile.Constraints(maxSpeed, 0.6);
         m_setpoint = new TrapezoidProfile.State(0, _startSpeed);
         
         //Negative distance don't seem to work with the library function????
         //Easier to make distance positive and use m_dir to keep track of negative speed.
-        m_dir = (dist>0)?1:-1;
-        dist *= m_dir;          
+    
         
-        m_goal = new TrapezoidProfile.State(dist, endSpeed);
+
 
         addRequirements(m_drive); // Adds the subsystem to the command
         
@@ -62,9 +68,24 @@ public class MoveRobot extends CommandBase
     @Override
     public void initialize()
     {
+        dist = getItem(item);
+        m_dir = (dist>0)?1:-1;
+        dist *= m_dir;      
         m_setpoint = new TrapezoidProfile.State(0, _startSpeed);
+        m_goal = new TrapezoidProfile.State(dist, _endSpeed);
         m_endFlag = false;
     }
+
+    public double getItem(int item){
+
+        double [] itemCo = new double[4];
+        itemCo[0] = m_vision.getChips(0);
+        itemCo[1] = m_vision.getBall(0);
+        itemCo[2] = m_vision.getKitkat(0);
+        itemCo[3] = m_vision.getNissin(0);
+        return itemCo[item] + 0.145;
+    }
+
     /**
      * Condition to end speed profile
      */

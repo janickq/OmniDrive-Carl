@@ -20,8 +20,8 @@ public class Arm extends SubsystemBase
     private final Servo servo3;
     private final ServoContinuous servoC;
     private double[] startCo = new double[2];
-    private double a1 = 0.255; //arm length
-    private double a2 = 0.255;
+    private double a1 = Constants.ARM1; //arm length
+    private double a2 = Constants.ARM2;
 
 
     private final ShuffleboardTab tab = Shuffleboard.getTab("Arm");
@@ -46,16 +46,27 @@ public class Arm extends SubsystemBase
 
         Globals.curAngle1 = 90.0;
         Globals.curAngle2 = 90.0;
-        Globals.curAngle3 = 90.0;
-
-        setServo1Angle(Globals.curAngle1);
-        setServo2Angle(Globals.curAngle2);
-        setServo3Angle(Globals.curAngle3);
+        // Globals.servoAngle1 = 90.0;
+        // Globals.servoAngle2 = 90.0;
+        // setServo1Angle(Globals.curAngle1);
+        // setServo2Angle(Globals.curAngle2);
+        // setServo3Angle(Globals.curAngle3);
 
         startCo = getCoordinate(Globals.curAngle1, Globals.curAngle2);
         Globals.xArm = startCo[0];
         Globals.yArm = startCo[1];
         
+    }
+
+    public double getServoAngle(int servonum) {
+
+        double[] servoAngle = new double[2];
+
+        servoAngle[0] = (Globals.curAngle1 - 30) * 4;
+        servoAngle[1] = (Globals.curAngle2 - 11.5) * 2;
+
+        return servoAngle[servonum];
+
     }
 
         /**
@@ -65,11 +76,11 @@ public class Arm extends SubsystemBase
      * @param degrees degree to set the servo to, range 0° - 300°
      */
     public void setServo1Angle(final double degrees) {
-        servo1.setAngle(degrees + 5 );
+        servo1.setAngle(degrees); // + 90 + 60 );
     }
 
     public void setServo2Angle(final double degrees) {
-        servo2.setAngle(degrees - 7);
+        servo2.setAngle(degrees); //  +7  + 60 );
     }
 
     public void setServo3Angle(final double degrees) {
@@ -96,7 +107,9 @@ public class Arm extends SubsystemBase
         double[] xy = new double [2];
         double angle1 = a*(Math.PI/180);
         double angle2 = b*(Math.PI/180);
-        xy[0] = (a1*Math.cos(angle1 - angle2) + a2*Math.cos(angle1));
+        // xy[0] = (a1*Math.cos(angle1 - angle2) + a2*Math.cos(angle1));
+        // xy[1] = (a1*Math.sin(angle1 - angle2) + a2*Math.sin(angle2));
+        xy[0] = (a2*Math.cos(angle1 - angle2) + a1*Math.cos(angle1));
         xy[1] = (a2*Math.sin(angle1 - angle2) + a1*Math.sin(angle1));
         return xy;
     }
@@ -139,11 +152,12 @@ public class Arm extends SubsystemBase
         D_debug3.setDouble(Globals.debug2);
         D_xCur.setDouble(Globals.xArm);
         D_yCur.setDouble(Globals.yArm);
-        D_dist.setDouble(Globals.debug4);
-        D_startCo1.setDouble(Globals.debug5);
-        D_startCo2.setDouble(Globals.debug6);       
-        setServo1Angle(Globals.curAngle1);
-        setServo2Angle(Globals.curAngle2);
+        D_dist.setDouble(Globals.debug5);
+        D_startCo1.setDouble(Globals.servoAngle1);
+        D_startCo2.setDouble(Globals.servoAngle2);       
+        setServo1Angle(getServoAngle(0));
+        setServo2Angle(getServoAngle(1));
+        setServo3Angle(Globals.curAngle3);
         
     }
 
