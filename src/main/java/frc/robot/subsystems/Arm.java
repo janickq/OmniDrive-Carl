@@ -40,12 +40,12 @@ public class Arm extends SubsystemBase
     public Arm(){
         servo2 = new Servo(Constants.SERVO2);
         servo1 = new Servo(Constants.SERVO1);
-
         servo3 = new Servo(Constants.SERVO3);
         servoC = new ServoContinuous(Constants.SERVO_C);
 
         Globals.curAngle1 = 90.0;
         Globals.curAngle2 = 90.0;
+        Globals.curAngle3 = 0.0;
         // Globals.servoAngle1 = 90.0;
         // Globals.servoAngle2 = 90.0;
         // setServo1Angle(Globals.curAngle1);
@@ -62,8 +62,8 @@ public class Arm extends SubsystemBase
 
         double[] servoAngle = new double[2];
 
-        servoAngle[0] = (Globals.curAngle1 - 30) * 4;
-        servoAngle[1] = (Globals.curAngle2 - 11.5) * 2;
+        servoAngle[0] = (Globals.curAngle1 - 25) * 4;
+        servoAngle[1] = (Globals.curAngle2 - 12) * 2;
 
         return servoAngle[servonum];
 

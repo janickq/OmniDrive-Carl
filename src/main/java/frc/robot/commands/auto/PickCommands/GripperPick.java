@@ -24,32 +24,40 @@ public class GripperPick extends CommandBase{
     private double dist;
     private int item;
     private int m_dir;
-
+    private int dir;
+    private double [] itemCo;
 
 
     /**
      * Constructor
      */
     // This move the robot a certain distance following a trapezoidal speed profile.
-    public GripperPick(int itemType) {
+    public GripperPick(int itemType, int direction) {
 
+        //direction, 0 = grip, 1 = letgo
         /*
         item 0 = chips
             1 = ball
             2 = kitkat
             3 = nissin
         */
+        dir = direction;
         item = itemType;
         _startSpeed = 0;
-        _maxSpeed = 0.5;
+        _maxSpeed = 3;
         _endSpeed = 0;
-        m_constraints = new TrapezoidProfile.Constraints(_maxSpeed, 1);
+        m_constraints = new TrapezoidProfile.Constraints(_maxSpeed, 2);
 
         // Negative distance don't seem to work with the libr ary function????
         // Easier to make distance positive and use m_dir to keep track of negative
         // speed.
         // Adds the subsystem to the command
+        itemCo = new double[4];
 
+        itemCo[0] = 130 * (Math.PI/180);
+        itemCo[1] = 130 * (Math.PI/180);
+        itemCo[2] = 130 * (Math.PI/180);
+        itemCo[3] = 130 * (Math.PI/180);
     }
 
     /**
@@ -58,7 +66,7 @@ public class GripperPick extends CommandBase{
     @Override
     public void initialize() {
         
-        dist = Globals.curAngle3 - getItem(item);
+        dist = getItem(item, dir);
         m_dir = (dist>0)?1:-1;
         dist *= m_dir;      
         m_setpoint = new TrapezoidProfile.State(0, _startSpeed);
@@ -67,44 +75,54 @@ public class GripperPick extends CommandBase{
 
     }
 
-    public double getItem(int item){
+    public double getItem(int item, int direction){
 
+        /*
+        item 0 = chips
+             1 = ball
+             2 = kitkat
+             3 = nissin
+        */
         //get item type and returns gripper servo value
-        double [] itemCo = new double[4];
 
-        itemCo[0] = 100.0;
-        itemCo[1] = 100.0;
-        itemCo[2] = 100.0;
-        itemCo[3] = 100.0;
-        
-        return itemCo[item];
+        if(direction == 1){
+
+            return itemCo[item]*-1;
+
+        }
+        else{
+
+            return itemCo[item];
+        }
     }
     /**
      * Condition to end speed profile
      */
     public boolean endCondition()
     {
+
         return false;
         
     }
     /**
      * Called continously until command is ended
      */
-        
+
+
     @Override
     public void execute()
     {
-        
+
         //Create a new profile to calculate the next setpoint(speed) for the profile
         var profile = new TrapezoidProfile(m_constraints, m_goal, m_setpoint);
         m_setpoint = profile.calculate(dT);
-        Globals.curAngle3 += m_setpoint.velocity;
+        Globals.curAngle3 += m_setpoint.velocity*m_dir;
 
         if ((m_setpoint.position>=m_goal.position) || endCondition()) {
             //distance reached or end condition met. End the command
             //This class should be modified so that the profile can end on other conditions like
             //sensor value etc.
-
+            
             m_endFlag = true;
         }
 

@@ -59,7 +59,7 @@ public class Pick extends AutoCommand {
                             new WaitCommand(0.5), 
                             new ArmPick(0, 0, 0, 0.3),
                             new WaitCommand(0.5), 
-                            new GripperPick(0),
+                            new GripperPick(0, 0),
                             new WaitCommand(0.5),
                             new MoveArmXY(Constants.ARM2, Constants.ARM1, 0, 0, 0.3))),
 
@@ -69,7 +69,7 @@ public class Pick extends AutoCommand {
                             new WaitCommand(0.5), 
                             new ArmPick(3, 0, 0, 0.3),
                             new WaitCommand(0.5), 
-                            new GripperPick(3),
+                            new GripperPick(3, 0),
                             new WaitCommand(0.5),
                             new MoveArmXY(Constants.ARM2, Constants.ARM1, 0, 0, 0.3))),
 
@@ -79,7 +79,7 @@ public class Pick extends AutoCommand {
                             new WaitCommand(0.5), 
                             new ArmPick(2, 0, 0, 0.3),
                             new WaitCommand(0.5), 
-                            new GripperPick(2),
+                            new GripperPick(2, 0),
                             new WaitCommand(0.5),
                             new MoveArmXY(Constants.ARM2, Constants.ARM1, 0, 0, 0.3))),
                                 
@@ -89,7 +89,7 @@ public class Pick extends AutoCommand {
                             new WaitCommand(0.5), 
                             new ArmPick(1, 0, 0, 0.3),
                             new WaitCommand(0.5), 
-                            new GripperPick(1),
+                            new GripperPick(1, 0),
                             new WaitCommand(0.5),
                             new MoveArmXY(Constants.ARM2, Constants.ARM1, 0, 0, 0.3)))
                         ),

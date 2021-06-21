@@ -10,7 +10,9 @@ import edu.wpi.first.wpilibj2.command.SelectCommand;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Globals;
 import frc.robot.RobotContainer;
+import frc.robot.commands.auto.ArmTest;
 import frc.robot.commands.auto.Pick;
+import frc.robot.commands.auto.PickCommands.GripperPick;
 // import frc.robot.commands.auto.MoveTypes.MoveBack;
 // import frc.robot.commands.auto.MoveTypes.MoveCurve;
 // import frc.robot.commands.auto.MoveTypes.MoveLeft;
@@ -36,8 +38,8 @@ public class Menu extends SubsystemBase
         m_oi.buttonStart.whenPressed(             
             new SelectCommand(
             Map.ofEntries(
-                Map.entry(menuNum++, new Pick()),
-                Map.entry(menuNum++, new Pick()),
+                Map.entry(menuNum++, new ArmTest()),
+                Map.entry(menuNum++, new GripperPick(3, 1)),
                 Map.entry(menuNum++, new Pick()),
                 Map.entry(menuNum++, new Pick()),
                 Map.entry(menuNum++, new Pick()) 

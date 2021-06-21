@@ -33,7 +33,7 @@ public class ArmPick extends CommandBase {
     private double[] startCo = new double[2];
     private double trajectoryAngle;
     private int item;
-    private double ygoal = -0.15;
+    private double ygoal;
     private double xgoal;
 
 
@@ -70,7 +70,8 @@ public class ArmPick extends CommandBase {
     public void initialize() {
 
         // gets parameters for speed profile
-        xgoal = getItem(item);
+        xgoal = getItemX(item);
+        ygoal = getItemY(item);
 
         startCo = m_arm.getCoordinate(Globals.curAngle1, Globals.curAngle2);
         dist = m_arm.getDistance(startCo[0], xgoal, startCo[1], ygoal);
@@ -94,7 +95,7 @@ public class ArmPick extends CommandBase {
 
     }
 
-    public double getItem(int item){
+    public double getItemX(int item){
 
         //gets item type to pick and returns item coordinate
         double [] itemCo = new double[4];
@@ -106,6 +107,20 @@ public class ArmPick extends CommandBase {
 
         // add offset of arm to camera
         return itemCo[item] + 0.355;
+    }
+
+    public double getItemY(int item){
+
+        //gets item type to pick and returns item coordinate
+        double [] itemCo = new double[4];
+
+        itemCo[0] = 0;
+        itemCo[1] = 0;
+        itemCo[2] = 0;
+        itemCo[3] = 0;
+
+        // add offset of arm to camera
+        return itemCo[item];
     }
     /**
      * Condition to end speed profile
