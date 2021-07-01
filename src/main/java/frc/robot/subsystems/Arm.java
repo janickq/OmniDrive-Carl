@@ -22,6 +22,7 @@ public class Arm extends SubsystemBase
     private double[] startCo = new double[2];
     private double a1 = Constants.ARM1; //arm length
     private double a2 = Constants.ARM2;
+    private double[] angleInit = new double[2];
 
 
     private final ShuffleboardTab tab = Shuffleboard.getTab("Arm");
@@ -42,9 +43,9 @@ public class Arm extends SubsystemBase
         servo1 = new Servo(Constants.SERVO1);
         servo3 = new Servo(Constants.SERVO3);
         servoC = new ServoContinuous(Constants.SERVO_C);
-
-        Globals.curAngle1 = 90.0;
-        Globals.curAngle2 = 90.0;
+        angleInit = setArmAngle(Constants.ARM2 - 0.05 , Constants.ARM1 + 0.15 );
+        Globals.curAngle1 = angleInit[0]*(180/Math.PI);
+        Globals.curAngle2 = angleInit[1]*(180/Math.PI);
         Globals.curAngle3 = 0.0;
         // Globals.servoAngle1 = 90.0;
         // Globals.servoAngle2 = 90.0;
@@ -62,7 +63,7 @@ public class Arm extends SubsystemBase
 
         double[] servoAngle = new double[2];
 
-        servoAngle[0] = (Globals.curAngle1 - 25) * 4;
+        servoAngle[0] = (Globals.curAngle1 - 36) * 4;
         servoAngle[1] = (Globals.curAngle2 - 12) * 2;
 
         return servoAngle[servonum];

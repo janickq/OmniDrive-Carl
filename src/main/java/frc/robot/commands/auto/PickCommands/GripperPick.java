@@ -24,7 +24,7 @@ public class GripperPick extends CommandBase{
     private double dist;
     private int item;
     private int m_dir;
-    private int dir;
+
     private double [] itemCo;
 
 
@@ -32,7 +32,7 @@ public class GripperPick extends CommandBase{
      * Constructor
      */
     // This move the robot a certain distance following a trapezoidal speed profile.
-    public GripperPick(int itemType, int direction) {
+    public GripperPick() {
 
         //direction, 0 = grip, 1 = letgo
         /*
@@ -41,7 +41,36 @@ public class GripperPick extends CommandBase{
             2 = kitkat
             3 = nissin
         */
-        dir = direction;
+
+        _startSpeed = 0;
+        _maxSpeed = 3;
+        _endSpeed = 0;
+        m_constraints = new TrapezoidProfile.Constraints(_maxSpeed, 2);
+
+        // Negative distance don't seem to work with the libr ary function????
+        // Easier to make distance positive and use m_dir to keep track of negative
+        // speed.
+        // Adds the subsystem to the command
+        itemCo = new double[6];
+
+        itemCo[0] = 130; 
+        itemCo[1] = 100; 
+        itemCo[2] = 140; 
+        itemCo[3] = 100;
+        itemCo[4] = 0;
+        itemCo[5] = 100;
+    }
+
+    public GripperPick(int itemType) {
+
+        //direction, 0 = grip, 1 = letgo
+        /*
+        item 0 = chips
+            1 = ball
+            2 = kitkat
+            3 = nissin
+        */
+
         item = itemType;
         _startSpeed = 0;
         _maxSpeed = 3;
@@ -52,12 +81,14 @@ public class GripperPick extends CommandBase{
         // Easier to make distance positive and use m_dir to keep track of negative
         // speed.
         // Adds the subsystem to the command
-        itemCo = new double[4];
+        itemCo = new double[6];
 
-        itemCo[0] = 130 * (Math.PI/180);
-        itemCo[1] = 130 * (Math.PI/180);
-        itemCo[2] = 130 * (Math.PI/180);
-        itemCo[3] = 130 * (Math.PI/180);
+        itemCo[0] = 130; 
+        itemCo[1] = 100; 
+        itemCo[2] = 130; 
+        itemCo[3] = 100;
+        itemCo[4] = 0;
+        itemCo[5] = 100;
     }
 
     /**
@@ -66,34 +97,28 @@ public class GripperPick extends CommandBase{
     @Override
     public void initialize() {
         
-        dist = getItem(item, dir);
+        if (item != 4){
+            if (item == 5)
+                item = 5;
+            else
+                item = Globals.curItem;
+        }
+
+        dist = (itemCo[item] - Globals.curAngle3)*(Math.PI/180);
         m_dir = (dist>0)?1:-1;
         dist *= m_dir;      
+
         m_setpoint = new TrapezoidProfile.State(0, _startSpeed);
         m_goal = new TrapezoidProfile.State(dist, _endSpeed);
         m_endFlag = false;
 
     }
 
-    public double getItem(int item, int direction){
+    public double getItem(int item){
 
-        /*
-        item 0 = chips
-             1 = ball
-             2 = kitkat
-             3 = nissin
-        */
         //get item type and returns gripper servo value
+        return itemCo[item];
 
-        if(direction == 1){
-
-            return itemCo[item]*-1;
-
-        }
-        else{
-
-            return itemCo[item];
-        }
     }
     /**
      * Condition to end speed profile

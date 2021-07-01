@@ -35,8 +35,8 @@ public final class Constants
     public static final int SHARP2           = 1;
     public static final int SONIC_TRIGG1     = 1;
     public static final int SONIC_ECHO1      = 0;
-    public static final int SONIC_TRIGG2     = 9;
-    public static final int SONIC_ECHO2      = 8;
+    // public static final int SONIC_TRIGG2     = 9;
+    // public static final int SONIC_ECHO2      = 8;
     
     //Wheels
     public static final double KWHEELDIAMETER = 0.1;  //wheel diameter

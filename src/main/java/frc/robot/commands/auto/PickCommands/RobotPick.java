@@ -59,6 +59,7 @@ public class RobotPick extends CommandBase
 
 
         addRequirements(m_drive); // Adds the subsystem to the command
+        m_endFlag = false;
         
     }
 
@@ -67,19 +68,20 @@ public class RobotPick extends CommandBase
      */
     @Override
     public void initialize()
-    {
-        dist = getItem(item);
+    {   
+        m_vision.getItem();
+        dist = getItem(Globals.curItem);
         m_dir = (dist>0)?1:-1;
         dist *= m_dir;      
         m_setpoint = new TrapezoidProfile.State(0, _startSpeed);
         m_goal = new TrapezoidProfile.State(dist, _endSpeed);
-        m_endFlag = false;
+        
     }
 
     public double getItem(int item){
 
         //gets item type to pick and returns item coordinate
-        
+
         double [] itemCo = new double[4];
 
         itemCo[0] = m_vision.getChips(0);
@@ -88,7 +90,7 @@ public class RobotPick extends CommandBase
         itemCo[3] = m_vision.getNissin(0);
 
         // adds offset of arm to camera
-        return itemCo[item] + 0.145;
+        return itemCo[item] + 0.16;
     }
 
     /**

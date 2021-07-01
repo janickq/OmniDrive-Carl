@@ -11,6 +11,7 @@ import edu.wpi.first.wpilibj.Notifier;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import frc.robot.commands.auto.CommandSchedule;
 import frc.robot.subsystems.OmniDrive;
 
 /**
@@ -25,6 +26,7 @@ public class Robot extends TimedRobot {
   private RobotContainer m_robotContainer;
   private Command m_startButton;
   private OmniDrive m_omnidrive;
+
 
   // private void generateEnabledDsPacket(byte[] data, short sendCount) {
   //   data[0] = (byte) (sendCount >> 8);
@@ -108,6 +110,7 @@ public class Robot extends TimedRobot {
 
   @Override
   public void teleopInit() {
+
     m_teleopCommand = m_robotContainer.getTeleopCommand();
     RobotContainer.m_omnidrive.resetHeading();
 
@@ -122,6 +125,10 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void teleopPeriodic() {
+    // if(Globals.start){
+    //   m_commandschedule.schedule();
+    //   Globals.start = false;
+    // }
   }
 
   @Override

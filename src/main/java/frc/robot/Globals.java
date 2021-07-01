@@ -1,5 +1,7 @@
 package frc.robot;
 
+import java.util.function.BooleanSupplier;
+
 public class Globals {
     public static double distCount = 0;
     public static int state;
@@ -7,17 +9,25 @@ public class Globals {
     public static int cmdState = 0;
     public static boolean checkFlag = false;
     public static int menuItem;
+
+    public static int curItem = 5;
+    public static boolean checkItem = false;
+
     public static double curAngle1;
     public static double curAngle2;
     public static double curAngle3;
+
     public static double servoAngle1;
     public static double servoAngle2;
+
     public static double xTgt = 0.4;
     public static double yTgt = -0.2;
     public static double zTgt = 0.2;
+
     public static double xCur;
     public static double yCur;
     public static double zCur;
+
     public static double xArm;
     public static double yArm;
     
@@ -40,5 +50,10 @@ public class Globals {
 
     public static double ballx;
     public static double bally;
+
+    public static boolean start = false;
+
+
+
 
 }

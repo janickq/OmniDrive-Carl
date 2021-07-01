@@ -17,7 +17,7 @@ public class Vision extends SubsystemBase
     // public NetworkTableEntry kitkaty;
 
     private boolean getNewBarcode;
-    
+    private double convert = 0.0006;
 
 
     public Vision()
@@ -30,7 +30,7 @@ public class Vision extends SubsystemBase
         table.getEntry("readBarcode").setBoolean(true);
    
     }
-
+    
     public void printBarcode()
     {
         data = table.getEntry("barcodeData");
@@ -44,7 +44,7 @@ public class Vision extends SubsystemBase
       chips[0] = (SmartDashboard.getNumber("Chipsx",0));
       chips[1] = (SmartDashboard.getNumber("Chipsy",0));
 
-      return chips[xy]*0.00043160218;
+      return chips[xy]*convert ;
     }
 
     public double getBall(int xy){
@@ -54,7 +54,7 @@ public class Vision extends SubsystemBase
       ball[0] = (SmartDashboard.getNumber("Ballx",0));
       ball[1] = (SmartDashboard.getNumber("Bally",0));
 
-      return ball[xy]*0.00043160218;
+      return ball[xy]*convert;
     }
 
     public double getNissin(int xy){
@@ -64,7 +64,7 @@ public class Vision extends SubsystemBase
       nissin[0] = (SmartDashboard.getNumber("Nissinx",0));
       nissin[1] = (SmartDashboard.getNumber("Nissiny",0));
 
-      return nissin[xy]*0.00043;
+      return nissin[xy]*convert;
     }
 
     public double getKitkat(int xy){
@@ -74,8 +74,37 @@ public class Vision extends SubsystemBase
       kitkat[0] = (SmartDashboard.getNumber("KitKatx",0));
       kitkat[1] = (SmartDashboard.getNumber("KitKaty",0));
 
-      return kitkat[xy]*0.00043160218;
+      return kitkat[xy]*convert;
     }
+    public void getItem(){
+
+      Globals.start = true;
+        if (getChips(0) != 0 && getChips(1) != 0)
+            Globals.curItem = 0;
+        else if (getNissin(0) != 0 && getNissin(1) != 0)
+            Globals.curItem = 3;
+        else if (getKitkat(0) != 0 && getKitkat(1) != 0)
+            Globals.curItem = 2;
+        else if (getBall(0) != 0 && getBall(1) != 0)
+            Globals.curItem = 1;
+        else{
+            Globals.curItem = 4;
+            Globals.start = false;
+        }
+      
+    }
+
+    public void getItemBool(){
+      
+
+      if (Globals.curItem == 4)
+        Globals.checkItem =true;
+      else
+        Globals.checkItem = false;
+        
+
+    }
+    
 
     @Override
     public void periodic()
@@ -97,13 +126,14 @@ public class Vision extends SubsystemBase
         Globals.ballx = SmartDashboard.getNumber("Ballx",0);
         Globals.ballx = SmartDashboard.getNumber("Bally",0);
 
-        SmartDashboard.putNumber("chipx", getChips(0));
+        SmartDashboard.putNumber("curItem", Globals.curItem);
         SmartDashboard.putNumber("chipy", getChips(1));
         
         SmartDashboard.putNumber("nissinx", getNissin(0));
         SmartDashboard.putNumber("nissiny", getNissin(1));  
 
-
+        SmartDashboard.putBoolean("checkItem", Globals.checkItem);
+        SmartDashboard.putBoolean("Start", Globals.start);
 
         if (getNewBarcode)
         {
@@ -111,6 +141,9 @@ public class Vision extends SubsystemBase
             SmartDashboard.putBoolean("Get New Barcode", false);
         }
 
-       
+
     }
+
+       
+    
 }

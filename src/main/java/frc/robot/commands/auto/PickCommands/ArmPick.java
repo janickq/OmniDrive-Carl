@@ -26,13 +26,10 @@ public class ArmPick extends CommandBase {
     private TrapezoidProfile.State m_goal = new TrapezoidProfile.State();
     private TrapezoidProfile.State m_setpoint = new TrapezoidProfile.State();
     public static double distMoved;
-    private final double _startSpeed;
     private final double _maxSpeed;
-    private final double _endSpeed;
     private double dist;
     private double[] startCo = new double[2];
     private double trajectoryAngle;
-    private int item;
     private double ygoal;
     private double xgoal;
 
@@ -41,7 +38,7 @@ public class ArmPick extends CommandBase {
      * Constructor
      */
     // This move the robot a certain distance following a trapezoidal speed profile.
-    public ArmPick(int itemType, double startSpeed, double endSpeed, double maxSpeed) {
+    public ArmPick(double maxSpeed) {
 
         /*
         item 0 = chips
@@ -49,10 +46,10 @@ public class ArmPick extends CommandBase {
              2 = kitkat
              3 = nissin
         */
-        item = itemType;
-        _startSpeed = startSpeed;
+        
+
         _maxSpeed = maxSpeed;
-        _endSpeed = endSpeed;
+
         m_constraints = new TrapezoidProfile.Constraints(_maxSpeed, 1);
 
         // Negative distance don't seem to work with the libr ary function????
@@ -68,10 +65,10 @@ public class ArmPick extends CommandBase {
      */
     @Override
     public void initialize() {
-
+        
         // gets parameters for speed profile
-        xgoal = getItemX(item);
-        ygoal = getItemY(item);
+        xgoal = getItemX(Globals.curItem);
+        ygoal = getItemY(Globals.curItem);
 
         startCo = m_arm.getCoordinate(Globals.curAngle1, Globals.curAngle2);
         dist = m_arm.getDistance(startCo[0], xgoal, startCo[1], ygoal);
@@ -80,8 +77,8 @@ public class ArmPick extends CommandBase {
         Globals.xArm = startCo[0];
         Globals.yArm = startCo[1];
 
-        m_setpoint = new TrapezoidProfile.State(0, _startSpeed);
-        m_goal = new TrapezoidProfile.State(dist, _endSpeed);
+        m_setpoint = new TrapezoidProfile.State(0, 0);
+        m_goal = new TrapezoidProfile.State(dist, 0);
 
         //checks if target coordinates are within boundaries
         if(Math.sqrt(Math.pow(xgoal, 2)+Math.pow(ygoal, 2)) > (Constants.ARM1 + Constants.ARM2)){
@@ -106,18 +103,23 @@ public class ArmPick extends CommandBase {
         itemCo[3] = m_vision.getNissin(1);
 
         // add offset of arm to camera
-        return itemCo[item] + 0.355;
+        return itemCo[item] + 0.3;
     }
 
     public double getItemY(int item){
 
         //gets item type to pick and returns item coordinate
         double [] itemCo = new double[4];
-
-        itemCo[0] = 0;
-        itemCo[1] = 0;
-        itemCo[2] = 0;
-        itemCo[3] = 0;
+        /*
+        item 0 = chips
+             1 = ball
+             2 = kitkat
+             3 = nissin
+        */
+        itemCo[0] = -0.1;
+        itemCo[1] = -0.05;
+        itemCo[2] = -0.08;
+        itemCo[3] = -0.05;  
 
         // add offset of arm to camera
         return itemCo[item];
