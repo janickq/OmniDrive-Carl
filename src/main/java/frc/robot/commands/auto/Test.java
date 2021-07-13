@@ -12,7 +12,9 @@ import edu.wpi.first.wpilibj2.command.WaitUntilCommand;
 import frc.robot.Globals;
 import frc.robot.Robot;
 import frc.robot.RobotContainer;
+import frc.robot.commands.auto.PickCommands.ArmPick;
 import frc.robot.commands.auto.PickCommands.GripperPick;
+import frc.robot.commands.auto.PickCommands.RobotPick;
 import frc.robot.subsystems.Sensor;
 import frc.robot.subsystems.Vision;
 
@@ -31,85 +33,17 @@ public class Test extends AutoCommand{
 
                 // new Start(),
                 // new WaitCommand(2), 
+                new MoveRobot(0, -0.12, 0, 0, 0.2),
+                new WaitCommand(2),
                 new InstantCommand(m_vision::getItem),
+                new RobotPick(0, 0, 0, 0.2),
+                // new MoveTest2(),
+                new ArmPick(0.2),
+                new GripperPick(2)
                 
-                new Test2(),
-                
-                new End()
-                // new PerpetualCommand(
-                //     new Test2()  
-                // ).raceWith(new CheckItem()),
                 // new End()
-                // new ParallelRaceGroup(
-                //     new WaitUntilCommand(Globals.checkItem::getAsBoolean), 
-                    // new WaitUntilCommand(Globals.checkItem::getAsBoolean),
-                
-                // new SequentialCommandGroup
-                // (
-                //     new InstantCommand(m_vision::getItem),
-                //     new Pick(),
-                //     new WaitCommand(2), 
-                //     new Deliver(),
-                //     new Reset(),
-                //     new WaitCommand(2), 
-                //     new InstantCommand(m_vision::getItem),
-                //     new Pick(),
-                //     new WaitCommand(2), 
-                //     new Deliver(),
-                //     new Reset(),
-                //     new WaitCommand(2), 
-                //     new InstantCommand(m_vision::getItem),
-                //     new Pick(),
-                //     new WaitCommand(2), 
-                //     new Deliver(),
-                //     new Reset(),
-                //     new WaitCommand(2), 
-                //     new InstantCommand(m_vision::getItem),
-                //     new Pick(),
-                //     new WaitCommand(2), 
-                //     new Deliver(),
-                //     new Reset(),
-                //     new WaitCommand(2), 
-                //     new InstantCommand(m_vision::getItem),
-                //     new Pick(),
-                //     new WaitCommand(2), 
-                //     new Deliver(),
-                //     new Reset(),
-                //     new WaitCommand(2), 
-                //     new InstantCommand(m_vision::getItem),
-                //     new Pick(),
-                //     new WaitCommand(2), 
-                //     new Deliver(),
-                //     new Reset(),
-                //     new WaitCommand(2), 
-                //     new InstantCommand(m_vision::getItem),
-                //     new Pick(),
-                //     new WaitCommand(2), 
-                //     new Deliver(),
-                //     new Reset(),
-                //     new WaitCommand(2), 
-                //     new InstantCommand(m_vision::getItem),
-                //     new Pick(),
-                //     new WaitCommand(2), 
-                //     new Deliver(),
-                //     new Reset(),
-                //     new WaitCommand(2), 
-                //     new InstantCommand(m_vision::getItem),
-                //     new Pick(),
-                //     new WaitCommand(2), 
-                //     new Deliver(),
-                //     new Reset()
-                
-                // new CommandSchedule().raceWith(new CheckItem()),
-                // ),
-                
 
-
-                        
-
-                    
-                
-            
+        
         );
     }
 

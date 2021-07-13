@@ -31,13 +31,16 @@ public class Globals {
     public static double xArm;
     public static double yArm;
     
-    public static double debug1;
+    public static boolean debug1;
     public static double debug2;
     public static double debug3;
-    public static double debug4;
+    public static boolean debug4;
     public static double debug5;
     public static double debug6;
     public static double debug7;
+    public static double debug8 = 0;
+    public static double debug9 = 0 ;
+    public static double debug10 = 0;
 
     public static double kitkatx;
     public static double kitkaty;
@@ -53,7 +56,8 @@ public class Globals {
 
     public static boolean start = false;
 
-
+    static public boolean runFlag;
+    
 
 
 }

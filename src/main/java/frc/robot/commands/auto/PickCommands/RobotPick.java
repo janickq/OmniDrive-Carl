@@ -58,8 +58,8 @@ public class RobotPick extends CommandBase
         
 
 
-        addRequirements(m_drive); // Adds the subsystem to the command
-        m_endFlag = false;
+        //addRequirements(m_drive); // Adds the subsystem to the command
+
         
     }
 
@@ -69,12 +69,14 @@ public class RobotPick extends CommandBase
     @Override
     public void initialize()
     {   
-        m_vision.getItem();
+        Globals.debug8++;
+        // m_vision.getItem();
         dist = getItem(Globals.curItem);
         m_dir = (dist>0)?1:-1;
         dist *= m_dir;      
         m_setpoint = new TrapezoidProfile.State(0, _startSpeed);
         m_goal = new TrapezoidProfile.State(dist, _endSpeed);
+        m_endFlag = false;
         
     }
 

@@ -24,7 +24,7 @@ public class GripperPick extends CommandBase{
     private double dist;
     private int item;
     private int m_dir;
-
+    private boolean itemtrue;
     private double [] itemCo;
 
 
@@ -70,7 +70,7 @@ public class GripperPick extends CommandBase{
             2 = kitkat
             3 = nissin
         */
-
+        itemtrue = true;
         item = itemType;
         _startSpeed = 0;
         _maxSpeed = 3;
@@ -97,14 +97,12 @@ public class GripperPick extends CommandBase{
     @Override
     public void initialize() {
         
-        if (item != 4){
-            if (item == 5)
-                item = 5;
-            else
-                item = Globals.curItem;
-        }
-
-        dist = (itemCo[item] - Globals.curAngle3)*(Math.PI/180);
+        if (itemtrue)
+            dist = (itemCo[item] - Globals.curAngle3)*(Math.PI/180);
+        else
+            dist = (itemCo[Globals.curItem] - Globals.curAngle3)*(Math.PI/180);
+    
+        
         m_dir = (dist>0)?1:-1;
         dist *= m_dir;      
 

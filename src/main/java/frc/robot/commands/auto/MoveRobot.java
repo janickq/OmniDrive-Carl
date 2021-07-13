@@ -52,7 +52,7 @@ public class MoveRobot extends CommandBase
         
         m_goal = new TrapezoidProfile.State(dist, endSpeed);
 
-        addRequirements(m_drive); // Adds the subsystem to the command
+        //addRequirements(m_drive); // Adds the subsystem to the command
 
     }
 

@@ -56,7 +56,7 @@ public class ArmPick extends CommandBase {
         // Easier to make distance positive and use m_dir to keep track of negative
         // speed.
 
-        addRequirements(m_arm); // Adds the subsystem to the command
+        //addRequirements(m_arm); // Adds the subsystem to the command
 
     }
 
@@ -65,7 +65,7 @@ public class ArmPick extends CommandBase {
      */
     @Override
     public void initialize() {
-        
+        Globals.debug9++;
         // gets parameters for speed profile
         xgoal = getItemX(Globals.curItem);
         ygoal = getItemY(Globals.curItem);
@@ -103,7 +103,7 @@ public class ArmPick extends CommandBase {
         itemCo[3] = m_vision.getNissin(1);
 
         // add offset of arm to camera
-        return itemCo[item] + 0.3;
+        return itemCo[item] + 0.27;
     }
 
     public double getItemY(int item){
@@ -118,8 +118,8 @@ public class ArmPick extends CommandBase {
         */
         itemCo[0] = -0.1;
         itemCo[1] = -0.05;
-        itemCo[2] = -0.08;
-        itemCo[3] = -0.05;  
+        itemCo[2] = 0.15;
+        itemCo[3] = 0.15;  
 
         // add offset of arm to camera
         return itemCo[item];
@@ -188,6 +188,7 @@ public class ArmPick extends CommandBase {
     @Override
     public void end(boolean interrupted)
     {
+        Globals.debug10++;
         
     }
 

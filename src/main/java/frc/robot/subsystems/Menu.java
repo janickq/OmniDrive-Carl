@@ -6,11 +6,14 @@ import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import edu.wpi.first.wpilibj2.command.SelectCommand;
+import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 //WPI imports
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constants;
 import frc.robot.Globals;
 import frc.robot.RobotContainer;
-
+import frc.robot.commands.auto.MoveArmXY;
+import frc.robot.commands.auto.MoveTest2;
 import frc.robot.commands.auto.Pick;
 import frc.robot.commands.auto.Test;
 import frc.robot.commands.auto.PickCommands.GripperPick;
@@ -40,7 +43,7 @@ public class Menu extends SubsystemBase
             new SelectCommand(
             Map.ofEntries(
                 Map.entry(menuNum++, new Test()),
-                Map.entry(menuNum++, new GripperPick(4)),
+                Map.entry(menuNum++, new SequentialCommandGroup(new GripperPick(4), new MoveArmXY(Constants.ARM2-0.05, Constants.ARM1+0.15, 0, 0, 0.5))),
                 Map.entry(menuNum++, new GripperPick(2)),
                 Map.entry(menuNum++, new Pick()),
                 Map.entry(menuNum++, new Pick()) 
@@ -49,7 +52,7 @@ public class Menu extends SubsystemBase
 
             // use clearGroupedCommands() to reuse commands
             )
-        );
+        ); 
 
         m_oi.buttonA.whenPressed( ()->{Globals.menuItem--;Globals.menuItem=(Globals.menuItem+menuNum)%menuNum;});
         m_oi.buttonY.whenPressed( ()->{Globals.menuItem++;Globals.menuItem%=menuNum;});

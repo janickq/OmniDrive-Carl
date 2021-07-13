@@ -17,7 +17,8 @@ public class Reset extends AutoCommand {
     
     super(
 
-      new MoveRobotSense(1, -100, 0, 0, 0.3, ()->m_sensor.getIRDistance1() < 80),
+      new MoveRobotSense(1, -100, 0, 0.3, 0.3, ()->m_sensor.getIRDistance1() < 60),
+      new MoveRobot(1, -0.05, 0.3, 0, 0.3),
       new MoveRobot(2, -Math.PI / 2, 0, 0, 1),
       new MoveRobotSense(1, 5, 0, 0, spd2, () -> m_sensor.getCobraTotal() > 7000),
       new MoveRobot(1, -0.1, 0, 0, spd2),
@@ -25,11 +26,7 @@ public class Reset extends AutoCommand {
       new MoveRobot(1, 0.1, 0, 0, spd2)
     
     );
-    // clearGroupedCommands();
-  }
-  // @Override
-  // public void end(boolean interrupted) {
-  //   Globals.start = true;
-  // }
+    
 
+  }
 }

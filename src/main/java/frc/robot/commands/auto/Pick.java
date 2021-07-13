@@ -45,10 +45,10 @@ public class Pick extends AutoCommand {
             return CommandSelector.CHIPS;
         else if (Globals.curItem == 3)
             return CommandSelector.NISSIN;
-        else if (Globals.curItem == 2)
-            return CommandSelector.KITKAT;
         else if (Globals.curItem == 1)
             return CommandSelector.BALL;
+         else if (Globals.curItem == 2)
+            return CommandSelector.KITKAT;
         else
             return CommandSelector.END;
 
@@ -136,7 +136,7 @@ public class Pick extends AutoCommand {
             ) 
             
         );
-        // clearGroupedCommands();
+
     }
 
 

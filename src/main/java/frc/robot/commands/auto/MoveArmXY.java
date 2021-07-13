@@ -51,7 +51,7 @@ public class MoveArmXY extends CommandBase {
         // Easier to make distance positive and use m_dir to keep track of negative
         // speed.
 
-        addRequirements(m_arm); // Adds the subsystem to the command
+        //addRequirements(m_arm); // Adds the subsystem to the command
 
     }
 
@@ -81,8 +81,8 @@ public class MoveArmXY extends CommandBase {
         }
         
         //debug stuff
-        Globals.debug2 = 0;
-        Globals.debug4 = dist;
+
+
         Globals.debug5 = startCo[0];
         Globals.debug6 = startCo[1];
     }

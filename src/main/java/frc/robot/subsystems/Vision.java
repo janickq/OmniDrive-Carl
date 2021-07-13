@@ -17,7 +17,7 @@ public class Vision extends SubsystemBase
     // public NetworkTableEntry kitkaty;
 
     private boolean getNewBarcode;
-    private double convert = 0.0006;
+    private double convert = 0.0005;
 
 
     public Vision()
@@ -76,6 +76,7 @@ public class Vision extends SubsystemBase
 
       return kitkat[xy]*convert;
     }
+
     public void getItem(){
 
       Globals.start = true;
@@ -134,13 +135,18 @@ public class Vision extends SubsystemBase
 
         SmartDashboard.putBoolean("checkItem", Globals.checkItem);
         SmartDashboard.putBoolean("Start", Globals.start);
-
+        SmartDashboard.putBoolean("runFlag", Globals.runFlag);
+        SmartDashboard.putBoolean("flag", Globals.debug1);
+        SmartDashboard.putNumber("state", Globals.debug2);  
+        SmartDashboard.putBoolean("m_endflag", Globals.debug4);
         if (getNewBarcode)
         {
             readBarcode();
             SmartDashboard.putBoolean("Get New Barcode", false);
         }
-
+        SmartDashboard.putNumber("debug8", Globals.debug8);
+        SmartDashboard.putNumber("debug9", Globals.debug9);
+        SmartDashboard.putNumber("debug10", Globals.debug10);
 
     }
 

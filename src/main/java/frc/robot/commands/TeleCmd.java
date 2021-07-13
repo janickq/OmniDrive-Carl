@@ -36,7 +36,7 @@ public class TeleCmd extends CommandBase
         //addRequirements(m_omnidrive);
         //m_arm = arm;
         //m_omnidrive = drive;
-        addRequirements(m_arm); //add the traning subsystem as a requirement 
+        //addRequirements(m_arm); //add the traning subsystem as a requirement 
     }
 
     /**
@@ -65,7 +65,7 @@ public class TeleCmd extends CommandBase
         w = -m_oi.getLeftDriveX(); //X-positive is CW. Need to negate
         z = -m_oi.getLeftDriveY();
         
-        m_omnidrive.setRobotSpeedXYW(x, y, w*Math.PI);
+        m_omnidrive.setRobotSpeedXYW(x/2, y/2, w*Math.PI);
         //m_arm.setServo1Angle((Globals.curAngle1+=y*2));
         //m_arm.setServo2Angle((Globals.curAngle2+=z*2));
        // m_arm.setServo3Angle((Globals.curAngle3+=w*2));

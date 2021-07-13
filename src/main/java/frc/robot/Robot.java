@@ -26,7 +26,7 @@ public class Robot extends TimedRobot {
   private RobotContainer m_robotContainer;
   private Command m_startButton;
   private OmniDrive m_omnidrive;
-
+  private Notifier m_follower;
 
   // private void generateEnabledDsPacket(byte[] data, short sendCount) {
   //   data[0] = (byte) (sendCount >> 8);
@@ -50,8 +50,8 @@ public class Robot extends TimedRobot {
     //Run PID in different thread at higher rate
     if (Constants.PID_THREAD) 
     {
-      Notifier follower = new Notifier(() -> { m_omnidrive.doPID(); });
-      follower.startPeriodic(Constants.PID_DT);
+      m_follower = new Notifier(() -> { m_omnidrive.doPID(); });
+      m_follower.startPeriodic(Constants.PID_DT);
     }
     // dsThread.setDaemon(true);
     // dsThread.start();

@@ -18,11 +18,12 @@ public class End extends AutoCommand{
       new MoveRobot(2, Math.PI/4, 0, 0, Math.PI)
       
     );
-    // clearGroupedCommands();
+    //  clearGroupedCommands();
   }
   @Override
   public void end(boolean interrupted) {
     Globals.checkItem = false;
+
   }
 
 }

@@ -9,7 +9,8 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.commands.TeleCmd;
-
+import frc.robot.commands.auto.FollowLine;
+import frc.robot.commands.auto.MoveTest2;
 import frc.robot.commands.auto.Pick;
 import frc.robot.commands.auto.Test;
 import frc.robot.commands.gamepad.OI;
