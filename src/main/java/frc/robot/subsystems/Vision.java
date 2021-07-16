@@ -1,11 +1,15 @@
 package frc.robot.subsystems;
 
+import java.util.Arrays;
+
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.TrajectoryProf;
 import frc.robot.Globals;
+import frc.robot.RobotContainer;
 
 public class Vision extends SubsystemBase
 {
@@ -19,10 +23,12 @@ public class Vision extends SubsystemBase
     private boolean getNewBarcode;
     private double convert = 0.0005;
 
-
+    // private final GetTrajectory m_trajectory = RobotContainer.m_trajectory;
+    
     public Vision()
     {
         SmartDashboard.putBoolean("Get New Barcode", false);
+        
     }
 
     public void readBarcode()
@@ -105,7 +111,15 @@ public class Vision extends SubsystemBase
         
 
     }
-    
+    // public String[] getArray(){
+    //   var trajectorylist = m_trajectory.generateTrajectory();
+    //   String[] array = Arrays.stream(trajectorylist).toArray(String[]::new);
+
+    //   return array;
+      
+    // }
+
+ 
 
     @Override
     public void periodic()
@@ -139,6 +153,7 @@ public class Vision extends SubsystemBase
         SmartDashboard.putBoolean("flag", Globals.debug1);
         SmartDashboard.putNumber("state", Globals.debug2);  
         SmartDashboard.putBoolean("m_endflag", Globals.debug4);
+        // SmartDashboard.putStringArray("trajectorylist", getArray() );
         if (getNewBarcode)
         {
             readBarcode();

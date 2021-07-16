@@ -12,8 +12,11 @@ import edu.wpi.first.wpilibj.DigitalOutput;
 //import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj.controller.PIDController;
+import edu.wpi.first.wpilibj.kinematics.DifferentialDriveKinematics;
+import edu.wpi.first.wpilibj.kinematics.DifferentialDriveOdometry;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
+import edu.wpi.first.wpilibj.trajectory.TrajectoryConfig;
 //WPI imports
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
@@ -21,8 +24,10 @@ import frc.robot.Globals;
 
 public class OmniDrive extends SubsystemBase
 {
-    //Creates all necessary hardware interface here for omni-drive
 
+    //Creates all necessary hardware interface here for omni-drive
+    // DifferentialDriveOdometry m_odometry = new DifferentialDriveOdometry(gyroAngle);
+    // DifferentialDriveKinematics m_kinematics = new DifferentialDriveKinematics(trackWidthMeters);
     //Motors and encoders
     private final TitanQuad[] motors;
     private final TitanQuadEncoder[] encoders;
@@ -124,6 +129,10 @@ public class OmniDrive extends SubsystemBase
         gyro.zeroYaw();
     }
 
+    public void getKinematics(){
+        
+    }
+
     public void resetHeading() {
         curHeading = targetHeading = getYawRad();
     }
@@ -164,6 +173,7 @@ public class OmniDrive extends SubsystemBase
     public void setRobotSpeedType(int type, double speed) {
         pidInputs[type] = speed; 
     }
+    
 
     public void doPID( ){
 
