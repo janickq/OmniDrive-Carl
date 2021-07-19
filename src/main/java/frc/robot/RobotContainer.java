@@ -31,12 +31,13 @@ public class RobotContainer {
   /**
    * Create the subsystems and gamepad objects
    */
-  public final static TrajectoryProf m_trajectory = new TrajectoryProf();
+
   public final static Vision m_vision = new Vision();
   public final static OI m_oi = new OI();
   public final static Sensor m_sensor = new Sensor();
-
+  public final static TrajectoryProf m_trajectory = new TrajectoryProf();
   public final static OmniDrive m_omnidrive = new OmniDrive();
+  public final static DriveTest m_drivetest = new DriveTest();
   public final static Arm m_arm = new Arm();
   public final static TeleCmd m_teleCmd = new TeleCmd();// (m_arm, m_omnidrive);
   public final static Menu m_menu = new Menu();

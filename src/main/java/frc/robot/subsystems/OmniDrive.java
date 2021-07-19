@@ -1,5 +1,7 @@
 package frc.robot.subsystems;
 
+import com.kauailabs.navx.IMUProtocol.GyroUpdate;
+
 //Java imports
 
 //Vendor imports
@@ -12,6 +14,8 @@ import edu.wpi.first.wpilibj.DigitalOutput;
 //import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj.controller.PIDController;
+import edu.wpi.first.wpilibj.geometry.Rotation2d;
+import edu.wpi.first.wpilibj.kinematics.ChassisSpeeds;
 import edu.wpi.first.wpilibj.kinematics.DifferentialDriveKinematics;
 import edu.wpi.first.wpilibj.kinematics.DifferentialDriveOdometry;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
@@ -25,9 +29,15 @@ import frc.robot.Globals;
 public class OmniDrive extends SubsystemBase
 {
 
-    //Creates all necessary hardware interface here for omni-drive
-    // DifferentialDriveOdometry m_odometry = new DifferentialDriveOdometry(gyroAngle);
-    // DifferentialDriveKinematics m_kinematics = new DifferentialDriveKinematics(trackWidthMeters);
+    public static final double kMaxSpeed = 3.0; // meters per second
+    public static final double kMaxAngularSpeed = 2 * Math.PI; // one rotation per second
+
+    private static final double kTrackWidth = 0.195 * 2; // meters
+    private static final double kWheelRadius = Constants.KWHEELDIAMETER/2; // meters
+
+    private final DifferentialDriveKinematics m_kinematics;
+    private final DifferentialDriveOdometry m_odometry;
+
     //Motors and encoders
     private final TitanQuad[] motors;
     private final TitanQuadEncoder[] encoders;
@@ -46,9 +56,14 @@ public class OmniDrive extends SubsystemBase
     //For testing. These should be in another subsystem
     private double pid_dT = Constants.PID_DT;
 
+
+
     // Sensors
 
     private final AHRS gyro;
+
+
+
 
     // Shuffleboard
     private final ShuffleboardTab tab = Shuffleboard.getTab("OmniDrive");
@@ -104,7 +119,13 @@ public class OmniDrive extends SubsystemBase
         // gyro for rotational heading control
         gyro = new AHRS(SPI.Port.kMXP);
         gyro.zeroYaw();
+
         curHeading = targetHeading = getYawRad();
+
+        m_kinematics = new DifferentialDriveKinematics(kTrackWidth);
+        m_odometry = new DifferentialDriveOdometry(Rotation2d.fromDegrees(gyro.getRawGyroZ()));
+        //left encoder = 2 right encoder = 0
+
     }
 
     public double getYawRad() {

@@ -14,6 +14,7 @@ import java.util.List;
 import org.opencv.objdetect.HOGDescriptor;
 
 import edu.wpi.first.networktables.NetworkTableEntry;
+import edu.wpi.first.wpilibj.controller.RamseteController;
 import edu.wpi.first.wpilibj.geometry.Pose2d;
 import edu.wpi.first.wpilibj.geometry.Rotation2d;
 import edu.wpi.first.wpilibj.geometry.Translation2d;
@@ -25,24 +26,27 @@ import edu.wpi.first.wpilibj.trajectory.TrajectoryConfig;
 import edu.wpi.first.wpilibj.trajectory.TrajectoryGenerator;
 import edu.wpi.first.wpilibj.trajectory.Trajectory.State;
 import edu.wpi.first.wpilibj.util.Units;
+
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import edu.wpi.first.wpilibj2.command.RamseteCommand;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import edu.wpi.first.wpi;
 
 
-public class TrajectoryProf extends SubsystemBase {
+public class TrajectoryProf extends CommandBase{
 
   String[] traj;
   String[] string = new String[] { "asd", "sd", "fdsa" };
   String string2;
-  private final ShuffleboardTab tab = Shuffleboard.getTab("Trajectory");
+  // private final static DriveTest m_drivetest = RobotContainer.m_drivetest;
 
-  private final NetworkTableEntry D_TrajectoryList = tab.add("Trajectory List", 1).getEntry();
+
 
   public TrajectoryProf() {
-    Object[] objs = generateTrajectory();
-    traj = asStrings(objs);
-    string2 = String.join("", string);
+    // Object[] objs = generateTrajectory();
+    // traj = asStrings(objs);
+    // string2 = String.join("", string);
+
+    // RamseteCommand command = new RamseteCommand(generateTrajectory(), m_drivetest::getPose, new RamseteController(), m_drivetest::getKinematics , m_drivetest::setSpeeds, m_drivetest);
 
   }
 
@@ -52,7 +56,8 @@ public class TrajectoryProf extends SubsystemBase {
         strArray[i] = String.valueOf(objArray[i]);
     return strArray;
   }
-  public Object[] generateTrajectory() {
+
+  public Trajectory generateTrajectory() {
 
     // 2018 cross scale auto waypoints.
     var start = new Pose2d(0, 0,
@@ -76,7 +81,7 @@ public class TrajectoryProf extends SubsystemBase {
     var trajectorylist = trajectory.getStates().toArray();
     // String[] array = Arrays.copyOf(trajectorylist, trajectorylist.length, String[].class);
 
-    return  trajectorylist;
+    return trajectory;
     
 
     // return trajectory.getStates().toArray();
@@ -84,13 +89,13 @@ public class TrajectoryProf extends SubsystemBase {
 
   
 
-  @Override
-  public void periodic() {
-    // TODO Auto-generated method stub
-    SmartDashboard.putStringArray("trajectory", traj);
-    D_TrajectoryList.setString("asdasfdsfudghoiajfdks");
-    System.out.println("hello");
-  }
+  // @Override
+  // public void periodic() {
+  //   // TODO Auto-generated method stub
+  //   SmartDashboard.putStringArray("trajectory", traj);
+  //   D_TrajectoryList.setString("asdasfdsfudghoiajfdks");
+  //   System.out.println("hello");
+  // }
 }
 
 
