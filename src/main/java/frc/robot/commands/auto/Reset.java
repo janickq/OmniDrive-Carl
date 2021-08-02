@@ -1,7 +1,5 @@
 package frc.robot.commands.auto;
 
-import edu.wpi.first.wpilibj2.command.InstantCommand;
-import frc.robot.Globals;
 import frc.robot.RobotContainer;
 import frc.robot.subsystems.Sensor;
 import frc.robot.subsystems.Vision;
@@ -9,7 +7,6 @@ import frc.robot.subsystems.Vision;
 public class Reset extends AutoCommand {
 
   private final static Sensor m_sensor = RobotContainer.m_sensor;
-  private final static Vision m_vision = RobotContainer.m_vision;
   private static double spd1 = 0.3;
   private static double spd2 = 0.1;
   

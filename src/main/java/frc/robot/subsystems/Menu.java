@@ -13,15 +13,9 @@ import frc.robot.Constants;
 import frc.robot.Globals;
 import frc.robot.RobotContainer;
 import frc.robot.commands.auto.MoveArmXY;
-import frc.robot.commands.auto.MoveTest2;
 import frc.robot.commands.auto.Pick;
 import frc.robot.commands.auto.Test;
 import frc.robot.commands.auto.PickCommands.GripperPick;
-// import frc.robot.commands.auto.MoveTypes.MoveBack;
-// import frc.robot.commands.auto.MoveTypes.MoveCurve;
-// import frc.robot.commands.auto.MoveTypes.MoveLeft;
-// import frc.robot.commands.auto.MoveTypes.MoveRight;
-//import frc.robot.commands.auto.TestMove;
 import frc.robot.commands.gamepad.OI;
 
 public class Menu extends SubsystemBase
@@ -31,8 +25,6 @@ public class Menu extends SubsystemBase
 
     // Shuffleboard
     private final ShuffleboardTab tab = Shuffleboard.getTab("Menu");
-    //private final NetworkTableEntry D_servoPos = tab.add("Servo Position", 0).withWidget(BuiltInWidgets.kNumberSlider)
-    //       .withProperties(Map.of("min", 0, "max", 300)).getEntry();
     private final NetworkTableEntry D_button = tab.add("button", "?").getEntry();
     private final NetworkTableEntry D_menu = tab.add("menu", "?").getEntry();
     int menuNum=0;
@@ -68,7 +60,7 @@ public class Menu extends SubsystemBase
     @Override
     public void periodic()
     {
-      
+    
         D_menu.setString( menuName[Globals.menuItem]);
 
     }

@@ -3,21 +3,11 @@ package frc.robot.commands.auto;
 import java.util.Map;
 
 import edu.wpi.first.wpilibj2.command.SelectCommand;
-import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
-import edu.wpi.first.wpilibj2.command.WaitCommand;
-import frc.robot.Constants;
 import frc.robot.Globals;
-import frc.robot.RobotContainer;
-import frc.robot.commands.auto.PickCommands.ArmPick;
-import frc.robot.commands.auto.PickCommands.GripperPick;
-import frc.robot.commands.auto.PickCommands.RobotPick;
-import frc.robot.subsystems.Sensor;
+import frc.robot.Points;
+
 
 public class Deliver extends AutoCommand {
-
-  private static double spd1 = 0.3;
-  private static double spd2 = 0.1;
-  private final static Sensor m_sensor = RobotContainer.m_sensor;
 
   private enum CommandSelector {
     CHIPS, NISSIN, KITKAT, BALL, END;
@@ -56,82 +46,26 @@ public class Deliver extends AutoCommand {
       new SelectCommand(Map.ofEntries(
 
           Map.entry(CommandSelector.CHIPS, 
-              new SequentialCommandGroup(
 
-                new MoveRobot(2, Math.PI / 2, 0, 0, 1),
-                new WaitCommand(1),
-                new MoveRobotSense(0, -20, 0, 0, spd1, () -> m_sensor.getIRDistance2() < 50),
-                new WaitCommand(1),
-                new MoveRobotSense(1, 20, 0, 0.1, spd1, () -> m_sensor.getCobraTotal() > 7000),
-                new MoveRobot(1, 0.1, 0.1, 0, spd2), 
-                new MoveRobotSense(0, -20, 0, 0, spd2, () -> m_sensor.getIRDistance2() < 50),
-                new WaitCommand(1),
-                new MoveRobotSense(1, 5, 0, 0, spd2, () -> m_sensor.getCobraTotal() > 7000),
-                new MoveRobot(1, -0.1, 0, 0, spd2),
-                new MoveRobotSense(0, 5, 0, 0, spd2, () -> m_sensor.getCobraTotal() > 6000),
-                new MoveRobot(1, 0.1, 0, 0, spd2),
-                new GripperPick(4)
-              )
+              new MovePose(Points.chipsDrop)
+
           ),
 
           Map.entry(CommandSelector.NISSIN,
-              new SequentialCommandGroup( 
-                
-                new MoveRobot(2, Math.PI / 2, 0, 0, 1),
-                new WaitCommand(1),
-                new MoveRobotSense(0, -20, 0, 0, spd1, () -> m_sensor.getIRDistance2() < 50),
-                new WaitCommand(1),
-                new MoveRobotSense(1, 20, 0, 0.1, spd1, () -> m_sensor.getCobraTotal() > 7000),
-                new MoveRobot(1, 0.1, 0.1, 0, spd2), 
-                new MoveRobotSense(0, -20, 0, 0, spd2, () -> m_sensor.getIRDistance2() < 50),
-                new WaitCommand(1),
-                new MoveRobotSense(1, 5, 0, 0, spd2, () -> m_sensor.getCobraTotal() > 7000),
-                new MoveRobot(1, -0.1, 0, 0, spd2),
-                new MoveRobotSense(0, 5, 0, 0, spd2, () -> m_sensor.getCobraTotal() > 6000),
-                new MoveRobot(1, 0.1, 0, 0, spd2),
-                new GripperPick(4)
 
-              )
+              new MovePose(Points.nissinDrop) 
           ),
 
           Map.entry(CommandSelector.KITKAT, 
-              new SequentialCommandGroup( 
 
-                new MoveRobot(2, Math.PI / 2, 0, 0, 1),
-                new WaitCommand(1),
-                new MoveRobotSense(0, -20, 0, 0, spd1, () -> m_sensor.getIRDistance2() < 50),
-                new WaitCommand(1),
-                new MoveRobotSense(1, 20, 0, 0.1, spd1, () -> m_sensor.getCobraTotal() > 7000),
-                new MoveRobot(1, 0.1, 0.1, 0, spd2), 
-                new MoveRobotSense(0, -20, 0, 0, spd2, () -> m_sensor.getIRDistance2() < 50),
-                new WaitCommand(1),
-                new MoveRobotSense(1, 5, 0, 0, spd2, () -> m_sensor.getCobraTotal() > 7000),
-                new MoveRobot(1, -0.1, 0, 0, spd2),
-                new MoveRobotSense(0, 5, 0, 0, spd2, () -> m_sensor.getCobraTotal() > 6000),
-                new MoveRobot(1, 0.1, 0, 0, spd2),
-                new GripperPick(4) 
+              new MovePose(Points.kitKatDrop)
 
-              )
           ),
                       
           Map.entry(CommandSelector.BALL, 
-              new SequentialCommandGroup( 
 
-                new MoveRobot(2, Math.PI / 2, 0, 0, 1),
-                new WaitCommand(1),
-                new MoveRobotSense(0, -20, 0, 0, spd1, () -> m_sensor.getIRDistance2() < 50),
-                new WaitCommand(1),
-                new MoveRobotSense(1, 20, 0, 0.1, spd1, () -> m_sensor.getCobraTotal() > 7000),
-                new MoveRobot(1, 0.1, 0.1, 0, spd2), 
-                new MoveRobotSense(0, -20, 0, 0, spd2, () -> m_sensor.getIRDistance2() < 50),
-                new WaitCommand(1),
-                new MoveRobotSense(1, 5, 0, 0, spd2, () -> m_sensor.getCobraTotal() > 7000),
-                new MoveRobot(1, -0.1, 0, 0, spd2),
-                new MoveRobotSense(0, 5, 0, 0, spd2, () -> m_sensor.getCobraTotal() > 6000),
-                new MoveRobot(1, 0.1, 0, 0, spd2),
-                new GripperPick(4)
+              new MovePose(Points.ballDrop)
 
-              )
       
           )
       ),
@@ -145,6 +79,18 @@ public class Deliver extends AutoCommand {
      );
 
     //  clearGroupedCommands();
+    // new MoveRobot(2, Math.PI / 2, 0, 0, 1),
+    // new WaitCommand(1),
+    // new MoveRobotSense(0, -20, 0, 0, spd1, () -> m_sensor.getIRDistance2() < 50),
+    // new WaitCommand(1),
+    // new MoveRobotSense(1, 20, 0, 0.1, spd1, () -> m_sensor.getCobraTotal() > 7000),
+    // new MoveRobot(1, 0.1, 0.1, 0, spd2), 
+    // new MoveRobotSense(0, -20, 0, 0, spd2, () -> m_sensor.getIRDistance2() < 50),
+    // new WaitCommand(1),
+    // new MoveRobotSense(1, 5, 0, 0, spd2, () -> m_sensor.getCobraTotal() > 7000),
+    // new MoveRobot(1, -0.1, 0, 0, spd2),
+    // new MoveRobotSense(0, 5, 0, 0, spd2, () -> m_sensor.getCobraTotal() > 6000),
+    // new MoveRobot(1, 0.1, 0, 0, spd2),
 
   }
 }

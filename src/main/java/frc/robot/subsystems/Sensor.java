@@ -9,7 +9,6 @@ import com.studica.frc.Cobra;
 
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.wpilibj.AnalogInput;
-import edu.wpi.first.wpilibj.DigitalOutput;
 import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.Ultrasonic;
@@ -19,7 +18,6 @@ import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 //WPI imports
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
-import frc.robot.Globals;
 
 public class Sensor extends SubsystemBase
 {
@@ -170,13 +168,6 @@ public class Sensor extends SubsystemBase
     public void periodic()
     {
         
-
-        
-
-        
-        //setServo1Angle(D_servoPos.getDouble(0.0));
-        //setServo2Angle(D_servoPos.getDouble(0.0));
-        //setMotorSpeedAll(D_motorSpeed.getDouble(0.0));
         /**
          * Updates for outputs to the shuffleboard
          */

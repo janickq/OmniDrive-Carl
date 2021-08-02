@@ -31,9 +31,7 @@ public class MoveArmXY extends CommandBase {
     private final double ygoal;
     private double[] startCo = new double[2];
     private double trajectoryAngle;
-    private double angleDiff1 = 0;
-    private double angleDiff2 = 0;
-
+    
     /**
      * Constructor
      */

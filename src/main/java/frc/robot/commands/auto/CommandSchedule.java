@@ -1,16 +1,11 @@
 package frc.robot.commands.auto;
 
-import java.util.Map;
-
 import edu.wpi.first.wpilibj2.command.InstantCommand;
-import edu.wpi.first.wpilibj2.command.PerpetualCommand;
-import edu.wpi.first.wpilibj2.command.ScheduleCommand;
-import edu.wpi.first.wpilibj2.command.SelectCommand;
-import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.Globals;
+import frc.robot.Points;
 import frc.robot.RobotContainer;
-import frc.robot.commands.auto.AutoCommand;
+import frc.robot.commands.auto.PickCommands.GripperPick;
 import frc.robot.subsystems.Vision;
 
 public class CommandSchedule extends AutoCommand{
@@ -25,16 +20,16 @@ public class CommandSchedule extends AutoCommand{
 
     super(
 
-
+      new MovePose(Points.Pick),
       new InstantCommand(m_vision::getItem),
       new Pick(),
       new WaitCommand(2), 
+      new MovePose(Points.waypoint1),
+      new WaitCommand(1),
       new Deliver(),
-      new Reset(),
+      new GripperPick(4),
+      new MovePose(Points.Pick),
       new WaitCommand(2),
-      // new MoveRobot(1, 0.1, 0, 0, 0.5),
-      // new MoveRobot(1, -0.1, 0, 0, 0.5),
-      //new Pick(),
       new InstantCommand(m_vision::getItem),
       new InstantCommand(() -> Globals.runFlag = false )
 

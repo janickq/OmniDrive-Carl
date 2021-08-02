@@ -1,6 +1,6 @@
 package frc.robot;
 
-import java.util.function.BooleanSupplier;
+import edu.wpi.first.wpilibj.geometry.Pose2d;
 
 public class Globals {
     public static double distCount = 0;
@@ -40,7 +40,9 @@ public class Globals {
     public static double debug7;
     public static double debug8 = 0;
     public static double debug9 = 0 ;
-    public static double debug10 = 0;
+    public static String debug10 = "0";
+    public static String debug11 = "0";
+    public static String debug12 = "0";
 
     public static double kitkatx;
     public static double kitkaty;
@@ -57,7 +59,9 @@ public class Globals {
     public static boolean start = false;
 
     static public boolean runFlag;
-    
+
+    public static Pose2d referencePose;
+    public static Pose2d curPose;
 
 
 }

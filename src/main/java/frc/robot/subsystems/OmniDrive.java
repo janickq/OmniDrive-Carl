@@ -1,7 +1,5 @@
 package frc.robot.subsystems;
 
-import com.kauailabs.navx.IMUProtocol.GyroUpdate;
-
 //Java imports
 
 //Vendor imports
@@ -10,34 +8,22 @@ import com.studica.frc.TitanQuad;
 import com.studica.frc.TitanQuadEncoder;
 
 import edu.wpi.first.networktables.NetworkTableEntry;
-import edu.wpi.first.wpilibj.DigitalOutput;
 //import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj.controller.PIDController;
+import edu.wpi.first.wpilibj.geometry.Pose2d;
 import edu.wpi.first.wpilibj.geometry.Rotation2d;
-import edu.wpi.first.wpilibj.kinematics.ChassisSpeeds;
-import edu.wpi.first.wpilibj.kinematics.DifferentialDriveKinematics;
-import edu.wpi.first.wpilibj.kinematics.DifferentialDriveOdometry;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
-import edu.wpi.first.wpilibj.trajectory.TrajectoryConfig;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 //WPI imports
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import frc.robot.Globals;
+import frc.robot.Points;
 
 public class OmniDrive extends SubsystemBase
 {
-
-    public static final double kMaxSpeed = 3.0; // meters per second
-    public static final double kMaxAngularSpeed = 2 * Math.PI; // one rotation per second
-
-    private static final double kTrackWidth = 0.195 * 2; // meters
-    private static final double kWheelRadius = Constants.KWHEELDIAMETER/2; // meters
-
-    private final DifferentialDriveKinematics m_kinematics;
-    private final DifferentialDriveOdometry m_odometry;
-
     //Motors and encoders
     private final TitanQuad[] motors;
     private final TitanQuadEncoder[] encoders;
@@ -62,6 +48,10 @@ public class OmniDrive extends SubsystemBase
 
     private final AHRS gyro;
 
+    //Odometry
+    private double odometryX = 0;
+    private double odometryY = 0;
+    private double odometryW = 0;
 
 
 
@@ -75,7 +65,12 @@ public class OmniDrive extends SubsystemBase
     private final NetworkTableEntry D_encoderDisp1 = tab.add("Encoder1", 0).getEntry();
     private final NetworkTableEntry D_encoderDisp2 = tab.add("Encoder2", 0).getEntry();
     private final NetworkTableEntry D_inputW = tab.add("inputW", 0).getEntry();
-
+    private final NetworkTableEntry D_encoderPidOut0 = tab.add("pidout0", 0).getEntry();
+    private final NetworkTableEntry D_encoderPidOut1 = tab.add("pidout1", 0).getEntry();
+    private final NetworkTableEntry D_encoderPidOut2 = tab.add("pidout2", 0).getEntry();
+    private final NetworkTableEntry D_odoX = tab.add("odoX", 0).getEntry();
+    private final NetworkTableEntry D_odoY = tab.add("odoY", 0).getEntry();
+    private final NetworkTableEntry D_odoW = tab.add("odoW", 0).getEntry();
     //Subsystem for omnidrive
     public OmniDrive() {
 
@@ -120,12 +115,29 @@ public class OmniDrive extends SubsystemBase
         gyro = new AHRS(SPI.Port.kMXP);
         gyro.zeroYaw();
 
-        curHeading = targetHeading = getYawRad();
 
-        m_kinematics = new DifferentialDriveKinematics(kTrackWidth);
-        m_odometry = new DifferentialDriveOdometry(Rotation2d.fromDegrees(gyro.getRawGyroZ()));
-        //left encoder = 2 right encoder = 0
+        setPose(Points.jigOffset);
 
+
+
+    }
+
+    public void setPose(Pose2d sPose2d){
+        odometryX = sPose2d.getTranslation().getX();
+        odometryY = sPose2d.getTranslation().getY();
+        odometryW = sPose2d.getRotation().getRadians();
+    }
+
+    public Pose2d getPose() {
+        double dT = 0.02;
+        odometryW += (pidInputs[2])*dT;
+        if (odometryW>Math.PI) odometryW -= Math.PI*2;
+        if (odometryW<-Math.PI) odometryW += Math.PI*2;
+        odometryX += (Math.cos(odometryW)*pidInputs[0] + Math.cos(odometryW+Math.PI/2)*pidInputs[1])*dT;
+        odometryY += (Math.sin(odometryW+Math.PI/2)*pidInputs[1]+ Math.sin(odometryW)*pidInputs[0])*dT;
+        Rotation2d rotation = new Rotation2d(odometryW);
+        
+        return new Pose2d(odometryX, odometryY, rotation);
     }
 
     public double getYawRad() {
@@ -272,8 +284,8 @@ public class OmniDrive extends SubsystemBase
     @Override
     public void periodic()
     {
-        System.out.print("obj");
-        if (initCnt<1) {
+
+        if (initCnt<20) {
             initCnt++;
             gyro.zeroYaw();
             curHeading = targetHeading = getYawRad();
@@ -288,19 +300,24 @@ public class OmniDrive extends SubsystemBase
          * Updates for outputs to the shuffleboard
          */
 
-        //D_curHeading.setDouble(curHeading);
+        D_curHeading.setDouble(curHeading);
         D_curHeading.setDouble(curHeading*180/Math.PI);
         D_tgtHeading.setDouble(targetHeading*180/Math.PI);
         D_navYaw.setDouble(-gyro.getYaw());
-        //Vmx encoder
-        //vmx D_encoderDisp0.setDouble(encoders[0].getDistance());//encoderSpeeds[0]);
-        //vmx D_encoderDisp1.setDouble(encoders[1].getDistance());//encoderSpeeds[1]);
-        //vmx D_encoderDisp2.setDouble(encoders[2].getDistance());//encoderSpeeds[2]);
-        //Titan encoder
-        D_encoderDisp0.setDouble(encoderSpeeds[0]);//encoderSpeeds[0]);
-        D_encoderDisp1.setDouble(encoderSpeeds[1]);//encoders[1].getEncoderDistance());//encoderSpeeds[1]);
-        D_encoderDisp2.setDouble(encoderSpeeds[2]);//encoderSpeeds[2]);
-        D_inputW.setDouble(Globals.debug3);
+
+        D_encoderPidOut0.setDouble(pidInputs[0]);
+        D_encoderPidOut1.setDouble(pidInputs[1]);
+        D_encoderPidOut2.setDouble(pidInputs[2]);
+        D_odoX.setDouble(odometryX);
+        D_odoY.setDouble(odometryY);
+        D_odoW.setDouble(odometryW);
+        Globals.curPose = getPose();
+        // Points.curPoseTransformed = new Pose2d(Globals.curPose.getTranslation(), Globals.curPose.getRotation().times(-1));
+
+        // SmartDashboard.putString("curposetransformed", Points.curPoseTransformed.toString());
+        SmartDashboard.putString("relativePose", Globals.debug11);
+        SmartDashboard.putString("curPose", Globals.curPose.toString());
+        // SmartDashboard.putString("referencePose", Globals.referencePose.toString());
   
     }
 }

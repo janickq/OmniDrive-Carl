@@ -4,13 +4,10 @@ package frc.robot.commands.gamepad;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj2.command.button.Button;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
-import frc.robot.RobotContainer;
-import frc.robot.subsystems.Menu;
 
 public class OI
 {
-    private final Menu m_menu = RobotContainer.m_menu;
-    //Create the joystick
+    // Create the joystick
     public Joystick drivePad;
     public Button buttonStart;
     public Button buttonA;

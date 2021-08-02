@@ -188,7 +188,7 @@ public class ArmPick extends CommandBase {
     @Override
     public void end(boolean interrupted)
     {
-        Globals.debug10++;
+     
         
     }
 

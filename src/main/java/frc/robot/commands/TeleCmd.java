@@ -6,7 +6,6 @@ import frc.robot.RobotContainer;
 //import frc.robot.commands.auto.MoveArm;
 import frc.robot.commands.gamepad.OI;
 import frc.robot.subsystems.Arm;
-import frc.robot.subsystems.Menu;
 import frc.robot.subsystems.OmniDrive;
 
 public class TeleCmd extends CommandBase
@@ -15,7 +14,6 @@ public class TeleCmd extends CommandBase
      * Bring in Subsystem and Gamepad code
      */
     private final OmniDrive m_omnidrive = RobotContainer.m_omnidrive;
-    private final Arm m_arm = RobotContainer.m_arm;
     private final OI m_oi = RobotContainer.m_oi;
 
 

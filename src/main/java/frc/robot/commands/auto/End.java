@@ -1,11 +1,6 @@
 package frc.robot.commands.auto;
 
-import java.util.function.BooleanSupplier;
-
-import edu.wpi.first.wpilibj2.command.InstantCommand;
-import frc.robot.Constants;
 import frc.robot.Globals;
-import frc.robot.commands.auto.PickCommands.GripperPick;
 
 public class End extends AutoCommand{
 

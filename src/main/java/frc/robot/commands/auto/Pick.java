@@ -12,7 +12,6 @@ import frc.robot.RobotContainer;
 import frc.robot.commands.auto.PickCommands.ArmPick;
 import frc.robot.commands.auto.PickCommands.GripperPick;
 import frc.robot.commands.auto.PickCommands.RobotPick;
-import frc.robot.subsystems.Sensor;
 import frc.robot.subsystems.Vision;
 
 

@@ -1,15 +1,11 @@
 package frc.robot.subsystems;
 
-import java.util.Arrays;
-
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.TrajectoryProf;
 import frc.robot.Globals;
-import frc.robot.RobotContainer;
 
 public class Vision extends SubsystemBase
 {
@@ -17,6 +13,7 @@ public class Vision extends SubsystemBase
     private NetworkTable table = inst.getTable("Image");
     private NetworkTableEntry data;
     
+    // private boolean pickedflag = false;
     // public NetworkTableEntry kitkatx;
     // public NetworkTableEntry kitkaty;
 
@@ -118,7 +115,9 @@ public class Vision extends SubsystemBase
     //   return array;
       
     // }
-
+    // public void picked(boolean pick){
+    //   pickedflag = pick;
+    // }
  
 
     @Override
@@ -161,7 +160,8 @@ public class Vision extends SubsystemBase
         }
         SmartDashboard.putNumber("debug8", Globals.debug8);
         SmartDashboard.putNumber("debug9", Globals.debug9);
-        SmartDashboard.putNumber("debug10", Globals.debug10);
+        SmartDashboard.putString("debug10", Globals.debug10);
+        // SmartDashboard.putBoolean("pickedup", pickedflag);
 
     }
 
