@@ -44,6 +44,8 @@ public class MovePose extends CommandBase{
 
   @Override
   public void initialize() {
+
+    Globals.poserunFlag = false;
     i = 0;
     //gets transformed pose
     curPose = Globals.curPose;
@@ -105,6 +107,7 @@ public class MovePose extends CommandBase{
     i = 0;
     Arrays.fill(dist, 0);
     Arrays.fill(m_dir,0);
+    Globals.poserunFlag = true;
   }
 
   @Override

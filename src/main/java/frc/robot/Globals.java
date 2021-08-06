@@ -60,7 +60,7 @@ public class Globals {
 
     public static double compassHeading;
     
-
+    public static boolean poserunFlag;
     static public boolean runFlag;
 
     public static Pose2d referencePose;
