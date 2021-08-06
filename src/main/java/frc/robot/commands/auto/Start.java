@@ -1,5 +1,6 @@
 package frc.robot.commands.auto;
 
+import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.Points;
 import frc.robot.RobotContainer;
@@ -23,6 +24,7 @@ public class Start extends AutoCommand{
           new MoveRobot(1, 0.35, spd1, 0, spd1), 
           new MoveRobot(2, -Math.PI / 2, 0, 0, 1),
           new MoveRobotSense(1, 5, 0, 0, spd2, () -> m_sensor.getCobraTotal() > 7000),
+          new InstantCommand(MoveRobot::getDistMoved),
           new MoveRobot(1, -0.1, 0, 0, spd2),
           new MoveRobotSense(0, 5, 0, 0, spd2, () -> m_sensor.getCobraTotal() > 6000),
           new MoveRobot(1, 0.1, 0, 0, spd2)

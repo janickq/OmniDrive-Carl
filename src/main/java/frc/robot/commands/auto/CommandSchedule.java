@@ -21,6 +21,7 @@ public class CommandSchedule extends AutoCommand{
     super(
 
       new MovePose(Points.Pick),
+      new WaitCommand(2), 
       new InstantCommand(m_vision::getItem),
       new Pick(),
       new WaitCommand(2), 

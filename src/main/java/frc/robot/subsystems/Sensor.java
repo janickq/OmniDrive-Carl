@@ -36,7 +36,8 @@ public class Sensor extends SubsystemBase
     // private final Ultrasonic sonic2;
     private final AnalogInput sharp1;
     private final AnalogInput sharp2;
-    private final AHRS gyro;
+    private final AnalogInput sharp3;
+
 
     /**
      * Shuffleboard
@@ -49,6 +50,7 @@ public class Sensor extends SubsystemBase
     .withProperties(Map.of("min", -1, "max", 1)).getEntry();
     private final NetworkTableEntry D_sharpIR1 = tab.add("Sharp IR 1", 0).getEntry();
     private final NetworkTableEntry D_sharpIR2 = tab.add("Sharp IR 2", 0).getEntry();
+    private final NetworkTableEntry D_sharpIR3 = tab.add("Sharp IR 3", 0).getEntry();
     private final NetworkTableEntry D_ultraSonic1 = tab.add("Ultrasonic1", 0).getEntry();
     private final NetworkTableEntry D_ultraSonic2 = tab.add("Ultrasonic2", 0).getEntry();
     private final NetworkTableEntry D_cobraRaw = tab.add("Cobra Raw", 0).getEntry();
@@ -59,20 +61,21 @@ public class Sensor extends SubsystemBase
     private final NetworkTableEntry D_cobra4 = tab.add("cobra4", 0).getEntry();
     private final NetworkTableEntry D_globals = tab.add("Globals", 0).getEntry();
     private final NetworkTableEntry D_globalstate = tab.add("Globalstate", 0).getEntry();
-    private final NetworkTableEntry D_Compass = tab.add("Compass", 0).getEntry();
+
     
 
     public Sensor() {
-        cobraValue = new double[4];
 
+        cobraValue = new double[4];
 
         // Sensors
         cobra = new Cobra();
         sharp1 = new AnalogInput(Constants.SHARP1);
         sharp2 = new AnalogInput(Constants.SHARP2);
+        sharp3 = new AnalogInput(Constants.SHARP3);
         sonic1 = new Ultrasonic(Constants.SONIC_TRIGG1, Constants.SONIC_ECHO1);
         // sonic2 = new Ultrasonic(Constants.SONIC_TRIGG2, Constants.SONIC_ECHO2);
-        gyro = new AHRS(SPI.Port.kMXP);
+
     }
 
 
@@ -111,6 +114,10 @@ public class Sensor extends SubsystemBase
 
     public double getIRDistance2() {
         return (Math.pow(sharp2.getAverageVoltage(), -1.2045) * 27.726);
+    }
+
+    public double getIRDistance3() {
+        return (Math.pow(sharp3.getAverageVoltage(), -1.2045) * 27.726);
     }
 
     /**
@@ -175,12 +182,13 @@ public class Sensor extends SubsystemBase
          if( x%2 == 0){
              D_sharpIR2.setDouble(getIRDistance2());
              D_sharpIR1.setDouble(getIRDistance1());
+             D_sharpIR3.setDouble(getIRDistance3());
              D_ultraSonic1.setDouble(getSonicDistance1(true)); //set to true because we want metric
             //  D_ultraSonic2.setDouble(getSonicDistance2(true));
          }
 
          else{
-             D_Compass.setDouble(gyro.getCompassHeading());
+            
              for(int i=0; i<4; i++) {
                  cobraValue[i] = getCobraRawValue(i);
              }
@@ -190,6 +198,7 @@ public class Sensor extends SubsystemBase
              D_cobra4.setDouble(cobraValue[3]);
          }
          x++;
+
         // D_cobraRaw.setDouble(offset()); //Just going to use channel 0 for demo
         // D_cobraVoltage.setDouble(getCobraVoltage(0));
 

@@ -71,6 +71,7 @@ public class OmniDrive extends SubsystemBase
     private final NetworkTableEntry D_odoX = tab.add("odoX", 0).getEntry();
     private final NetworkTableEntry D_odoY = tab.add("odoY", 0).getEntry();
     private final NetworkTableEntry D_odoW = tab.add("odoW", 0).getEntry();
+    private final NetworkTableEntry D_Compass = tab.add("Compass", 0).getEntry();
     //Subsystem for omnidrive
     public OmniDrive() {
 
@@ -190,6 +191,12 @@ public class OmniDrive extends SubsystemBase
         motors[1].set(speed1);
         motors[2].set(speed2);
         
+    }
+
+    public void compensateGyro(){
+
+        //0 - 1:34
+        //0.75 - 3:35
     }
     
     /***
@@ -318,6 +325,7 @@ public class OmniDrive extends SubsystemBase
         SmartDashboard.putString("relativePose", Globals.debug11);
         SmartDashboard.putString("curPose", Globals.curPose.toString());
         // SmartDashboard.putString("referencePose", Globals.referencePose.toString());
-  
+        Globals.compassHeading = gyro.getCompassHeading();
+        D_Compass.setDouble(Globals.compassHeading);
     }
 }

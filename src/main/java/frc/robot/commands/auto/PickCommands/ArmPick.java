@@ -118,8 +118,8 @@ public class ArmPick extends CommandBase {
         */
         itemCo[0] = -0.1;
         itemCo[1] = -0.05;
-        itemCo[2] = 0.15;
-        itemCo[3] = 0.15;  
+        itemCo[2] = -0.1;
+        itemCo[3] = -0.05;  
 
         // add offset of arm to camera
         return itemCo[item];

@@ -58,6 +58,9 @@ public class Globals {
 
     public static boolean start = false;
 
+    public static double compassHeading;
+    
+
     static public boolean runFlag;
 
     public static Pose2d referencePose;
