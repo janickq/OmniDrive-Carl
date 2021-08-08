@@ -78,6 +78,6 @@ public class MoveTest2 extends CommandBase
     @Override
     public void end(boolean interrupted)
     {
-        //D_state.setNumber(-1);
+
     }
 }

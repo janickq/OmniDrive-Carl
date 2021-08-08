@@ -36,7 +36,6 @@ public class Points {
   public void updatePoint(String pointname, Pose2d newpose) {
     pointMap.replace(pointname, newpose);
   }
-  
 
   public Pose2d getPoint(String pointname){
     if (pointMap.containsKey(pointname))
@@ -44,16 +43,6 @@ public class Points {
     else
       return Globals.curPose;
   }
-
-
-
-
   
-
-
-
-  
-
-
 
 }

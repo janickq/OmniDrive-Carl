@@ -39,7 +39,7 @@ public class Globals {
     public static double debug6;
     public static double debug7;
     public static double debug8 = 0;
-    public static double debug9 = 0 ;
+    public static double debug9 = 0;
     public static String debug10 = "0";
     public static String debug11 = "0";
     public static String debug12 = "0";

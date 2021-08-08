@@ -78,11 +78,6 @@ public class MoveArmXY extends CommandBase {
             m_endFlag = false;
         }
         
-        //debug stuff
-
-
-        Globals.debug5 = startCo[0];
-        Globals.debug6 = startCo[1];
     }
     /**
      * Condition to end speed profile
@@ -99,7 +94,6 @@ public class MoveArmXY extends CommandBase {
     @Override
     public void execute()
     {
-        
         //Create a new profile to calculate the next setpoint(speed) for the profile
         double[] setAngle = new double[2];
         var profile = new TrapezoidProfile(m_constraints, m_goal, m_setpoint);
@@ -116,11 +110,13 @@ public class MoveArmXY extends CommandBase {
         else if(ygoal < startCo[1]){
             Globals.yArm -= m_setpoint.velocity*dT*Math.sin(trajectoryAngle);
         }
+
         setAngle = m_arm.setArmAngle(Globals.xArm, Globals.yArm);
+
+        //actual control of servo happens in arm subsystem periodic
 
         Globals.curAngle1 = setAngle[0]*(180/Math.PI);
         Globals.curAngle2 = setAngle[1]*(180/Math.PI);
-
 
 
         if ((m_setpoint.position>=m_goal.position) || endCondition()) {
@@ -131,9 +127,6 @@ public class MoveArmXY extends CommandBase {
             m_endFlag = true;
         }
 
-
-
-        
 
     }
 

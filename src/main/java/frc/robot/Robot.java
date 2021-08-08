@@ -27,15 +27,6 @@ public class Robot extends TimedRobot {
   private Notifier m_follower;
 
 
-  // private void generateEnabledDsPacket(byte[] data, short sendCount) {
-  //   data[0] = (byte) (sendCount >> 8);
-  //   data[1] = (byte) sendCount;
-  //   data[2] = 0x01; // general data tag
-  //   data[3] = 0x04; // teleop enabled
-  //   data[4] = 0x10; // normal data request
-  //   data[5] = 0x00; // red 1 station
-  // }
-
   /**
    * This function is run when the robot is first started up and should be used
    * for any initialization code.
@@ -45,7 +36,7 @@ public class Robot extends TimedRobot {
     // Instantiate our RobotContainer.
     m_robotContainer = new RobotContainer();
     m_omnidrive = RobotContainer.m_omnidrive;
-    // m_drivetest = RobotContainer.m_drivetest;
+
 
     //Run PID in different thread at higher rate
     if (Constants.PID_THREAD) 
@@ -55,12 +46,7 @@ public class Robot extends TimedRobot {
       m_follower.startPeriodic(Constants.PID_DT);
 
     }
-    // dsThread.setDaemon(true);
-    // dsThread.start();
 
-    // CameraServer.getInstance().startAutomaticCapture();
-    // CvSink cvSink = CameraServer.getInstance().getVideo();
-    // CvSource outputStream = CameraServer.getInstance().putVideo("camera", 640, 480);
   }
 
   /**
@@ -127,10 +113,7 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void teleopPeriodic() {
-    // if(Globals.start){
-    //   m_commandschedule.schedule();
-    //   Globals.start = false;
-    // }
+
   }
 
   @Override

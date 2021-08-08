@@ -18,15 +18,13 @@ public class Start extends AutoCommand{
   public Start() {
 
     super(
-          // new InstantCommand(m_drive::resetHeading),
-
           new MoveRobotSense(1, 5, 0, 0, spd2, () -> m_sensor.getCobraTotal() > 7000),
           new MoveRobot(1, -0.1, 0, 0, spd2),
           new MoveRobotSense(0, 5, 0, 0, spd2, () -> m_sensor.getCobraTotal() > 6000),
           new MoveRobot(1, 0.1, 0, 0, spd2)
 
     );
-    // clearGroupedCommands();
+
   }
 
 
