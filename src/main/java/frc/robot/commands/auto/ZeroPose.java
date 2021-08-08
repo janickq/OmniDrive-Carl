@@ -13,14 +13,11 @@ public class ZeroPose extends CommandBase{
   private static final OmniDrive m_omnidrive = RobotContainer.m_omnidrive;
 
   boolean endFlag;
-
-  double offsetX;
-  double offsetY;
+  boolean flag;
   double offsetW;
-  double zeroW;
   double compassW;
-  Pose2d zeroPose;
   Command cmd;
+
   public ZeroPose(){
 
 
@@ -29,40 +26,41 @@ public class ZeroPose extends CommandBase{
 
   @Override
   public void initialize() {
-
+    flag = false;
     endFlag = false;
+    Globals.poserunFlag = false;
 
-    for(int i = 0; i < 10; i++){
-      compassW += Globals.compassHeading;
-    }
-    compassW = compassW/10;
-
-    zeroW = (Globals.curPose.getRotation().getRadians()
-            + compassW)/2;
-
-    offsetW = Globals.curPose.getRotation().getRadians();
+    compassW = 0;
     
-    zeroPose = new Pose2d(Globals.curPose.getTranslation(), new Rotation2d(offsetW));
+    compassW = m_omnidrive.getCompassHeading();
 
-    cmd = new MovePose(zeroPose);
-    cmd.schedule();
+
+    offsetW = (Globals.referenceHeading - compassW)/2;
+    Globals.headingError = offsetW;
+
+
+    cmd = new MoveRobot(2, offsetW , 0, 0, 0.1);
+
 
   }
   
   @Override
   public void execute() {
-    if (Globals.poserunFlag)
+    if (flag==false) {
+      cmd.schedule(false);
+      flag = true;
+    }
+    else if(Globals.poserunFlag)
       endFlag = true;
+    
   }
+
+
 
   @Override
   public boolean isFinished() {
     return endFlag;
   }
 
-  @Override
-  public void end(boolean interrupted) {
-    m_omnidrive.setPose(zeroPose);
-  }
 
 }

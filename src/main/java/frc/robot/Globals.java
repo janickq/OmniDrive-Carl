@@ -55,13 +55,17 @@ public class Globals {
 
     public static double ballx;
     public static double bally;
+    
 
     public static boolean start = false;
 
     public static double compassHeading;
+    public static double referenceHeading;
+    public static double headingError = 0;
     
-    public static boolean poserunFlag;
+    public static boolean poserunFlag = false;
     static public boolean runFlag;
+    
 
     public static Pose2d referencePose;
     public static Pose2d curPose;

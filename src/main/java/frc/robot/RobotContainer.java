@@ -23,7 +23,7 @@ public class RobotContainer {
   /**
    * Create the subsystems and gamepad objects
    */
-
+  public final static Points m_points = new Points();
   public final static Vision m_vision = new Vision();
   public final static OI m_oi = new OI();
   public final static Sensor m_sensor = new Sensor();

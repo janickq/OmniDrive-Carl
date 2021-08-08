@@ -21,9 +21,12 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import frc.robot.Globals;
 import frc.robot.Points;
+import frc.robot.RobotContainer;
 
 public class OmniDrive extends SubsystemBase
 {
+
+    private final static Points m_points = RobotContainer.m_points;
     //Motors and encoders
     private final TitanQuad[] motors;
     private final TitanQuadEncoder[] encoders;
@@ -38,6 +41,7 @@ public class OmniDrive extends SubsystemBase
     private double[] wheelSpeeds;
     private double curHeading, targetHeading;
     private double[] motorOuts;
+    private double headingDiv;
 
     //For testing. These should be in another subsystem
     private double pid_dT = Constants.PID_DT;
@@ -72,6 +76,9 @@ public class OmniDrive extends SubsystemBase
     private final NetworkTableEntry D_odoY = tab.add("odoY", 0).getEntry();
     private final NetworkTableEntry D_odoW = tab.add("odoW", 0).getEntry();
     private final NetworkTableEntry D_Compass = tab.add("Compass", 0).getEntry();
+    private final NetworkTableEntry D_HeadingError = tab.add("HeadingError", 0).getEntry();
+    private final NetworkTableEntry D_referencePose = tab.add("poseendflag", 0).getEntry();
+    private final NetworkTableEntry D_referenceAngle = tab.add("ReferenceAngle", 0).getEntry();
     //Subsystem for omnidrive
     public OmniDrive() {
 
@@ -117,9 +124,35 @@ public class OmniDrive extends SubsystemBase
         gyro.zeroYaw();
 
 
-        setPose(Points.jigOffset);
+        // setPose(Points.getPoint("jigOffset"));
+        setPose(m_points.getPoint("jigOffset"));
+        setreferencePose();
 
 
+    }
+
+    public void setreferenceHeading(){
+        headingDiv = 0;
+        for(int i = 0; i <10; i++){
+            headingDiv += gyro.getCompassHeading()*(Math.PI/180);
+        }
+
+        Globals.referenceHeading = -headingDiv/10;
+
+    }
+
+    public double getCompassHeading(){
+        headingDiv = 0;
+        for(int i = 0; i <10; i++){
+            headingDiv += gyro.getCompassHeading()*(Math.PI/180);
+        }
+
+        return -headingDiv/10;
+    }
+
+    public void setreferencePose(){
+
+        Globals.referencePose = getPose();
 
     }
 
@@ -127,6 +160,10 @@ public class OmniDrive extends SubsystemBase
         odometryX = sPose2d.getTranslation().getX();
         odometryY = sPose2d.getTranslation().getY();
         odometryW = sPose2d.getRotation().getRadians();
+    }
+
+    public void resetPose(){
+        setPose(Globals.referencePose);
     }
 
     public Pose2d getPose() {
@@ -325,7 +362,11 @@ public class OmniDrive extends SubsystemBase
         SmartDashboard.putString("relativePose", Globals.debug11);
         SmartDashboard.putString("curPose", Globals.curPose.toString());
         // SmartDashboard.putString("referencePose", Globals.referencePose.toString());
-        Globals.compassHeading = gyro.getCompassHeading();
+        Globals.compassHeading = getCompassHeading();
         D_Compass.setDouble(Globals.compassHeading);
+        D_HeadingError.setDouble(Globals.headingError);
+        D_referenceAngle.setDouble(Globals.referenceHeading);
+        D_referencePose.setBoolean(Globals.poserunFlag);
+        SmartDashboard.putString("referencePose", Globals.referencePose.toString());
     }
 }

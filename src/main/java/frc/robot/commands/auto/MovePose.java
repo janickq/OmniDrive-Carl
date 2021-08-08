@@ -9,13 +9,16 @@ import edu.wpi.first.wpilibj.geometry.Translation2d;
 import edu.wpi.first.wpilibj.trajectory.TrapezoidProfile;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Globals;
+import frc.robot.Points;
 import frc.robot.RobotContainer;
 import frc.robot.subsystems.OmniDrive;
 
 public class MovePose extends CommandBase{
 
   private final OmniDrive m_omnidrive = RobotContainer.m_omnidrive;
+  private final Points m_points = RobotContainer.m_points;
 
+  String pointName;
   Pose2d curPose;
   Pose2d desiredPose;
   Transform2d relativePose;
@@ -37,21 +40,26 @@ public class MovePose extends CommandBase{
   }
 
   public MovePose(Pose2d desiredPose){
-    
     this.desiredPose = desiredPose;
+  }
+
+  public MovePose(String pointName){
+    
+    this.pointName = pointName;
 
   }
+
+
 
   @Override
   public void initialize() {
 
+    desiredPose = m_points.getPoint(pointName);
     Globals.poserunFlag = false;
     i = 0;
     //gets transformed pose
     curPose = Globals.curPose;
     relativePose = new Transform2d(curPose,desiredPose);
-
-
 
     newdesiredTranslation = relativePose.getTranslation().rotateBy(curPose.getRotation());
     // relativePose = newdesiredPose

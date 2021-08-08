@@ -47,24 +47,24 @@ public class Deliver extends AutoCommand {
 
           Map.entry(CommandSelector.CHIPS, 
 
-              new MovePose(Points.chipsDrop)
+              new MovePose("chipsDrop")
 
           ),
 
           Map.entry(CommandSelector.NISSIN,
 
-              new MovePose(Points.nissinDrop) 
+              new MovePose("nissinDrop") 
           ),
 
           Map.entry(CommandSelector.KITKAT, 
 
-              new MovePose(Points.kitKatDrop)
+              new MovePose("kitKatDrop")
 
           ),
                       
           Map.entry(CommandSelector.BALL, 
 
-              new MovePose(Points.ballDrop)
+              new MovePose("ballDrop")
 
       
           )
