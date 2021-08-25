@@ -26,8 +26,8 @@ public final class Constants
     public static final int MOTOR_NUM       = 3;
     public static final int SERVO1          = 9;
     public static final int SERVO2          = 8;
-
     public static final int SERVO3          = 7;
+    public static final int SERVO4          = 6;
     public static final int SERVO_C         = 0;
 
     /**

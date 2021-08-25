@@ -55,7 +55,24 @@ public class Globals {
 
     public static double ballx;
     public static double bally;
+
+    public static double GreenBoxx;
+    public static double GreenBoxy;
     
+    public static double YellowBoxx;
+    public static double YellowBoxy;
+
+    public static double RedBoxx;
+    public static double RedBoxy;
+
+    public static double BlackBoxx;
+    public static double BlackBoxy;
+
+    public static double BlueBoxx;
+    public static double BlueBoxy;
+
+    public static double Binx;
+    public static double Biny;
 
     public static boolean start = false;
 

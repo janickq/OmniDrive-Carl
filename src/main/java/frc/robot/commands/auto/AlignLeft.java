@@ -1,0 +1,33 @@
+package frc.robot.commands.auto;
+
+import edu.wpi.first.wpilibj2.command.InstantCommand;
+import edu.wpi.first.wpilibj2.command.WaitCommand;
+import frc.robot.Globals;
+import frc.robot.Points;
+import frc.robot.RobotContainer;
+import frc.robot.commands.auto.PickCommands.GripperPick;
+import frc.robot.subsystems.OmniDrive;
+import frc.robot.subsystems.Sensor;
+
+public class AlignLeft extends AutoCommand{
+  private static double spd1 = 0.3;
+  private static double spd2 = 0.1;
+  private final static Sensor m_sensor = RobotContainer.m_sensor;
+  private final static OmniDrive m_omnidrive = RobotContainer.m_omnidrive;
+  
+  public AlignLeft() {
+
+    super(
+
+          new MoveRobotSense(1, 5, 0, 0, spd2, () -> m_sensor.getCobraTotal() > 7000),
+          new MoveRobot(1, -0.1, 0, 0, spd2),
+          new MoveRobotSense(0, 5, 0, 0, spd2, () -> m_sensor.getCobraTotal() > 6000),
+          new MoveRobot(1, 0.1, 0, 0, spd2)
+
+    );
+
+  }
+
+
+
+}

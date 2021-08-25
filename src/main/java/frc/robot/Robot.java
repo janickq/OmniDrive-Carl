@@ -12,6 +12,7 @@ import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import frc.robot.subsystems.OmniDrive;
+import frc.robot.subsystems.Vision;
 
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to
@@ -24,6 +25,7 @@ public class Robot extends TimedRobot {
   private Command m_teleopCommand;
   private RobotContainer m_robotContainer;
   private OmniDrive m_omnidrive;
+  private Vision m_vision;
   private Notifier m_follower;
 
 
@@ -45,6 +47,7 @@ public class Robot extends TimedRobot {
     // Instantiate our RobotContainer.
     m_robotContainer = new RobotContainer();
     m_omnidrive = RobotContainer.m_omnidrive;
+
     // m_drivetest = RobotContainer.m_drivetest;
 
     //Run PID in different thread at higher rate
@@ -75,6 +78,7 @@ public class Robot extends TimedRobot {
     CommandScheduler.getInstance().run();
     System.out.println("Hi");
     CommandScheduler.getInstance().enable();
+    
   }
 
   /**
@@ -87,6 +91,8 @@ public class Robot extends TimedRobot {
 
   @Override
   public void disabledPeriodic() {
+
+    
   }
 
   /**

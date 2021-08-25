@@ -5,14 +5,18 @@ import java.util.Map;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
+import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.SelectCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 //WPI imports
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import frc.robot.Globals;
+import frc.robot.Points;
 import frc.robot.RobotContainer;
 import frc.robot.commands.auto.MoveArmXY;
+import frc.robot.commands.auto.MovePose;
+import frc.robot.commands.auto.MoveRobot;
 import frc.robot.commands.auto.Pick;
 import frc.robot.commands.auto.Test;
 import frc.robot.commands.auto.PickCommands.GripperPick;
@@ -22,6 +26,8 @@ public class Menu extends SubsystemBase
 {
 
     private final OI m_oi = RobotContainer.m_oi;
+    private final Vision m_vision = RobotContainer.m_vision;
+    private final Points m_points = RobotContainer.m_points;
 
     // Shuffleboard
     private final ShuffleboardTab tab = Shuffleboard.getTab("Menu");
@@ -35,9 +41,20 @@ public class Menu extends SubsystemBase
             new SelectCommand(
             Map.ofEntries(
                 Map.entry(menuNum++, new Test()),
-                Map.entry(menuNum++, new SequentialCommandGroup(new GripperPick(4), new MoveArmXY(Constants.ARM2-0.05, Constants.ARM1+0.15, 0, 0, 0.5))),
-                Map.entry(menuNum++, new GripperPick(2)),
-                Map.entry(menuNum++, new Pick()),
+
+                Map.entry(menuNum++, 
+                    new SequentialCommandGroup(
+                        new GripperPick(4), 
+                        new MoveArmXY(Constants.ARM2-0.05, Constants.ARM1+0.15, 0, 0, 0.5)
+                    )
+                ),
+
+                Map.entry(menuNum++, 
+                    new InstantCommand()
+                ),
+
+                Map.entry(menuNum++, new MovePose(m_vision.getDropPose("RedBox", "BlackBox"))),
+
                 Map.entry(menuNum++, new Pick()) 
                 ),
             ()->Globals.menuItem

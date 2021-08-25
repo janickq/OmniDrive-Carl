@@ -1,31 +1,55 @@
 package frc.robot.subsystems;
 
+import com.studica.frc.Servo;
+
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
+import edu.wpi.first.wpilibj.geometry.Pose2d;
+import edu.wpi.first.wpilibj.geometry.Rotation2d;
+import edu.wpi.first.wpilibj.geometry.Transform2d;
+import edu.wpi.first.wpilibj.geometry.Translation2d;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constants;
 import frc.robot.Globals;
+import frc.robot.Points;
+import frc.robot.RobotContainer;
 
 public class Vision extends SubsystemBase
 {
     private NetworkTableInstance inst = NetworkTableInstance.getDefault();
     private NetworkTable table = inst.getTable("Image");
     private NetworkTableEntry data;
+    private final Servo servo3;
+    private final Points m_points = RobotContainer.m_points;
     
-    // private boolean pickedflag = false;
-    // public NetworkTableEntry kitkatx;
-    // public NetworkTableEntry kitkaty;
+
+    double cameraAngle;
+    boolean pickedflag;
 
     private boolean getNewBarcode;
-    private double convert = 0.0005;
+    private double convert = 0.001;
 
     // private final GetTrajectory m_trajectory = RobotContainer.m_trajectory;
     
     public Vision()
     {
         SmartDashboard.putBoolean("Get New Barcode", false);
+
+        servo3 = new Servo(Constants.SERVO4);
+        rotateCam(true);
+        servo3.setAngle(110);
         
+    }
+
+    //true = boxes false = items
+    public void rotateCam(boolean pickup){
+      
+      pickedflag = pickup;
+      if(!pickedflag) cameraAngle = 20;
+      else cameraAngle = 110;
+
     }
 
     public void readBarcode()
@@ -108,16 +132,99 @@ public class Vision extends SubsystemBase
         
 
     }
-    // public String[] getArray(){
-    //   var trajectorylist = m_trajectory.generateTrajectory();
-    //   String[] array = Arrays.stream(trajectorylist).toArray(String[]::new);
+    public double getDistance(String xbox, String ybox, int i){
 
-    //   return array;
+      double[] boxDist = new double[2];
+
+      boxDist[1] = 24424/SmartDashboard.getNumber(ybox, 0);
+      boxDist[0] = Math.tan((SmartDashboard.getNumber(xbox, 0)/320)*35)*boxDist[1];
+
+
+      return boxDist[i];
+
+
+    }
+    
+    public Pose2d getDropPose(String point1, String point2){
+
+      m_points.updatePoint(
+        point1, 
+        new Pose2d(
+          SmartDashboard.getNumber(point1 + "x", 0),
+          SmartDashboard.getNumber(point1 + "y", 0),
+          new Rotation2d(0)
+        )
       
-    // }
-    // public void picked(boolean pick){
-    //   pickedflag = pick;
-    // }
+      );
+      m_points.updatePoint(
+        point2, 
+        new Pose2d(
+          SmartDashboard.getNumber(point2 + "x", 0),
+          SmartDashboard.getNumber(point2 + "y", 0),
+          new Rotation2d(0)
+        )
+      
+      );
+      m_points.updatePoint("Drop2", new Pose2d(
+        (m_points.getPoint(point1).getTranslation().getX() + 
+          m_points.getPoint(point2).getTranslation().getX()
+        )/2,
+
+        (-m_points.getPoint(point1).getTranslation().getY() + 
+         -m_points.getPoint(point2).getTranslation().getY()
+        )/2,
+          
+        new Rotation2d(  
+          Math.atan(
+            (
+              -m_points.getPoint(point1).getTranslation().getY() - 
+              -m_points.getPoint(point2).getTranslation().getY()
+            )/(
+              m_points.getPoint(point1).getTranslation().getX() - 
+              m_points.getPoint(point2).getTranslation().getX()
+            )
+          )
+        )
+
+      ).transformBy(
+        new Transform2d(
+          new Translation2d(-10, -50),
+          new Rotation2d(0)
+        )
+      )
+    );
+
+      return new Pose2d(
+        (m_points.getPoint(point1).getTranslation().getX() + 
+          m_points.getPoint(point2).getTranslation().getX()
+        )/2,
+
+        (-m_points.getPoint(point1).getTranslation().getY() + 
+         -m_points.getPoint(point2).getTranslation().getY()
+        )/2,
+          
+        new Rotation2d(  
+          Math.atan(
+            (
+              -m_points.getPoint(point1).getTranslation().getY() - 
+              -m_points.getPoint(point2).getTranslation().getY()
+            )/(
+              m_points.getPoint(point1).getTranslation().getX() - 
+              m_points.getPoint(point2).getTranslation().getX()
+            )
+          )
+        )
+
+      ).transformBy(
+        new Transform2d(
+          new Translation2d(-10, -50),
+          new Rotation2d(0)
+        )
+      );
+
+    }
+
+
  
 
     @Override
@@ -125,20 +232,26 @@ public class Vision extends SubsystemBase
     {
         printBarcode();
         getNewBarcode = SmartDashboard.getBoolean("Get New Barcode", false);
-        Globals.debug7 = SmartDashboard.getNumber("dsTime" ,1);
+        SmartDashboard.putBoolean("mapping", true);
 
-        Globals.kitkatx = SmartDashboard.getNumber("KitKatx",0);
-        Globals.kitkatx = Globals.kitkatx*0.0002645833;
+        Globals.kitkatx = SmartDashboard.getNumber("KitKatx",0);  
         Globals.kitkaty = SmartDashboard.getNumber("KitKaty",0);
-        Globals.kitkaty = Globals.kitkaty*0.0002645833;
+
         Globals.chipsx = SmartDashboard.getNumber("Chipsx",0);
         Globals.chipsy = SmartDashboard.getNumber("Chipsy",0);
 
         Globals.nissinx = SmartDashboard.getNumber("Nissinx",0);
         Globals.nissiny = SmartDashboard.getNumber("Nissiny",0);
+        
+        String redbox = "RedBox";
+        SmartDashboard.putNumber("RedBoxx", SmartDashboard.getNumber("RedBoxx", 0));
+        SmartDashboard.putNumber("RedBoxy", SmartDashboard.getNumber(redbox+"y", 0));
+        SmartDashboard.putString("DropPose", getDropPose("RedBox", "BlackBox").toString());
+        SmartDashboard.putString("DropPose2", getDropPose("GreenBox", "YellowBox").toString());
 
-        Globals.ballx = SmartDashboard.getNumber("Ballx",0);
-        Globals.ballx = SmartDashboard.getNumber("Bally",0);
+ 
+        
+        
 
         SmartDashboard.putNumber("curItem", Globals.curItem);
         SmartDashboard.putNumber("chipy", getChips(1));
@@ -162,6 +275,7 @@ public class Vision extends SubsystemBase
         SmartDashboard.putNumber("debug9", Globals.debug9);
         SmartDashboard.putString("debug10", Globals.debug10);
         // SmartDashboard.putBoolean("pickedup", pickedflag);
+        servo3.setAngle(120);
 
     }
 

@@ -103,7 +103,7 @@ public class ArmPick extends CommandBase {
         itemCo[3] = m_vision.getNissin(1);
 
         // add offset of arm to camera
-        return itemCo[item] + 0.27;
+        return itemCo[item] + 0.3; //+ 0.27;
     }
 
     public double getItemY(int item){

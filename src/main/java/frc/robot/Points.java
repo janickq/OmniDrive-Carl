@@ -11,18 +11,29 @@ public class Points {
 
   public Map<String, Pose2d> pointMap = new HashMap<>();
 
-  public Pose2d Pick = new Pose2d(1.1-0.15, 1.1+0.16, new Rotation2d(-Math.PI/2));
-  public Pose2d kitKatDrop = new Pose2d(1, 2.6, new Rotation2d(0));
-  public Pose2d chipsDrop = new Pose2d(0.5, 2.6, new Rotation2d(0));
-  public Pose2d waypoint1 = new Pose2d(0.35, 1.1, new Rotation2d(0));
-  public Pose2d nissinDrop = new Pose2d(1, 2.6, new Rotation2d(0));
-  public Pose2d ballDrop = new Pose2d(0.5, 2.6, new Rotation2d(0));
+  public Pose2d Pick = new Pose2d(1.1-0.14, 1.1+0.16, new Rotation2d(-Math.PI/2));
+  public Pose2d kitKatDrop = new Pose2d(0.5, 3.95, new Rotation2d(0));
+  public Pose2d chipsDrop = new Pose2d(0.5, 3.95, new Rotation2d(0));
+  public Pose2d waypoint1 = new Pose2d(1, 3, new Rotation2d(0));
+  public Pose2d nissinDrop = new Pose2d(1.55, 3.6, new Rotation2d(-Math.PI/2));
+  public Pose2d ballDrop = new Pose2d(1.55, 3.6, new Rotation2d(-Math.PI/2));
+  public Pose2d camOffset = new Pose2d(-0.1, 0.3, new Rotation2d(0));
+  public Pose2d BlueBox = new Pose2d();
+  public Pose2d BlackBox = new Pose2d();
+  public Pose2d RedBox = new Pose2d();
+  public Pose2d GreenBox = new Pose2d();
+  public Pose2d YellowBox = new Pose2d();
+  public Pose2d Bin = new Pose2d();
+  public Pose2d Drop2 = new Pose2d();
   
   // public static Pose2d curPoseTransformed;
   public final Pose2d jigOffset = new Pose2d(0.22, 0.23, new Rotation2d(0));
+  public final Pose2d Zero = new Pose2d(0, 0, new Rotation2d(0));
+
 
   public Points(){
 
+    pointMap.put("Zero", Zero);
     pointMap.put("Pick", Pick);
     pointMap.put("kitKatDrop", kitKatDrop);
     pointMap.put("chipsDrop", chipsDrop);
@@ -30,11 +41,23 @@ public class Points {
     pointMap.put("nissinDrop", nissinDrop);
     pointMap.put("ballDrop", ballDrop);
     pointMap.put("jigOffset", jigOffset);
+    pointMap.put("camOffset", camOffset);
+    pointMap.put("Bin", Bin);
+    pointMap.put("YellowBox", YellowBox);
+    pointMap.put("GreenBox", GreenBox);
+    pointMap.put("RedBox", RedBox);
+    pointMap.put("BlackBox", BlackBox);
+    pointMap.put("BlueBox", BlueBox);
+    pointMap.put("Drop2", Drop2);
 
   }
 
   public void updatePoint(String pointname, Pose2d newpose) {
     pointMap.replace(pointname, newpose);
+  }
+
+  public void addPoint(String pointname, Pose2d newpose){
+    pointMap.put(pointname, newpose);
   }
   
 

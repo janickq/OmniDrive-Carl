@@ -46,8 +46,6 @@ public class OmniDrive extends SubsystemBase
     //For testing. These should be in another subsystem
     private double pid_dT = Constants.PID_DT;
 
-
-
     // Sensors
 
     private final AHRS gyro;
@@ -56,7 +54,6 @@ public class OmniDrive extends SubsystemBase
     private double odometryX = 0;
     private double odometryY = 0;
     private double odometryW = 0;
-
 
 
     // Shuffleboard
@@ -125,7 +122,7 @@ public class OmniDrive extends SubsystemBase
 
 
         // setPose(Points.getPoint("jigOffset"));
-        setPose(m_points.getPoint("jigOffset"));
+        setPose(m_points.getPoint("Zero"));
         setreferencePose();
 
 
@@ -348,7 +345,9 @@ public class OmniDrive extends SubsystemBase
         D_curHeading.setDouble(curHeading*180/Math.PI);
         D_tgtHeading.setDouble(targetHeading*180/Math.PI);
         D_navYaw.setDouble(-gyro.getYaw());
-
+        D_encoderDisp0.setDouble(encoderSpeeds[0]);
+        D_encoderDisp1.setDouble(encoderSpeeds[1]);
+        D_encoderDisp2.setDouble(encoderSpeeds[2]);
         D_encoderPidOut0.setDouble(pidInputs[0]);
         D_encoderPidOut1.setDouble(pidInputs[1]);
         D_encoderPidOut2.setDouble(pidInputs[2]);

@@ -103,10 +103,9 @@ public class MovePose extends CommandBase{
    
   @Override
   public void execute() {
-    
 
     i = moveRobot(i);
-    // curPose = Points.curPoseTransformed;  
+
     curPose = Globals.curPose;
   }
 
