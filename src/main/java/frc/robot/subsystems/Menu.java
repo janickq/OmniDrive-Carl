@@ -36,6 +36,7 @@ public class Menu extends SubsystemBase
     int menuNum=0;
     
     private final String[] menuName;
+    
     public Menu() {
         m_oi.buttonStart.whenPressed(             
             new SelectCommand(

@@ -131,7 +131,7 @@ public class Pick extends AutoCommand {
       
             Pick::selectCmd123
       
-            //can use clearGroupedCommands() to reuse commands
+
             ) 
             
         );

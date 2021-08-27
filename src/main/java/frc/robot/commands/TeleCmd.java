@@ -32,9 +32,7 @@ public class TeleCmd extends CommandBase
     public TeleCmd()//(Arm arm, OmniDrive drive)
     {
         //addRequirements(m_omnidrive);
-        //m_arm = arm;
-        //m_omnidrive = drive;
-        //addRequirements(m_arm); //add the traning subsystem as a requirement 
+
     }
 
     /**
@@ -64,15 +62,9 @@ public class TeleCmd extends CommandBase
         z = -m_oi.getLeftDriveY();
         
         m_omnidrive.setRobotSpeedXYW(x/2, y/2, w*Math.PI);
-        //m_arm.setServo1Angle((Globals.curAngle1+=y*2));
-        //m_arm.setServo2Angle((Globals.curAngle2+=z*2));
-       // m_arm.setServo3Angle((Globals.curAngle3+=w*2));
-        Globals.debug3 = y;
-        //m_oi.buttonTest();
 
-        //hardware.setMotorSpeed012(speed0, speed1, speed2);
-        //m_hardware.setPIDSpeed012(speed0, speed1, speed2);
-        //hardware.doPID();
+        Globals.debug3 = y;
+
     }
 
 
@@ -85,7 +77,7 @@ public class TeleCmd extends CommandBase
     @Override
     public void end(boolean interrupted)
     {
-       // m_omnidrive.setMotorSpeedAll(0);
+
     }
 
     /**

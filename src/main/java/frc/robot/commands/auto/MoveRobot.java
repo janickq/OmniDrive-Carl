@@ -99,7 +99,6 @@ public class MoveRobot extends CommandBase
     @Override
     public void end(boolean interrupted)
     {
-        Globals.distCount += m_setpoint.position;
         Globals.poserunFlag = true;
     }
 

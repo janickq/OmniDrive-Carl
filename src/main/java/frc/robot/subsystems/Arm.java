@@ -47,11 +47,6 @@ public class Arm extends SubsystemBase
         Globals.curAngle1 = angleInit[0]*(180/Math.PI);
         Globals.curAngle2 = angleInit[1]*(180/Math.PI);
         Globals.curAngle3 = 0.0;
-        // Globals.servoAngle1 = 90.0;
-        // Globals.servoAngle2 = 90.0;
-        // setServo1Angle(Globals.curAngle1);
-        // setServo2Angle(Globals.curAngle2);
-        // setServo3Angle(Globals.curAngle3);
 
         startCo = getCoordinate(Globals.curAngle1, Globals.curAngle2);
         Globals.xArm = startCo[0];
@@ -131,7 +126,6 @@ public class Arm extends SubsystemBase
     }
 
 
-
         /**
      * Sets the servo speed
      * <p>
@@ -144,10 +138,7 @@ public class Arm extends SubsystemBase
 
     @Override
     public void periodic(){
-        //double[] G = setTrajectory(0.3, 0.25);
-        //D_CurrentAngle.setDouble(Globals.curAngle1);
-        //D_SetPoint.setDouble(Globals.debug1);
-        //D_Goal.setDouble(Globals.debug3);
+
         D_debug1.setDouble(Globals.curAngle1);
         D_debug2.setDouble(Globals.curAngle2);
         D_debug3.setDouble(Globals.debug2);
@@ -155,7 +146,9 @@ public class Arm extends SubsystemBase
         D_yCur.setDouble(Globals.yArm);
         D_dist.setDouble(Globals.debug5);
         D_startCo1.setDouble(Globals.servoAngle1);
-        D_startCo2.setDouble(Globals.servoAngle2);       
+        D_startCo2.setDouble(Globals.servoAngle2);     
+        
+        //servo angle set in periodic
         setServo1Angle(getServoAngle(0));
         setServo2Angle(getServoAngle(1));
         setServo3Angle(Globals.curAngle3);

@@ -69,16 +69,6 @@ public class Points {
     else
       return Globals.curPose;
   }
-
-
-
-
   
-
-
-
-  
-
-
 
 }
