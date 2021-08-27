@@ -24,8 +24,14 @@ public class Test extends AutoCommand{
                 // new InstantCommand(m_omnidrive::setreferencePose),
                 // new InstantCommand(m_omnidrive::setreferenceHeading),
                 // new MoveTest2(),
+                new MapPose("BlackBox", "RedBox", "Drop2"),
+                new MapPose("GreenBox", "YellowBox", "Drop1"),
+                new MovePose("Drop2"),
+                new MovePose("waypoint1"),
+                new MovePose("Drop1"),
+                new MovePose("waypoint1"),
+                new MovePose("Zero")
 
-                new MovePose(m_points.getPoint("Drop2"))
         );
     }
 

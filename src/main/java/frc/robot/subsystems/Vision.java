@@ -145,13 +145,13 @@ public class Vision extends SubsystemBase
 
     }
     
-    public Pose2d getDropPose(String point1, String point2){
+    public Pose2d getDropPose(String point1, String point2, String posename){
 
       m_points.updatePoint(
         point1, 
         new Pose2d(
-          SmartDashboard.getNumber(point1 + "x", 0),
-          SmartDashboard.getNumber(point1 + "y", 0),
+          SmartDashboard.getNumber(point1 + "x", 0)/100,
+          SmartDashboard.getNumber(point1 + "y", 0)/100,
           new Rotation2d(0)
         )
       
@@ -159,13 +159,13 @@ public class Vision extends SubsystemBase
       m_points.updatePoint(
         point2, 
         new Pose2d(
-          SmartDashboard.getNumber(point2 + "x", 0),
-          SmartDashboard.getNumber(point2 + "y", 0),
+          SmartDashboard.getNumber(point2 + "x", 0)/100,
+          SmartDashboard.getNumber(point2 + "y", 0)/100,
           new Rotation2d(0)
         )
       
       );
-      m_points.updatePoint("Drop2", new Pose2d(
+      m_points.updatePoint(posename, new Pose2d(
         (m_points.getPoint(point1).getTranslation().getX() + 
           m_points.getPoint(point2).getTranslation().getX()
         )/2,
@@ -188,7 +188,7 @@ public class Vision extends SubsystemBase
 
       ).transformBy(
         new Transform2d(
-          new Translation2d(-10, -50),
+          new Translation2d(-0.2, -0.4),
           new Rotation2d(0)
         )
       )
@@ -215,12 +215,12 @@ public class Vision extends SubsystemBase
           )
         )
 
-      ).transformBy(
-        new Transform2d(
-          new Translation2d(-10, -50),
-          new Rotation2d(0)
-        )
-      );
+        ).transformBy(
+          new Transform2d(
+            new Translation2d(-0.2, -0.4),
+            new Rotation2d(0)
+          )
+        );
 
     }
 
@@ -246,10 +246,11 @@ public class Vision extends SubsystemBase
         String redbox = "RedBox";
         SmartDashboard.putNumber("RedBoxx", SmartDashboard.getNumber("RedBoxx", 0));
         SmartDashboard.putNumber("RedBoxy", SmartDashboard.getNumber(redbox+"y", 0));
-        SmartDashboard.putString("DropPose", getDropPose("RedBox", "BlackBox").toString());
-        SmartDashboard.putString("DropPose2", getDropPose("GreenBox", "YellowBox").toString());
+        SmartDashboard.putString("DropPose1", m_points.getPoint("Drop1").toString());
+        SmartDashboard.putString("DropPose2", m_points.getPoint("Drop2").toString());
 
- 
+
+        // getDropPose("YellowBox", "GreenBox", "Drop2"); 
         
         
 

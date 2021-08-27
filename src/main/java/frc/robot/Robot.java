@@ -25,7 +25,6 @@ public class Robot extends TimedRobot {
   private Command m_teleopCommand;
   private RobotContainer m_robotContainer;
   private OmniDrive m_omnidrive;
-  private Vision m_vision;
   private Notifier m_follower;
 
 

@@ -9,6 +9,7 @@ import com.studica.frc.Cobra;
 
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.wpilibj.AnalogInput;
+import edu.wpi.first.wpilibj.MedianFilter;
 import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.Ultrasonic;
@@ -21,7 +22,16 @@ import frc.robot.Constants;
 
 public class Sensor extends SubsystemBase
 {
-
+    MedianFilter filter1 = new MedianFilter(10);
+    MedianFilter filter2 = new MedianFilter(10);
+    MedianFilter filter3 = new MedianFilter(10);
+    MedianFilter filter4 = new MedianFilter(10);
+    MedianFilter filter5 = new MedianFilter(10);
+    MedianFilter filter6 = new MedianFilter(10);
+    MedianFilter filter7 = new MedianFilter(10);
+    MedianFilter filter8 = new MedianFilter(10);
+    MedianFilter filter9 = new MedianFilter(10);
+    MedianFilter filter10 = new MedianFilter(10);
 
     double cobraValue[];
 
@@ -86,8 +96,8 @@ public class Sensor extends SubsystemBase
      * @param channel range 0 - 3 (matches what is on the adc)
      * @return value between 0 and 2047 (11-bit)
      */
-    public int getCobraRawValue(final int channel) {
-        return cobra.getRawValue(channel);
+    public double getCobraRawValue(final int channel) {
+        return filter1.calculate(cobra.getRawValue(channel));
     }
 
     /**
@@ -109,15 +119,15 @@ public class Sensor extends SubsystemBase
      * @return value between 0 - 100 (valid data range is 10cm - 80cm)
      */
     public double getIRDistance1() {
-        return (Math.pow(sharp1.getAverageVoltage(), -1.2045) * 27.726);
+        return filter2.calculate((Math.pow(sharp1.getAverageVoltage(), -1.2045) * 27.726));
     }
 
     public double getIRDistance2() {
-        return (Math.pow(sharp2.getAverageVoltage(), -1.2045) * 27.726);
+        return filter3.calculate(Math.pow(sharp2.getAverageVoltage(), -1.2045) * 27.726);
     }
 
     public double getIRDistance3() {
-        return (Math.pow(sharp3.getAverageVoltage(), -1.2045) * 27.726);
+        return filter4.calculate((Math.pow(sharp3.getAverageVoltage(), -1.2045) * 27.726));
     }
 
     /**
@@ -131,7 +141,7 @@ public class Sensor extends SubsystemBase
         sonic1.ping();
         Timer.delay(0.005);
         if (metric)
-            return sonic1.getRangeMM();
+            return filter5.calculate(sonic1.getRangeMM());
         else
             return sonic1.getRangeInches();
     }
@@ -161,13 +171,13 @@ public class Sensor extends SubsystemBase
 
     public double getCobraTotal()
     {
-        return (cobraValue[0]+cobraValue[1]+cobraValue[2]+cobraValue[3]);
+        return filter6.calculate((cobraValue[0]+cobraValue[1]+cobraValue[2]+cobraValue[3]));
     }
 
     public double offset()
     {
-        return (cobraValue[0]-30.0 + cobraValue[1]-5.0 + cobraValue[2]*5.0 + cobraValue[3]*30.0)/
-        (cobraValue[0]+ cobraValue[1]+ cobraValue[2]+ cobraValue[3]);
+        return filter7.calculate((cobraValue[0]-30.0 + cobraValue[1]-5.0 + cobraValue[2]*5.0 + cobraValue[3]*30.0)/
+        (cobraValue[0]+ cobraValue[1]+ cobraValue[2]+ cobraValue[3]));
         
     }
     public static double x = 0;

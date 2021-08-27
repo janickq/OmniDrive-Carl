@@ -26,8 +26,8 @@ public class Menu extends SubsystemBase
 {
 
     private final OI m_oi = RobotContainer.m_oi;
-    private final Vision m_vision = RobotContainer.m_vision;
-    private final Points m_points = RobotContainer.m_points;
+
+
 
     // Shuffleboard
     private final ShuffleboardTab tab = Shuffleboard.getTab("Menu");
@@ -53,7 +53,7 @@ public class Menu extends SubsystemBase
                     new InstantCommand()
                 ),
 
-                Map.entry(menuNum++, new MovePose(m_vision.getDropPose("RedBox", "BlackBox"))),
+                Map.entry(menuNum++, new Pick()),
 
                 Map.entry(menuNum++, new Pick()) 
                 ),
