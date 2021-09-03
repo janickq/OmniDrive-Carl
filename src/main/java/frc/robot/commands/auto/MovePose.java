@@ -62,11 +62,8 @@ public class MovePose extends CommandBase{
     relativePose = new Transform2d(curPose,desiredPose);
 
     newdesiredTranslation = relativePose.getTranslation().rotateBy(curPose.getRotation());
-    // relativePose = newdesiredPose
-    Globals.debug11 = relativePose.toString();
-    Globals.debug10 = newdesiredTranslation.toString();
-    // relativePose = desiredPose.relativeTo(curPose);
-    // omegadist = curPose.getRotation().rotateBy(Globals.referencePose.getRotation());
+
+
 
     //distance values
     // dist[0] = newdesiredTranslation.getX();

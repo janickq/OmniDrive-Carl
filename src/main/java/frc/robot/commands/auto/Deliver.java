@@ -6,9 +6,12 @@ import edu.wpi.first.wpilibj2.command.SelectCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.Globals;
 import frc.robot.Points;
+import frc.robot.RobotContainer;
 
 
 public class Deliver extends AutoCommand {
+
+  private static final Points m_points = RobotContainer.m_points;
 
   private enum CommandSelector {
     CHIPS, NISSIN, KITKAT, BALL, END;
@@ -49,55 +52,45 @@ public class Deliver extends AutoCommand {
           Map.entry(CommandSelector.CHIPS, 
             new SequentialCommandGroup(
                 
-              new MovePose("chipsDrop")
-            //   new AlignLeft()
+              new MovePose("chipsDrop"),
+              new AlignDrop("RedBox")
             )
 
           ),
 
           Map.entry(CommandSelector.NISSIN,
             new SequentialCommandGroup(
-              new MovePose("nissinDrop")
-            //   new AlignLeft() 
+              new MovePose("nissinDrop"),
+              new AlignDrop("BlackBox")
             )
           ),
 
           Map.entry(CommandSelector.KITKAT, 
             new SequentialCommandGroup(
-              new MovePose("kitKatDrop")
-            //   new AlignRight()
+              new MovePose("kitKatDrop"),
+              new AlignDrop("YellowBox")
             )
           ),
                       
           Map.entry(CommandSelector.BALL, 
             new SequentialCommandGroup(
-              new MovePose("ballDrop")
-            //   new AlignRight() 
+              new MovePose("ballDrop"),
+              new AlignDrop("BlueBox")
+              
+
             )
           )
       ),
 
       Deliver::selectCmd123
 
-      //can use clearGroupedCommands() to reuse commands
+
       
       )
       
      );
 
-    //  clearGroupedCommands();
-    // new MoveRobot(2, Math.PI / 2, 0, 0, 1),
-    // new WaitCommand(1),
-    // new MoveRobotSense(0, -20, 0, 0, spd1, () -> m_sensor.getIRDistance2() < 50),
-    // new WaitCommand(1),
-    // new MoveRobotSense(1, 20, 0, 0.1, spd1, () -> m_sensor.getCobraTotal() > 7000),
-    // new MoveRobot(1, 0.1, 0.1, 0, spd2), 
-    // new MoveRobotSense(0, -20, 0, 0, spd2, () -> m_sensor.getIRDistance2() < 50),
-    // new WaitCommand(1),
-    // new MoveRobotSense(1, 5, 0, 0, spd2, () -> m_sensor.getCobraTotal() > 7000),
-    // new MoveRobot(1, -0.1, 0, 0, spd2),
-    // new MoveRobotSense(0, 5, 0, 0, spd2, () -> m_sensor.getCobraTotal() > 6000),
-    // new MoveRobot(1, 0.1, 0, 0, spd2),
+
 
   }
 }

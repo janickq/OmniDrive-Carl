@@ -39,7 +39,7 @@ public class ZeroPose extends CommandBase{
     Globals.headingError = offsetW;
 
 
-    cmd = new MoveRobot(2, offsetW , 0, 0, 0.1);
+    cmd = new MoveRobot(2, -offsetW , 0, 0, 0.1);
 
 
   }

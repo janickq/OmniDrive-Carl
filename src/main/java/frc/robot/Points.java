@@ -1,20 +1,26 @@
 package frc.robot;
 
 import java.util.HashMap;
+import java.util.Hashtable;
 import java.util.Map;
 
 import edu.wpi.first.wpilibj.geometry.Pose2d;
 import edu.wpi.first.wpilibj.geometry.Rotation2d;
+import edu.wpi.first.wpilibj2.command.Command;
 
 
-public class Points {
+
+public class Points{
 
   public Map<String, Pose2d> pointMap = new HashMap<>();
 
-  public Pose2d Pick = new Pose2d(1.1-0.14, 1.1+0.16, new Rotation2d(-Math.PI/2));
+  public Map<String, Boolean> commandMap = new HashMap<>();
+
+
+  public Pose2d Pick = new Pose2d(0.85, 1.1+0.15, new Rotation2d(-Math.PI/2));
   public Pose2d kitKatDrop = new Pose2d(0.5, 3.95, new Rotation2d(0));
   public Pose2d chipsDrop = new Pose2d(0.5, 3.95, new Rotation2d(0));
-  public Pose2d waypoint1 = new Pose2d(0, 1, new Rotation2d(0));
+  public Pose2d waypoint1 = new Pose2d(0.75, 3, new Rotation2d(0));
   public Pose2d nissinDrop = new Pose2d(1.55, 3.6, new Rotation2d(-Math.PI/2));
   public Pose2d ballDrop = new Pose2d(1.55, 3.6, new Rotation2d(-Math.PI/2));
   public Pose2d camOffset = new Pose2d(-0.1, 0.3, new Rotation2d(0));
@@ -26,6 +32,7 @@ public class Points {
   public Pose2d Bin = new Pose2d();
   public Pose2d Drop1 = new Pose2d();
   public Pose2d Drop2 = new Pose2d();
+  public Pose2d UnadjustedDrop = new Pose2d();
   
   // public static Pose2d curPoseTransformed;
   public final Pose2d jigOffset = new Pose2d(0.22, 0.23, new Rotation2d(0));
@@ -51,15 +58,26 @@ public class Points {
     pointMap.put("BlueBox", BlueBox);
     pointMap.put("Drop1", Drop1);
     pointMap.put("Drop2", Drop2);
+    pointMap.put("UnadjustedDrop", UnadjustedDrop);
 
   }
 
   public void updatePoint(String pointname, Pose2d newpose) {
-    pointMap.replace(pointname, newpose);
+    if (pointMap.containsKey(pointname))
+      pointMap.replace(pointname, newpose);
   }
 
-  public void addPoint(String pointname, Pose2d newpose){
+  public void addPoint(String pointname, Pose2d newpose) {
     pointMap.put(pointname, newpose);
+  }
+  // @param right = true, left = false
+  public void setAlignment(String pointname, Boolean direction) {
+    commandMap.put(pointname, direction);
+    
+  }
+  // @param right = true, left = false
+  public Boolean getAlignment(String pointname) {
+    return commandMap.get(pointname);
   }
   
 

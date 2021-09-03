@@ -29,7 +29,7 @@ public class Vision extends SubsystemBase
     boolean pickedflag;
 
     private boolean getNewBarcode;
-    private double convert = 0.001;
+    private double convert = 0.0013;
 
     // private final GetTrajectory m_trajectory = RobotContainer.m_trajectory;
     
@@ -38,18 +38,21 @@ public class Vision extends SubsystemBase
         SmartDashboard.putBoolean("Get New Barcode", false);
 
         servo3 = new Servo(Constants.SERVO4);
-        rotateCam(true);
-        servo3.setAngle(110);
+        boxLook();
+        servo3.setAngle(120);
         
     }
 
     //true = boxes false = items
-    public void rotateCam(boolean pickup){
-      
-      pickedflag = pickup;
-      if(!pickedflag) cameraAngle = 20;
-      else cameraAngle = 110;
+    public void boxLook() {
 
+      pickedflag = true;
+      cameraAngle = 120;
+    }
+    
+    public void itemLook() {
+      pickedflag = false;
+      cameraAngle = 25 ;
     }
 
     public void readBarcode()
@@ -232,7 +235,7 @@ public class Vision extends SubsystemBase
     {
         printBarcode();
         getNewBarcode = SmartDashboard.getBoolean("Get New Barcode", false);
-        SmartDashboard.putBoolean("mapping", true);
+
 
         Globals.kitkatx = SmartDashboard.getNumber("KitKatx",0);  
         Globals.kitkaty = SmartDashboard.getNumber("KitKaty",0);
@@ -273,10 +276,15 @@ public class Vision extends SubsystemBase
             SmartDashboard.putBoolean("Get New Barcode", false);
         }
         SmartDashboard.putNumber("debug8", Globals.debug8);
-        SmartDashboard.putNumber("debug9", Globals.debug9);
-        SmartDashboard.putString("debug10", Globals.debug10);
-        // SmartDashboard.putBoolean("pickedup", pickedflag);
-        servo3.setAngle(120);
+        SmartDashboard.putString("relativePose2", Globals.debug9);
+        SmartDashboard.putString("relativePose1", Globals.debug10);
+        SmartDashboard.putString("box1", m_points.getPoint("BlueBox").toString());
+        SmartDashboard.putString("box2", m_points.getPoint("YellowBox").toString());
+
+
+        SmartDashboard.putBoolean("mapping", pickedflag);
+        servo3.setAngle(cameraAngle);
+
 
     }
 

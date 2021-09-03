@@ -97,7 +97,7 @@ public class Sensor extends SubsystemBase
      * @return value between 0 and 2047 (11-bit)
      */
     public double getCobraRawValue(final int channel) {
-        return filter1.calculate(cobra.getRawValue(channel));
+        return cobra.getRawValue(channel);
     }
 
     /**
@@ -171,13 +171,13 @@ public class Sensor extends SubsystemBase
 
     public double getCobraTotal()
     {
-        return filter6.calculate((cobraValue[0]+cobraValue[1]+cobraValue[2]+cobraValue[3]));
+        return (cobraValue[0]+cobraValue[1]+cobraValue[2]+cobraValue[3]);
     }
 
     public double offset()
     {
-        return filter7.calculate((cobraValue[0]-30.0 + cobraValue[1]-5.0 + cobraValue[2]*5.0 + cobraValue[3]*30.0)/
-        (cobraValue[0]+ cobraValue[1]+ cobraValue[2]+ cobraValue[3]));
+        return (cobraValue[0]-30.0 + cobraValue[1]-5.0 + cobraValue[2]*5.0 + cobraValue[3]*30.0)/
+        (cobraValue[0]+ cobraValue[1]+ cobraValue[2]+ cobraValue[3]);
         
     }
     public static double x = 0;

@@ -65,7 +65,7 @@ public class ArmPick extends CommandBase {
      */
     @Override
     public void initialize() {
-        Globals.debug9++;
+
         // gets parameters for speed profile
         xgoal = getItemX(Globals.curItem);
         ygoal = getItemY(Globals.curItem);
@@ -103,7 +103,7 @@ public class ArmPick extends CommandBase {
         itemCo[3] = m_vision.getNissin(1);
 
         // add offset of arm to camera
-        return itemCo[item] + 0.3; //+ 0.27;
+        return itemCo[item] + 0.27; //+ 0.27;
     }
 
     public double getItemY(int item){
@@ -116,7 +116,7 @@ public class ArmPick extends CommandBase {
              2 = kitkat
              3 = nissin
         */
-        itemCo[0] = -0.1;
+        itemCo[0] = -0.07;
         itemCo[1] = -0.05;
         itemCo[2] = -0.1;
         itemCo[3] = -0.05;  

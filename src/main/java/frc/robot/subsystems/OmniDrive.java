@@ -14,6 +14,7 @@ import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj.controller.PIDController;
 import edu.wpi.first.wpilibj.geometry.Pose2d;
 import edu.wpi.first.wpilibj.geometry.Rotation2d;
+import edu.wpi.first.wpilibj.geometry.Transform2d;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -125,8 +126,8 @@ public class OmniDrive extends SubsystemBase
         gyro.zeroYaw();
 
 
-        // setPose(Points.getPoint("jigOffset"));
-        setPose(m_points.getPoint("Zero"));
+        setPose(m_points.getPoint("jigOffset"));
+        // setPose(m_points.getPoint("Zero"));
         setreferencePose();
 
 
@@ -134,12 +135,12 @@ public class OmniDrive extends SubsystemBase
 
     public void setreferenceHeading() {
 
-        Globals.referenceHeading = filter1.calculate(gyro.getCompassHeading() * Math.PI / 180);
+        Globals.referenceHeading = gyro.getCompassHeading() * Math.PI / 180;
     }
 
     public double getCompassHeading(){
 
-        return filter2.calculate(gyro.getCompassHeading() * Math.PI / 180);
+        return gyro.getCompassHeading() * Math.PI / 180;
     }
 
     public void setreferencePose(){
