@@ -3,14 +3,11 @@ package frc.robot.subsystems;
 //Java imports
 import java.util.Map;
 
-//Vendor imports
-import com.kauailabs.navx.frc.AHRS;
 import com.studica.frc.Cobra;
 
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.MedianFilter;
-import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.Ultrasonic;
 import edu.wpi.first.wpilibj.shuffleboard.BuiltInWidgets;
@@ -137,13 +134,12 @@ public class Sensor extends SubsystemBase
      * @param metric true or false for metric output
      * @return distance in mm when metric is true, and inches when metric is false
      */
-    public double getSonicDistance1(final boolean metric) {
+    public double getSonicDistance1() {
         sonic1.ping();
-        Timer.delay(0.005);
-        if (metric)
-            return filter5.calculate(sonic1.getRangeMM());
-        else
-            return sonic1.getRangeInches();
+        Timer.delay(0.02);
+
+        return filter5.calculate(sonic1.getRangeMM());
+
     }
     // public double getSonicDistance2(final boolean metric) {
     //     sonic2.ping();
@@ -193,7 +189,7 @@ public class Sensor extends SubsystemBase
              D_sharpIR2.setDouble(getIRDistance2());
              D_sharpIR1.setDouble(getIRDistance1());
              D_sharpIR3.setDouble(getIRDistance3());
-             D_ultraSonic1.setDouble(getSonicDistance1(true)); //set to true because we want metric
+             D_ultraSonic1.setDouble(getSonicDistance1()); //set to true because we want metric
             //  D_ultraSonic2.setDouble(getSonicDistance2(true));
          }
 

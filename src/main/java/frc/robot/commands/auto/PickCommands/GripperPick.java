@@ -51,12 +51,12 @@ public class GripperPick extends CommandBase{
         // Easier to make distance positive and use m_dir to keep track of negative
         // speed.
         // Adds the subsystem to the command
-        itemCo = new double[6];
+        itemCo = new double[7];
 
         itemCo[0] = 140; 
         itemCo[1] = 110; 
         itemCo[2] = 140; 
-        itemCo[3] = 100;
+        itemCo[3] = 110;
         itemCo[4] = 0;
         itemCo[5] = 100;
     }
@@ -81,14 +81,16 @@ public class GripperPick extends CommandBase{
         // Easier to make distance positive and use m_dir to keep track of negative
         // speed.
         // Adds the subsystem to the command
-        itemCo = new double[6];
+        itemCo = new double[8];
 
         itemCo[0] = 130; 
         itemCo[1] = 100; 
         itemCo[2] = 130; 
-        itemCo[3] = 100;
+        itemCo[3] = 110;
         itemCo[4] = 0;
-        itemCo[5] = 100;
+        itemCo[5] = 110;
+        itemCo[6] = 70;
+        itemCo[7] = 85;
     }
 
     /**

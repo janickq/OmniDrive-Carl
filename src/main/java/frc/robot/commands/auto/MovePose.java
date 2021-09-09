@@ -13,11 +13,12 @@ import frc.robot.Points;
 import frc.robot.RobotContainer;
 import frc.robot.subsystems.OmniDrive;
 
-public class MovePose extends CommandBase{
+public class MovePose extends CommandBase {
 
   private final OmniDrive m_omnidrive = RobotContainer.m_omnidrive;
   private final Points m_points = RobotContainer.m_points;
 
+  boolean obstacles;
   String pointName;
   Pose2d curPose;
   Pose2d desiredPose;
@@ -32,25 +33,28 @@ public class MovePose extends CommandBase{
   private int[] m_dir = new int[3];
   private double dT = 0.02;
   private int i;
-  
-  public MovePose(double x, double y, double omegaRadian){
+
+  public MovePose(double x, double y, double omegaRadian) {
 
     desiredPose = new Pose2d(x, y, new Rotation2d(omegaRadian));
 
   }
 
-  public MovePose(Pose2d desiredPose){
+  public MovePose(Pose2d desiredPose) {
     this.desiredPose = desiredPose;
   }
 
-  public MovePose(String pointName){
-    
+  public MovePose(String pointName) {
+
     this.pointName = pointName;
 
   }
 
+  public MovePose(String pointName, boolean obstacles) {
+    this.obstacles = obstacles;
+    this.pointName = pointName;
 
-
+  }
   @Override
   public void initialize() {
 
@@ -59,11 +63,9 @@ public class MovePose extends CommandBase{
     i = 0;
     //gets transformed pose
     curPose = Globals.curPose;
-    relativePose = new Transform2d(curPose,desiredPose);
+    relativePose = new Transform2d(curPose, desiredPose);
 
     newdesiredTranslation = relativePose.getTranslation().rotateBy(curPose.getRotation());
-
-
 
     //distance values
     // dist[0] = newdesiredTranslation.getX();
@@ -73,31 +75,36 @@ public class MovePose extends CommandBase{
     dist[2] = relativePose.getRotation().getRadians();
 
     //set trapezoid profile
-    for(int i = 0; i <3; i++){
-      m_dir[i] = (dist[i]>0)?1:-1;
-      dist[i] *= m_dir[i];   
+    for (int i = 0; i < 3; i++) {
+      m_dir[i] = (dist[i] > 0) ? 1 : -1;
+      dist[i] *= m_dir[i];
       goal[i] = new TrapezoidProfile.State(dist[i], 0);
       setpoint[i] = new TrapezoidProfile.State(0, 0);
     }
 
-    constraints[0] = new TrapezoidProfile.Constraints(0.5, 0.5);
-    constraints[1] = new TrapezoidProfile.Constraints(0.5, 0.5);
-    constraints[2] = new TrapezoidProfile.Constraints(1, 2*Math.PI);
+    constraints[0] = new TrapezoidProfile.Constraints(0.5, 0.3);
+    constraints[1] = new TrapezoidProfile.Constraints(0.5, 0.3);
+    constraints[2] = new TrapezoidProfile.Constraints(1, Math.PI);
 
   }
 
-  public int moveRobot(int i){
-    
+  public void checkObstacle() {
+
+
+  }
+
+  public int moveRobot(int i) {
+
     profile[i] = new TrapezoidProfile(constraints[i], goal[i], setpoint[i]);
     setpoint[i] = profile[i].calculate(dT);
-    m_omnidrive.setRobotSpeedType(i, setpoint[i].velocity*m_dir[i]);
-    if (setpoint[i].position>=goal[i].position)
-      return i+1;
+    m_omnidrive.setRobotSpeedType(i, setpoint[i].velocity * m_dir[i]);
+    if (setpoint[i].position >= goal[i].position)
+      return i + 1;
     else
       return i;
 
   }
-   
+
   @Override
   public void execute() {
 
@@ -110,7 +117,7 @@ public class MovePose extends CommandBase{
   public void end(boolean interrupted) {
     i = 0;
     Arrays.fill(dist, 0);
-    Arrays.fill(m_dir,0);
+    Arrays.fill(m_dir, 0);
     Globals.poserunFlag = true;
   }
 

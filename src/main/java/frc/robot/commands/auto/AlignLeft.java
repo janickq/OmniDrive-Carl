@@ -1,11 +1,8 @@
 package frc.robot.commands.auto;
 
 import edu.wpi.first.wpilibj2.command.InstantCommand;
-import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.Globals;
-import frc.robot.Points;
 import frc.robot.RobotContainer;
-import frc.robot.commands.auto.PickCommands.GripperPick;
 import frc.robot.subsystems.OmniDrive;
 import frc.robot.subsystems.Sensor;
 

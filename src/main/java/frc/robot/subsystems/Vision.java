@@ -97,31 +97,67 @@ public class Vision extends SubsystemBase
       return nissin[xy]*convert;
     }
 
-    public double getKitkat(int xy){
+    public double getKitkat(int xy) {
 
       double[] kitkat = new double[2];
 
-      kitkat[0] = (SmartDashboard.getNumber("KitKatx",0));
-      kitkat[1] = (SmartDashboard.getNumber("KitKaty",0));
+      kitkat[0] = (SmartDashboard.getNumber("KitKatx", 0));
+      kitkat[1] = (SmartDashboard.getNumber("KitKaty", 0));
 
-      return kitkat[xy]*convert;
+      return kitkat[xy] * convert;
+    }
+
+    public boolean checkOverlap(double x1, double y1, double x2, double y2) {
+
+      if (Math.sqrt((Math.pow(x2-x1, 2) + Math.pow(y2-y1, 2))) < 0.05)
+        return true;
+      else return false;
+      
+
     }
 
     public void getItem(){
 
       Globals.start = true;
-        if (getChips(0) != 0 && getChips(1) != 0)
-            Globals.curItem = 0;
-        else if (getNissin(0) != 0 && getNissin(1) != 0)
-            Globals.curItem = 3;
-        else if (getKitkat(0) != 0 && getKitkat(1) != 0)
-            Globals.curItem = 2;
-        else if (getBall(0) != 0 && getBall(1) != 0)
-            Globals.curItem = 1;
-        else{
-            Globals.curItem = 4;
-            Globals.start = false;
-        }
+      if (getChips(0) != 0 && getChips(1) != 0) {
+
+        if ((getKitkat(0) != 0 && getKitkat(1) != 0)
+            && checkOverlap(getKitkat(0), getKitkat(1), getChips(0), getChips(1)))
+          Globals.curItem = 2;
+
+        else if ((getBall(0) != 0 && getBall(1) != 0) && checkOverlap(getBall(0), getBall(1), getChips(0), getChips(1)))
+          Globals.curItem = 1;
+
+        else if ((getNissin(0) != 0 && getNissin(1) != 0)
+            && checkOverlap(getBall(0), getBall(1), getChips(0), getChips(1)))
+          Globals.curItem = 3;
+
+        else
+          Globals.curItem = 0;
+      }
+      
+      else if (getNissin(0) != 0 && getNissin(1) != 0) {
+        
+        if ((getKitkat(0) != 0 && getKitkat(1) != 0)
+            && checkOverlap(getKitkat(0), getKitkat(1), getNissin(0), getNissin(1))) 
+          Globals.curItem = 2;
+
+        else if ((getBall(0) != 0 && getBall(1) != 0)
+            && checkOverlap(getBall(0), getBall(1), getNissin(0), getNissin(1)))
+
+          Globals.curItem = 1;
+        else 
+          Globals.curItem = 3;
+      }
+          
+      else if (getKitkat(0) != 0 && getKitkat(1) != 0)
+          Globals.curItem = 2;
+      else if (getBall(0) != 0 && getBall(1) != 0)
+          Globals.curItem = 1;
+      else{
+          Globals.curItem = 4;
+          Globals.start = false;
+      }
       
     }
 
@@ -148,86 +184,58 @@ public class Vision extends SubsystemBase
 
     }
     
-    public Pose2d getDropPose(String point1, String point2, String posename){
+    public Pose2d getDropPose(String point1, String point2, String posename) {
 
-      m_points.updatePoint(
-        point1, 
-        new Pose2d(
-          SmartDashboard.getNumber(point1 + "x", 0)/100,
-          SmartDashboard.getNumber(point1 + "y", 0)/100,
-          new Rotation2d(0)
-        )
-      
+      m_points.updatePoint(point1, new Pose2d(SmartDashboard.getNumber(point1 + "x", 0) / 100,
+          SmartDashboard.getNumber(point1 + "y", 0) / 100, new Rotation2d(0))
+
       );
-      m_points.updatePoint(
-        point2, 
-        new Pose2d(
-          SmartDashboard.getNumber(point2 + "x", 0)/100,
-          SmartDashboard.getNumber(point2 + "y", 0)/100,
-          new Rotation2d(0)
-        )
-      
+      m_points.updatePoint(point2, new Pose2d(SmartDashboard.getNumber(point2 + "x", 0) / 100,
+          SmartDashboard.getNumber(point2 + "y", 0) / 100, new Rotation2d(0))
+
       );
       m_points.updatePoint(posename, new Pose2d(
-        (m_points.getPoint(point1).getTranslation().getX() + 
-          m_points.getPoint(point2).getTranslation().getX()
-        )/2,
+          (m_points.getPoint(point1).getTranslation().getX() + m_points.getPoint(point2).getTranslation().getX()) / 2,
 
-        (-m_points.getPoint(point1).getTranslation().getY() + 
-         -m_points.getPoint(point2).getTranslation().getY()
-        )/2,
-          
-        new Rotation2d(  
-          Math.atan(
-            (
-              -m_points.getPoint(point1).getTranslation().getY() - 
-              -m_points.getPoint(point2).getTranslation().getY()
-            )/(
-              m_points.getPoint(point1).getTranslation().getX() - 
-              m_points.getPoint(point2).getTranslation().getX()
-            )
-          )
-        )
+          (-m_points.getPoint(point1).getTranslation().getY() + -m_points.getPoint(point2).getTranslation().getY()) / 2,
 
-      ).transformBy(
-        new Transform2d(
-          new Translation2d(-0.2, -0.4),
-          new Rotation2d(0)
-        )
-      )
-    );
+          new Rotation2d(Math.atan(
+              (-m_points.getPoint(point1).getTranslation().getY() - -m_points.getPoint(point2).getTranslation().getY())
+                  / (m_points.getPoint(point1).getTranslation().getX()
+                      - m_points.getPoint(point2).getTranslation().getX())))
+
+      ).transformBy(new Transform2d(new Translation2d(-0.2, -0.4), new Rotation2d(0))));
 
       return new Pose2d(
-        (m_points.getPoint(point1).getTranslation().getX() + 
-          m_points.getPoint(point2).getTranslation().getX()
-        )/2,
+          (m_points.getPoint(point1).getTranslation().getX() + m_points.getPoint(point2).getTranslation().getX()) / 2,
 
-        (-m_points.getPoint(point1).getTranslation().getY() + 
-         -m_points.getPoint(point2).getTranslation().getY()
-        )/2,
-          
-        new Rotation2d(  
-          Math.atan(
-            (
-              -m_points.getPoint(point1).getTranslation().getY() - 
-              -m_points.getPoint(point2).getTranslation().getY()
-            )/(
-              m_points.getPoint(point1).getTranslation().getX() - 
-              m_points.getPoint(point2).getTranslation().getX()
-            )
-          )
-        )
+          (-m_points.getPoint(point1).getTranslation().getY() + -m_points.getPoint(point2).getTranslation().getY()) / 2,
 
-        ).transformBy(
-          new Transform2d(
-            new Translation2d(-0.2, -0.4),
-            new Rotation2d(0)
-          )
-        );
+          new Rotation2d(Math.atan(
+              (-m_points.getPoint(point1).getTranslation().getY() - -m_points.getPoint(point2).getTranslation().getY())
+                  / (m_points.getPoint(point1).getTranslation().getX()
+                      - m_points.getPoint(point2).getTranslation().getX())))
+
+      ).transformBy(new Transform2d(new Translation2d(-0.2, -0.4), new Rotation2d(0)));
 
     }
 
+    public void pickBall() {
+      Globals.curItem = 1;
+    }
 
+    public void pickChips() {
+      Globals.curItem = 0;
+    }
+
+    public void pickNissin() {
+      Globals.curItem = 3;
+    }
+
+    public void pickKitkat() {
+      Globals.curItem = 2;
+    }
+    
  
 
     @Override

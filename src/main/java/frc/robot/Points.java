@@ -13,6 +13,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 public class Points{
 
   public Map<String, Pose2d> pointMap = new HashMap<>();
+  public Map<String, Pose2d> obstacleMap = new HashMap<>();
 
   public Map<String, Boolean> commandMap = new HashMap<>();
 
@@ -60,15 +61,19 @@ public class Points{
     pointMap.put("Drop2", Drop2);
     pointMap.put("UnadjustedDrop", UnadjustedDrop);
 
+    
+
   }
 
   public void updatePoint(String pointname, Pose2d newpose) {
     if (pointMap.containsKey(pointname))
       pointMap.replace(pointname, newpose);
+    obstacleMap.put(pointname, newpose);
   }
 
   public void addPoint(String pointname, Pose2d newpose) {
     pointMap.put(pointname, newpose);
+    obstacleMap.put(pointname, newpose);
   }
   // @param right = true, left = false
   public void setAlignment(String pointname, Boolean direction) {
@@ -81,13 +86,20 @@ public class Points{
   }
   
 
-  public Pose2d getPoint(String pointname){
+  public Pose2d getPoint(String pointname) {
     if (pointMap.containsKey(pointname))
       return pointMap.get(pointname);
     else
       return Globals.curPose;
   }
 
+  public Pose2d getObstacle(String pointname) {
+    if (obstacleMap.containsKey(pointname))
+      return obstacleMap.get(pointname);
+    else
+      return Globals.curPose;
+    
+  }
 
 
 

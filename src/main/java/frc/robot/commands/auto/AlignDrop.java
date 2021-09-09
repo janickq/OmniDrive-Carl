@@ -29,9 +29,9 @@ public class AlignDrop extends CommandBase {
 
   @Override
   public void execute() {
+    
     if (flag==false) {
       //launch command group
-
       if (!direction)
         right.schedule();
       if (direction)

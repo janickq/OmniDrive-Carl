@@ -9,6 +9,7 @@ import frc.robot.Globals;
 import frc.robot.RobotContainer;
 //Subsystem imports
 import frc.robot.subsystems.Arm;
+import frc.robot.subsystems.Sensor;
 import frc.robot.subsystems.Vision;
 
 /**
@@ -16,10 +17,11 @@ import frc.robot.subsystems.Vision;
  * <p>
  * This class drives a motor
  */
-public class ArmPick extends CommandBase {
+public class ArmPickY extends CommandBase {
     // Grab the subsystem instance from RobotContainer
     private final static Vision m_vision = RobotContainer.m_vision;
     private final static Arm m_arm = RobotContainer.m_arm;
+    private final static Sensor m_sensor = RobotContainer.m_sensor;
     private double dT = 0.02;
     private boolean m_endFlag = false;
     private TrapezoidProfile.Constraints m_constraints;
@@ -32,13 +34,34 @@ public class ArmPick extends CommandBase {
     private double trajectoryAngle;
     private double ygoal;
     private double xgoal;
+    boolean manual;
 
 
     /**
      * Constructor
      */
     // This move the robot a certain distance following a trapezoidal speed profile.
-    public ArmPick(double maxSpeed) {
+    public ArmPickY(double maxSpeed) {
+
+        /*
+        item 0 = chips
+             1 = ball
+             2 = kitkat
+             3 = nissin
+        */
+
+        _maxSpeed = maxSpeed;
+        manual = false;
+        m_constraints = new TrapezoidProfile.Constraints(_maxSpeed, 1);
+
+        // Negative distance don't seem to work with the libr ary function????
+        // Easier to make distance positive and use m_dir to keep track of negative
+        // speed.
+
+        //addRequirements(m_arm); // Adds the subsystem to the command
+
+    }
+    public ArmPickY(double maxSpeed, double y) {
 
         /*
         item 0 = chips
@@ -47,7 +70,8 @@ public class ArmPick extends CommandBase {
              3 = nissin
         */
         
-
+        ygoal = y;
+        manual = true;
         _maxSpeed = maxSpeed;
 
         m_constraints = new TrapezoidProfile.Constraints(_maxSpeed, 1);
@@ -67,12 +91,13 @@ public class ArmPick extends CommandBase {
     public void initialize() {
 
         // gets parameters for speed profile
-        xgoal = getItemX(Globals.curItem);
-        ygoal = getItemY(Globals.curItem);
+        if(!manual)
+            ygoal = getItemY(Globals.curItem);
+    
 
         startCo = m_arm.getCoordinate(Globals.curAngle1, Globals.curAngle2);
-        dist = m_arm.getDistance(startCo[0], xgoal, startCo[1], ygoal);
-        trajectoryAngle = m_arm.getAngle(startCo[0], xgoal, startCo[1], ygoal);
+        dist = m_arm.getDistance(startCo[0], startCo[0], startCo[1], ygoal);
+        trajectoryAngle = m_arm.getAngle(startCo[0], startCo[0], startCo[1], ygoal);
 
         Globals.xArm = startCo[0];
         Globals.yArm = startCo[1];
@@ -81,7 +106,7 @@ public class ArmPick extends CommandBase {
         m_goal = new TrapezoidProfile.State(dist, 0);
 
         //checks if target coordinates are within boundaries
-        if(Math.sqrt(Math.pow(xgoal, 2)+Math.pow(ygoal, 2)) > (Constants.ARM1 + Constants.ARM2)){
+        if(Math.sqrt(Math.pow(startCo[0], 2)+Math.pow(ygoal, 2)) > (Constants.ARM1 + Constants.ARM2)){
             m_endFlag = true;
         }
         else{
@@ -92,18 +117,9 @@ public class ArmPick extends CommandBase {
 
     }
 
-    public double getItemX(int item){
-
-        //gets item type to pick and returns item coordinate
-        double [] itemCo = new double[4];
-
-        itemCo[0] = m_vision.getChips(1);
-        itemCo[1] = m_vision.getBall(1);
-        itemCo[2] = m_vision.getKitkat(1);
-        itemCo[3] = m_vision.getNissin(1);
-
-        // add offset of arm to camera
-        return itemCo[item] + 0.27; //+ 0.27;
+    
+    public double getItemIR() {
+        return (m_sensor.getIRDistance2() / 100) - 0.5;
     }
 
     public double getItemY(int item){
@@ -116,10 +132,10 @@ public class ArmPick extends CommandBase {
              2 = kitkat
              3 = nissin
         */
-        itemCo[0] = -0.07;
-        itemCo[1] = -0.05;
-        itemCo[2] = -0.1;
-        itemCo[3] = -0.05;  
+        itemCo[0] = Globals.yArm - (m_sensor.getIRDistance2() / 100)-0.04;
+        itemCo[1] = Globals.yArm - (m_sensor.getIRDistance2() / 100) + 0.07;//-0.06;
+        itemCo[2] = Globals.yArm - (m_sensor.getIRDistance2() / 100)+0.06;
+        itemCo[3] = Globals.yArm - (m_sensor.getIRDistance2() / 100)+0.02;
 
         // add offset of arm to camera
         return itemCo[item];
@@ -135,6 +151,7 @@ public class ArmPick extends CommandBase {
     /**
      * Called continously until command is ended
      */
+    
         
     @Override
     public void execute()
