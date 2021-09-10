@@ -7,21 +7,29 @@ import edu.wpi.first.wpilibj.geometry.Transform2d;
 import edu.wpi.first.wpilibj.geometry.Translation2d;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.DropPoint;
 import frc.robot.Globals;
 import frc.robot.Points;
 import frc.robot.RobotContainer;
 import frc.robot.subsystems.Vision;
 
-public class MapPose extends CommandBase{
+public class MapPose extends CommandBase {
 
+  static final DropPoint m_drop = new DropPoint();
   private static final Points m_points = RobotContainer.m_points;
   private static final Vision m_vision = RobotContainer.m_vision;
+  String[] boxname = new String[] { "RedBox", "BlueBox", "YellowBox", "BlackBox", "GreenBox" };
+  Pose2d[] boxes;
   String box1, box2, posename, item1, item2;
   boolean endflag;
   MedianFilter filter1 = new MedianFilter(10);
   MedianFilter filter2 = new MedianFilter(10);
   MedianFilter filter3 = new MedianFilter(10);
   MedianFilter filter4 = new MedianFilter(10);
+
+  public MapPose() {
+    
+  }
 
   public MapPose(String box1, String box2, String posename) {
 
@@ -39,6 +47,37 @@ public class MapPose extends CommandBase{
     this.item1 = item1;
     this.item2 = item2;
 
+  }
+
+  @Override
+  public void initialize() {
+
+    endflag = false;
+    
+  }
+
+  int i = 1;
+  @Override
+  public void execute() {
+    getDropPoint();
+    setAlignment();
+    i++;
+    if (i > 10)
+      endflag = true;
+  }
+
+  public void getBoxes(String[] box) {
+    for (int i = 0; i < boxes.length; i++) {
+      m_points.updatePoint(boxname[i],
+        new Pose2d(
+        (SmartDashboard.getNumber(boxes[i]+"x", 0) / 100), 
+        (-SmartDashboard.getNumber(boxes[i]+"y", 0) / 100),
+         new Rotation2d(0))
+
+      );
+
+    }
+    
   }
 
   public void setAlignment() {
@@ -155,20 +194,7 @@ public class MapPose extends CommandBase{
 
   }
 
-  @Override
-  public void initialize() {
-    endflag = false;
-  }
 
-  int i = 1;
-  @Override
-  public void execute() {
-    getDropPoint();
-    setAlignment();
-    i++;
-    if (i > 10)
-      endflag = true;
-  }
   
   @Override
   public boolean isFinished() {
