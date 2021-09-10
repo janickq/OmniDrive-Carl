@@ -8,12 +8,12 @@ import java.util.*;
 
 
 public class Pathfinder {
-    static Node[][] cell;
-    static ArrayList<Node> pathList = new ArrayList<>();
-    static ArrayList<Node> closedList = new ArrayList<>();
-    static boolean additionalPath = false;
+    public Node[][] cell;
+    public ArrayList<Node> pathList = new ArrayList<>();
+    public ArrayList<Node> closedList = new ArrayList<>();
+    public boolean additionalPath = false;
 
-    public static void generateHValue(boolean matrix[][], int Ai, int Aj, int Bi, int Bj, int n, int v, int d, boolean additionalPath, int h) {
+    public void generateHValue(boolean matrix[][], int Ai, int Aj, int Bi, int Bj, int n, int v, int d, boolean additionalPath, int h) {
 
         for (int y = 0; y < matrix.length; y++) {
             for (int x = 0; x < matrix.length; x++) {
@@ -44,7 +44,7 @@ public class Pathfinder {
         generatePath(cell, Ai, Aj, Bi, Bj, n, v, d, additionalPath);
     }
     
-    public static void generatePath(Node hValue[][], int Ai, int Aj, int Bi, int Bj, int n, int v, int d, boolean additionalPath) {
+    public void generatePath(Node hValue[][], int Ai, int Aj, int Bi, int Bj, int n, int v, int d, boolean additionalPath) {
 
         //Creation of a PriorityQueue and the declaration of the Comparator
         PriorityQueue<Node> openList = new PriorityQueue<>(11, new Comparator() {
