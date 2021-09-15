@@ -286,10 +286,11 @@ public class Vision extends SubsystemBase
         SmartDashboard.putNumber("debug8", Globals.debug8);
         SmartDashboard.putString("relativePose2", Globals.debug9);
         SmartDashboard.putString("relativePose1", Globals.debug10);
-        SmartDashboard.putString("box1", m_points.getPoint("BlueBox").toString());
-        SmartDashboard.putString("box2", m_points.getPoint("YellowBox").toString());
-
-
+        SmartDashboard.putString("BlueBox", m_points.getPoint("BlueBox").toString());
+        SmartDashboard.putString("YellowBox", m_points.getPoint("YellowBox").toString());
+        SmartDashboard.putString("BlackBox", m_points.getPoint("BlackBox").toString());
+        SmartDashboard.putString("RedBox", m_points.getPoint("RedBox").toString());
+        SmartDashboard.putString("GreenBox", m_points.getPoint("GreenBox").toString());
         SmartDashboard.putBoolean("mapping", pickedflag);
         servo3.setAngle(cameraAngle);
 

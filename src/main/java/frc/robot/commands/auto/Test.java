@@ -24,8 +24,11 @@ public class Test extends AutoCommand{
                 // new InstantCommand(m_omnidrive::setreferencePose),
                 // new InstantCommand(m_omnidrive::setreferenceHeading),
                 // new MoveRobot(2, Math.PI/2, 0, 0, 1),
-                // new InstantCommand(m_vision::boxLook),
-                // new WaitCommand(2),
+                new InstantCommand(m_vision::boxLook),
+                new MapPose(),
+                
+                new WaitCommand(2),
+                new MovePose("Drop2")
 
                 // new MapPose("BlackBox", "RedBox", "Drop2", "nissinDrop", "chipsDrop"),
                 // new MapPose("BlueBox", "YellowBox", "Drop1", "ballDrop", "kitkatDrop"),  
@@ -33,10 +36,10 @@ public class Test extends AutoCommand{
                 // new MoveRobot(2, -Math.PI/2, 0, 0, 1),
                 // new MoveTest2()
 
-                new InstantCommand(m_vision::itemLook),
-                new WaitCommand(2),
-                new InstantCommand(m_vision::getItem),
-                new Pick()
+                // new InstantCommand(m_vision::itemLook),
+                // new WaitCommand(2),
+                // new InstantCommand(m_vision::getItem),
+                // new Pick()
 
         );
     }

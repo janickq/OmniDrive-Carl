@@ -33,7 +33,8 @@ public class Points{
   public Pose2d Bin = new Pose2d();
   public Pose2d Drop1 = new Pose2d();
   public Pose2d Drop2 = new Pose2d();
-  public Pose2d UnadjustedDrop = new Pose2d();
+  public Pose2d UnadjustedDrop1 = new Pose2d();
+  public Pose2d UnadjustedDrop2 = new Pose2d();
   
   // public static Pose2d curPoseTransformed;
   public final Pose2d jigOffset = new Pose2d(0.22, 0.23, new Rotation2d(0));
@@ -59,15 +60,15 @@ public class Points{
     pointMap.put("BlueBox", BlueBox);
     pointMap.put("Drop1", Drop1);
     pointMap.put("Drop2", Drop2);
-    pointMap.put("UnadjustedDrop", UnadjustedDrop);
+    pointMap.put("unadjustedDrop1", UnadjustedDrop1);
+    pointMap.put("unadjustedDrop2", UnadjustedDrop2);
 
     
 
   }
 
   public void updatePoint(String pointname, Pose2d newpose) {
-    if (pointMap.containsKey(pointname))
-      pointMap.replace(pointname, newpose);
+    pointMap.put(pointname, newpose);;
     obstacleMap.put(pointname, newpose);
   }
 
