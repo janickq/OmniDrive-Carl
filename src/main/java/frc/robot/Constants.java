@@ -55,6 +55,9 @@ public final class Constants
     public static final double ARM1 = 0.24;
     public static final double ARM2 = 0.325;
 
+    public static final String[] obstacles = { "Bin"};//, "unadjustedDrop1", "unadjustedDrop2" };
+    public static final int gridsize = 100;
+
 
     
 

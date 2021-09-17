@@ -41,19 +41,35 @@ public class DropPoint {
 
     }
 
-    m_points.updatePoint("Bin",
-      new Pose2d(
+    m_points.updatePoint("Bin",Globals.curPose.transformBy(new Transform2d(new Translation2d(
+
         SmartDashboard.getNumber("Binx", 0) / 100,
-        -SmartDashboard.getNumber("Biny", 0) / 100, new Rotation2d(0)
+        -SmartDashboard.getNumber("Biny", 0) / 100), new Rotation2d(0))
         )
     );
 
 
-    m_points.updatePoint("adjustedBin",
-        new Pose2d(SmartDashboard.getNumber("Binx", 0) / 100, -SmartDashboard.getNumber("Biny", 0) / 100,
-            new Rotation2d(0)).transformBy(new Transform2d(new Translation2d(0, -0.4), new Rotation2d(0)))
+    m_points.updatePoint("BinBack",
+        m_points.getPoint("Bin").transformBy(new Transform2d(new Translation2d(0, -0.5), new Rotation2d(0)))
 
     );
+
+    m_points.updatePoint("BinFront",
+      m_points.getPoint("Bin").transformBy(new Transform2d(new Translation2d(0, 0.5), new Rotation2d(0)))
+
+    );
+
+    m_points.updatePoint("BinLeft",
+      m_points.getPoint("Bin").transformBy(new Transform2d(new Translation2d(-0.5, 0), new Rotation2d(0)))
+
+    );
+    
+    m_points.updatePoint("BinRight",
+      m_points.getPoint("Bin").transformBy(new Transform2d(new Translation2d(0.5, 0), new Rotation2d(0)))
+
+    );
+  
+  
 
     RedBox = m_points.getPoint("RedBox");
     BlueBox = m_points.getPoint("BlueBox");

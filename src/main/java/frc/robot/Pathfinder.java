@@ -14,7 +14,7 @@ public class Pathfinder {
     public boolean additionalPath = false;
 
     public void generateHValue(boolean matrix[][], int Ai, int Aj, int Bi, int Bj, int n, int v, int d, boolean additionalPath, int h) {
-
+        cell = new Node[matrix.length] [matrix.length];
         for (int y = 0; y < matrix.length; y++) {
             for (int x = 0; x < matrix.length; x++) {
                 //Creating a new Node object for each and every Cell of the Grid (Matrix)
@@ -239,9 +239,9 @@ public class Pathfinder {
 
         pathList.add(cell[Ai][Aj]);
         //Clears the openList
-        openList.clear();
+         openList.clear();
 
-        System.out.println();
+        // System.out.println();
 
     }
 }

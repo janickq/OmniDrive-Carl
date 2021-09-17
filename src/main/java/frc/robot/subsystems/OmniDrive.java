@@ -126,8 +126,8 @@ public class OmniDrive extends SubsystemBase
         gyro.zeroYaw();
 
 
-        // setPose(m_points.getPoint("jigOffset"));
-        setPose(m_points.getPoint("Zero"));
+        setPose(m_points.getPoint("jigOffset"));
+        setPose(m_points.getPoint("Pick"));
         setreferencePose();
 
 

@@ -291,6 +291,7 @@ public class Vision extends SubsystemBase
         SmartDashboard.putString("BlackBox", m_points.getPoint("BlackBox").toString());
         SmartDashboard.putString("RedBox", m_points.getPoint("RedBox").toString());
         SmartDashboard.putString("GreenBox", m_points.getPoint("GreenBox").toString());
+        SmartDashboard.putString("Bin", m_points.getPoint("unadjustedBin").toString());
         SmartDashboard.putBoolean("mapping", pickedflag);
         servo3.setAngle(cameraAngle);
 
