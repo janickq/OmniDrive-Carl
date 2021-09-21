@@ -26,7 +26,7 @@ public class MapPose extends CommandBase {
   String end;
   String box1, box2, posename, item1, item2;
 
-  MovePose2 movePose2;
+
   PathMap pathMap = new PathMap();
   static final DropPoint m_drop = new DropPoint();
 

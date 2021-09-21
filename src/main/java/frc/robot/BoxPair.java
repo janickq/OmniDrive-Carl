@@ -14,8 +14,8 @@ public class BoxPair{
   public BoxPair(String box1, String box2, double distance, String item1, String item2) {
     this.box1 = box1;
     this.box2 = box2;
-    this.item1 = box1;
-    this.item2 = box2;
+    this.item1 = item1;
+    this.item2 = item2;
     this.distance = distance;
   }
 

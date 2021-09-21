@@ -176,7 +176,9 @@ public class Sensor extends SubsystemBase
         (cobraValue[0]+ cobraValue[1]+ cobraValue[2]+ cobraValue[3]);
         
     }
+
     public static double x = 0;
+    
     @Override
     public void periodic()
     {

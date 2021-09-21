@@ -20,19 +20,18 @@ public class CommandSchedule extends AutoCommand{
   public CommandSchedule(){
 
     super(
-
+      new WaitCommand(1),
       new InstantCommand(m_vision::itemLook),
       new MoveRobot(0, -0.16, 0, 0, 0.2),
       new WaitCommand(2), 
       new InstantCommand(m_vision::getItem),
       new Pick(),
       new WaitCommand(1), 
-      new MovePose("waypoint1"),
+      new MoveRobot(2, Math.PI/2, 0, 0, 1),
       new WaitCommand(1),
       new Deliver(),
       new GripperPick(4),
-      new MovePose("waypoint1"),
-      new MovePose("Pick"),
+      new FollowPath("Pick"),
       new AlignRight(),
       new WaitCommand(1),
       new ZeroPose(),

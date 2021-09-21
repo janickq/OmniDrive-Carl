@@ -127,7 +127,7 @@ public class OmniDrive extends SubsystemBase
 
 
         setPose(m_points.getPoint("jigOffset"));
-        setPose(m_points.getPoint("Pick"));
+        // setPose(m_points.getPoint("Pick"));
         setreferencePose();
 
 

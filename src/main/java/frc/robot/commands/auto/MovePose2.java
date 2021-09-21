@@ -88,8 +88,8 @@ public class MovePose2 extends CommandBase {
       setpoint[i] = new TrapezoidProfile.State(0, 0);
     }
 
-    constraints[0] = new TrapezoidProfile.Constraints(0.5, 0.3);
-    constraints[1] = new TrapezoidProfile.Constraints(0.5, 0.3);
+    constraints[0] = new TrapezoidProfile.Constraints(0.5, 0.2);
+    constraints[1] = new TrapezoidProfile.Constraints(0.5, 0.2);
 
   }
 

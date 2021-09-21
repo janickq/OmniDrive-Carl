@@ -1,17 +1,17 @@
 # Summary
 
-Date : 2021-08-04 15:11:31
+Date : 2021-09-20 13:49:21
 
 Directory c:\Users\carlc\Desktop\WSS\WSS code\OmniDrive-Carl
 
-Total : 44 files,  2153 codes, 811 comments, 750 blanks, all 3714 lines
+Total : 66 files,  3559 codes, 941 comments, 1223 blanks, all 5723 lines
 
 [details](details.md)
 
 ## Languages
 | language | files | code | comment | blank | total |
 | :--- | ---: | ---: | ---: | ---: | ---: |
-| Java | 34 | 1,847 | 758 | 702 | 3,307 |
+| Java | 56 | 3,253 | 888 | 1,175 | 5,316 |
 | JSON | 4 | 142 | 0 | 5 | 147 |
 | Batch | 1 | 76 | 0 | 25 | 101 |
 | Groovy | 2 | 66 | 18 | 13 | 97 |
@@ -21,20 +21,21 @@ Total : 44 files,  2153 codes, 811 comments, 750 blanks, all 3714 lines
 ## Directories
 | path | files | code | comment | blank | total |
 | :--- | ---: | ---: | ---: | ---: | ---: |
-| . | 44 | 2,153 | 811 | 750 | 3,714 |
+| . | 66 | 3,559 | 941 | 1,223 | 5,723 |
 | .wpilib | 1 | 6 | 0 | 4 | 10 |
 | gradle | 1 | 5 | 0 | 1 | 6 |
 | gradle\wrapper | 1 | 5 | 0 | 1 | 6 |
-| src | 34 | 1,847 | 758 | 702 | 3,307 |
-| src\main | 34 | 1,847 | 758 | 702 | 3,307 |
-| src\main\java | 34 | 1,847 | 758 | 702 | 3,307 |
-| src\main\java\frc | 34 | 1,847 | 758 | 702 | 3,307 |
-| src\main\java\frc\robot | 34 | 1,847 | 758 | 702 | 3,307 |
-| src\main\java\frc\robot\commands | 23 | 1,111 | 427 | 430 | 1,968 |
-| src\main\java\frc\robot\commands\auto | 20 | 930 | 321 | 387 | 1,638 |
-| src\main\java\frc\robot\commands\auto\PickCommands | 3 | 266 | 149 | 114 | 529 |
+| src | 56 | 3,253 | 888 | 1,175 | 5,316 |
+| src\main | 56 | 3,253 | 888 | 1,175 | 5,316 |
+| src\main\java | 56 | 3,253 | 888 | 1,175 | 5,316 |
+| src\main\java\frc | 56 | 3,253 | 888 | 1,175 | 5,316 |
+| src\main\java\frc\robot | 56 | 3,253 | 888 | 1,175 | 5,316 |
+| src\main\java\frc\robot\commands | 40 | 1,802 | 516 | 681 | 2,999 |
+| src\main\java\frc\robot\commands\auto | 37 | 1,621 | 410 | 638 | 2,669 |
+| src\main\java\frc\robot\commands\auto\PickCommands | 4 | 366 | 205 | 167 | 738 |
+| src\main\java\frc\robot\commands\auto\Tasks | 11 | 226 | 12 | 76 | 314 |
 | src\main\java\frc\robot\commands\gamepad | 2 | 139 | 65 | 27 | 231 |
-| src\main\java\frc\robot\subsystems | 5 | 547 | 201 | 193 | 941 |
+| src\main\java\frc\robot\subsystems | 5 | 706 | 190 | 249 | 1,145 |
 | vendordeps | 3 | 136 | 0 | 1 | 137 |
 
 [details](details.md)

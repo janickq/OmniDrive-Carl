@@ -6,6 +6,7 @@ import java.util.HashMap;
 
 import edu.wpi.first.wpilibj.geometry.Pose2d;
 import edu.wpi.first.wpilibj.geometry.Rotation2d;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class PathMap {
 
@@ -51,10 +52,22 @@ public class PathMap {
 
   public boolean[][] generateMap() {
 
-    for (int x = 0; x < n/2; x++) {
+    for (int x = 0; x < n / 2; x++) {
       for (int y = 0; y < n; y++) {
         matrix[x][y] = true;
-        matrix[n-x-1][y] = false;
+        matrix[n - x - 1][y] = false;
+      }
+    }
+    for (int x = 0; x < n / 2; x++) {
+
+      for (int y = 0; y < n / 20; y++) {
+        matrix[x][n - y-1] = false;
+      }
+    }
+    for (int x = 0; x < n / 20; x++) {
+      for (int y = n/2; y < n; y++) {
+        matrix[x][y] = false;
+        matrix[n / 2 - x-1][y] = false;
       }
     }
 
@@ -64,13 +77,25 @@ public class PathMap {
 
       // larger x boundary because rectangular grid boxes
       for (int xboundary = 0; xboundary < n / 8; xboundary++) {
-        // matrix[x + xboundary][y] = false;
-        // matrix[x - xboundary][y] = false;
         for (int yboundary = 0; yboundary < n / 8; yboundary++) {
-          matrix[x + xboundary][y + yboundary] = false;
-          matrix[x + xboundary][y - yboundary] = false;
-          matrix[x - xboundary][y + yboundary] = false;
-          matrix[x - xboundary][y - yboundary] = false;
+          int xplus = x + xboundary;
+          int xminus = x - xboundary;
+          int yplus = y + yboundary;
+          int yminus = y - yboundary;
+          
+          if (y - yboundary < 0)
+            yminus = 0;
+          if (y + yboundary > n)
+            yplus = n;
+          if (x - xboundary < 0)
+            xminus = 0;
+          if (x + xboundary > n)
+            xplus = n;
+
+          matrix[xplus][yplus] = false;
+          matrix[xplus][yminus] = false;
+          matrix[xminus][yplus] = false;
+          matrix[xminus][yminus] = false;
         }
       }
 
@@ -81,7 +106,10 @@ public class PathMap {
   public void calculate() {
 
     pathfinder.generateHValue(matrix, Ai, Aj, Bi, Bj, n, 10, 10, true, 3);
+    SmartDashboard.putNumber("Pathlistsize", pathfinder.pathList.size());
+    // if(curPose.getTranslation().getY()<endPose.getTranslation().getY())
     Collections.reverse(pathfinder.pathList);
+
     for (int i = 0; i < pathfinder.pathList.size(); i++) {
       
       node = pathfinder.pathList.get(i);

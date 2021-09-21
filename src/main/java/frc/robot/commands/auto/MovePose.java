@@ -33,6 +33,7 @@ public class MovePose extends CommandBase {
   private int[] m_dir = new int[3];
   private double dT = 0.02;
   private int i;
+  boolean name;
 
   public MovePose(double x, double y, double omegaRadian) {
 
@@ -42,11 +43,13 @@ public class MovePose extends CommandBase {
 
   public MovePose(Pose2d desiredPose) {
     this.desiredPose = desiredPose;
+    name = false;
   }
 
   public MovePose(String pointName) {
 
     this.pointName = pointName;
+    name = true;
 
   }
 
@@ -57,8 +60,8 @@ public class MovePose extends CommandBase {
   }
   @Override
   public void initialize() {
-
-    desiredPose = m_points.getPoint(pointName);
+    if (name)
+      desiredPose = m_points.getPoint(pointName);
     Globals.poserunFlag = false;
     i = 0;
     //gets transformed pose
