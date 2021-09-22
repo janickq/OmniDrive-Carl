@@ -35,7 +35,7 @@ public class ZeroPose extends CommandBase{
     compassW = m_omnidrive.getCompassHeading();
 
 
-    offsetW = (Globals.referenceHeading - compassW)/1.5;
+    offsetW = (Globals.referenceHeading - compassW);
     Globals.headingError = offsetW;
 
 

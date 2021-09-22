@@ -17,7 +17,7 @@ public class MoveTest2 extends CommandBase
     private int state=1;
     private boolean flag = false;
     private boolean m_endFlag = false;
-    private CommandSchedule cmd = new CommandSchedule();
+    private CommandSchedule cmd; 
 
     //private final ShuffleboardTab tab = Shuffleboard.getTab("Debug");
 
@@ -46,7 +46,7 @@ public class MoveTest2 extends CommandBase
     {
         if (flag==false) {
             //launch command group
-
+            cmd = new CommandSchedule();
             cmd.schedule(false);
             flag = true;
             Globals.runFlag = true;

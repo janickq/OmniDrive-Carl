@@ -6,6 +6,7 @@ import java.util.Map;
 
 import edu.wpi.first.wpilibj.geometry.Pose2d;
 import edu.wpi.first.wpilibj.geometry.Rotation2d;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 
 
@@ -82,12 +83,15 @@ public class Points{
   }
   // @param right = true, left = false
   public void setAlignment(String pointname, Boolean direction) {
+    SmartDashboard.putBoolean(pointname, direction);
     commandMap.put(pointname, direction);
     
   }
   // @param right = true, left = false
   public Boolean getAlignment(String pointname) {
+
     return commandMap.get(pointname);
+
   }
   
 

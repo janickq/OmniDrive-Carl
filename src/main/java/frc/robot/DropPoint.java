@@ -197,6 +197,7 @@ public class DropPoint {
           
       setAlignment(boxPair.get(i).box1, boxPair.get(i).box2, "unadjustedDrop" + str);
 
+
     }
 
   }
@@ -209,7 +210,7 @@ public class DropPoint {
     Transform2d relativePose2 = m_points.getPoint(posename).minus(m_points.getPoint(box2)
         .transformBy(new Transform2d(new Translation2d(0, 0), m_points.getPoint(posename).getRotation())));
 
-    if (relativePose1.getTranslation().getX() < 0) {
+    if (relativePose1.getTranslation().getX() < relativePose2.getTranslation().getX()) {
       m_points.setAlignment(box1, false);
       m_points.setAlignment(box2, true);
     }
@@ -221,7 +222,10 @@ public class DropPoint {
 
     Globals.debug10 = relativePose1.toString();
     Globals.debug9 = relativePose2.toString();
-
+    SmartDashboard.putString("Relativepose1", relativePose1.toString());
+    SmartDashboard.putString("Relativepose2", relativePose2.toString());
+    SmartDashboard.putString("box1", box1);
+    SmartDashboard.putString("box2", box2);
   }
 
   

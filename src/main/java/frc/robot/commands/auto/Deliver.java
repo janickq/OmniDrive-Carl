@@ -53,7 +53,7 @@ public class Deliver extends AutoCommand {
             new SequentialCommandGroup(
                 
               new FollowPath("chipsDrop"),
-              new AlignDrop("RedBox")
+              new AlignDrop("YellowBox")
             )
 
           ),
@@ -68,7 +68,7 @@ public class Deliver extends AutoCommand {
           Map.entry(CommandSelector.KITKAT, 
             new SequentialCommandGroup(
               new FollowPath("kitKatDrop"),
-              new AlignDrop("YellowBox")
+              new AlignDrop("RedBox")
             )
           ),
                       

@@ -2,6 +2,7 @@ package frc.robot.commands.auto;
 
 import java.util.ArrayList;
 
+import edu.wpi.first.wpilibj.geometry.Pose2d;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandBase;
@@ -17,6 +18,7 @@ public class FollowPath extends CommandBase {
   PathMap pathMap = new PathMap();
 
   ArrayList<Command> moveposes = new ArrayList<>();
+  ArrayList<Pose2d> obstaclelist = new ArrayList<>();
   String pointname;
   String[] obstacles;
 
@@ -35,11 +37,12 @@ public class FollowPath extends CommandBase {
 
     this.pointname = pointname;
     obstacles = Constants.obstacles;
-
+    
 
   }
   @Override
   public void initialize() {
+    
     endflag = false;
     u = 0;
     pathMap.generateGrid(Constants.gridsize);

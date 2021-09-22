@@ -50,7 +50,7 @@ public class PathMap {
     matrix = new boolean[n][n];
   }
 
-  public boolean[][] generateMap() {
+  public void generateMap() {
 
     for (int x = 0; x < n / 2; x++) {
       for (int y = 0; y < n; y++) {
@@ -61,46 +61,102 @@ public class PathMap {
     for (int x = 0; x < n / 2; x++) {
 
       for (int y = 0; y < n / 20; y++) {
-        matrix[x][n - y-1] = false;
+        matrix[x][n - y - 1] = false;
       }
     }
     for (int x = 0; x < n / 20; x++) {
-      for (int y = n/2; y < n; y++) {
+      for (int y = n / 2; y < n; y++) {
         matrix[x][y] = false;
-        matrix[n / 2 - x-1][y] = false;
+        matrix[n / 2 - x - 1][y] = false;
       }
     }
 
     for (int i = 0; i < Obstacles.size(); i++) {
-      int x = Math.toIntExact(Math.round((Obstacles.get(i).getTranslation().getX() / 2.25) * n/2));
+      int x = Math.toIntExact(Math.round((Obstacles.get(i).getTranslation().getX() / 2.25) * n / 2));
       int y = Math.toIntExact(Math.round((Obstacles.get(i).getTranslation().getY() / 4.5) * n));
+      createBoundary(13,13, x, y, false);
+    }
+    clearPath(Ai, Aj);
+    clearPath(Bi, Bj);
+ 
 
-      // larger x boundary because rectangular grid boxes
-      for (int xboundary = 0; xboundary < n / 8; xboundary++) {
-        for (int yboundary = 0; yboundary < n / 8; yboundary++) {
+  }
+  
+  public void clearPath(int u, int m) {
+    boolean check = false;
+    int size = 0;
+    int x = Math.min(n, Math.max(u, 0));
+    int y = Math.min(n, Math.max(m, 0));
+
+    while (true) {
+      check = matrix[Math.min((x + size), n)][y];
+      if (check) {
+        for (int i = 0; i <= size; i++) {
+          matrix[x + i][y] = true;
+        }
+        break;
+      }
+      check = matrix[Math.max((x - size), 0)][y];
+      if (check) {
+        for (int i = 0; i <= size; i++) {
+          matrix[x - i][y] = true;
+        }
+        break;
+      }
+      check = matrix[x][Math.min((y + size), n)];
+      if (check) {
+        for (int i = 0; i <= size; i++) {
+          matrix[x][y + i] = true;
+        }
+        break;
+      }
+      check = matrix[x][Math.max((y - size), 0)];
+      if (check) {
+        for (int i = 0; i <= size; i++) {
+          matrix[x][y - i] = true;
+        }
+        break;
+      }
+      size++;
+    }
+
+    // createBoundary(size, 1, x, y, true);
+    // createBoundary(1, size, x, y, true);
+
+  }
+
+  public void createBoundary(int xsize, int ysize, int x, int y, boolean boundary) {
+
+      for (int xboundary = 0; xboundary < xsize; xboundary++) {
+        for (int yboundary = 0; yboundary < ysize; yboundary++) {
           int xplus = x + xboundary;
           int xminus = x - xboundary;
           int yplus = y + yboundary;
-          int yminus = y - yboundary;
-          
-          if (y - yboundary < 0)
-            yminus = 0;
-          if (y + yboundary > n)
-            yplus = n;
-          if (x - xboundary < 0)
-            xminus = 0;
-          if (x + xboundary > n)
-            xplus = n;
+          int yminus = y - yboundary;   
 
-          matrix[xplus][yplus] = false;
-          matrix[xplus][yminus] = false;
-          matrix[xminus][yplus] = false;
-          matrix[xminus][yminus] = false;
+          if (yminus < 0 || yplus < 0) {
+            yminus = 0;
+            yplus = 0;
+          }
+          if (yminus >= n || yplus >= n) {
+            yplus = n - 1;
+            yminus = n - 1;
+          }
+          if (xminus < 0 || xplus < 0) {
+            xminus = 0;
+            xplus = 0;
+          }
+          if (xminus >= n || xplus >= n) {
+            xplus = n - 1;
+            xminus = n - 1;
+          }
+          matrix[xplus][yplus] = boundary;
+          matrix[xplus][yminus] = boundary;
+          matrix[xminus][yplus] = boundary;
+          matrix[xminus][yminus] = boundary;
         }
       }
-
-    }
-    return matrix;
+    
   }
 
   public void calculate() {
