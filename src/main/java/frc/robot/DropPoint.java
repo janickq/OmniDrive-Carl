@@ -34,8 +34,9 @@ public class DropPoint {
 
   public void getBoxes() {
     for (int i = 0; i < boxes.length; i++) {
-      m_points.updatePoint(boxes[i], new Pose2d(SmartDashboard.getNumber(boxes[i] + "x", 0) / 100,
-          -SmartDashboard.getNumber(boxes[i] + "y", 0) / 100, new Rotation2d(0))
+      // if(m_points.getPoint(boxes[i]).equals(new Pose2d(0, 0, new Rotation2d(0))))
+        m_points.updatePoint(boxes[i], Globals.curPose.transformBy(new Transform2d(new Translation2d( SmartDashboard.getNumber(boxes[i] + "x", 0) / 100,
+            -SmartDashboard.getNumber(boxes[i] + "y", 0) / 100), new Rotation2d(0)))
 
       );
 

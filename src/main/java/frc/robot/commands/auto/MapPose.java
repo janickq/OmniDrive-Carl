@@ -51,9 +51,7 @@ public class MapPose extends CommandBase {
   @Override
   public void initialize() {
     endflag = false;
-    // for (int i = 0; i < boxname.length; i++) {
-    //   boxes[i] = m_points.getPoint(boxname[i]);
-    // }
+
     m_drop.getBoxes();
     m_drop.generatePair();
     m_drop.getDropPose();
@@ -67,11 +65,7 @@ public class MapPose extends CommandBase {
 
   @Override
   public void execute() {
-    // getDropPoint();
-    // setAlignment();
-    // i++;
-    // if (i > 10)
-    //   endflag = true;
+
   }
 
 
@@ -84,8 +78,7 @@ public class MapPose extends CommandBase {
   }
   @Override
   public void end(boolean interrupted) {
-    // m_points.updatePoint(item1, m_points.getPoint(posename));
-    // m_points.updatePoint(item2, m_points.getPoint(posename));
+
     endflag = false;
   }
 }

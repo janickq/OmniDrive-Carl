@@ -89,7 +89,7 @@ public class PathMap {
     int y = Math.min(n, Math.max(m, 0));
 
     while (true) {
-      check = matrix[Math.min((x + size), n)][y];
+      check = matrix[Math.min((x + size), n-1)][y];
       if (check) {
         for (int i = 0; i <= size; i++) {
           matrix[x + i][y] = true;
@@ -103,7 +103,7 @@ public class PathMap {
         }
         break;
       }
-      check = matrix[x][Math.min((y + size), n)];
+      check = matrix[x][Math.min((y + size), n-1)];
       if (check) {
         for (int i = 0; i <= size; i++) {
           matrix[x][y + i] = true;

@@ -3,6 +3,7 @@ package frc.robot.commands.auto;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.Constants;
+import frc.robot.DropPoint;
 import frc.robot.Points;
 import frc.robot.RobotContainer;
 import frc.robot.subsystems.OmniDrive;
@@ -14,19 +15,24 @@ public class Test extends AutoCommand{
     private final static Vision m_vision = RobotContainer.m_vision;
     private final static Points m_points = RobotContainer.m_points;
 
+    private final static DropPoint m_drop = new DropPoint();
+
     
 
     public Test() {
 
         super(
                 new InstantCommand(m_vision::boxLook),
+                new MoveRobot(0, 0.7, 0, 0, 0.5),
+                new WaitCommand(3),
+                new InstantCommand(m_drop::getBoxes),
+                
                 new MovePose("Pick"),
                 new AlignRight(),
                 new WaitCommand(2),
                 new InstantCommand(m_omnidrive::setreferencePose),
                 new InstantCommand(m_omnidrive::setreferenceHeading),
                 new MoveRobot(2, Math.PI/2, 0, 0, 1),
-
                 new WaitCommand(3),
                 new MapPose(),
                 new WaitCommand(2),
