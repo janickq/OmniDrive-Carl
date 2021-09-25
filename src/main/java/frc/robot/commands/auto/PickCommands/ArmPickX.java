@@ -105,7 +105,7 @@ public class ArmPickX extends CommandBase {
         itemCo[3] = m_vision.getNissin(1);
 
         // add offset of arm to camera
-        return itemCo[item] + 0.25; //+ 0.27;
+        return itemCo[item] + 0.27; //+ 0.27;
     }
     
     /**

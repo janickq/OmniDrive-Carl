@@ -45,22 +45,22 @@ public class DropPoint {
           SmartDashboard.getNumber("Binx", 0) / 100, -SmartDashboard.getNumber("Biny", 0) / 100), new Rotation2d(0))));
 
       m_points.updatePoint("BinBack",
-          m_points.getPoint("Bin").transformBy(new Transform2d(new Translation2d(0, -0.4), new Rotation2d(0)))
+          m_points.getPoint("Bin").transformBy(new Transform2d(new Translation2d(0, -0.55), new Rotation2d(0)))
 
       );
 
       m_points.updatePoint("BinFront",
-          m_points.getPoint("Bin").transformBy(new Transform2d(new Translation2d(0, 0.4), new Rotation2d(-Math.PI)))
+          m_points.getPoint("Bin").transformBy(new Transform2d(new Translation2d(0, 0.55), new Rotation2d(-Math.PI)))
 
       );
 
       m_points.updatePoint("BinLeft", m_points.getPoint("Bin")
-          .transformBy(new Transform2d(new Translation2d(-0.4, 0), new Rotation2d(-Math.PI / 2)))
+          .transformBy(new Transform2d(new Translation2d(-0.55, 0), new Rotation2d(-Math.PI / 2)))
 
       );
 
       m_points.updatePoint("BinRight",
-          m_points.getPoint("Bin").transformBy(new Transform2d(new Translation2d(0.4, 0), new Rotation2d(Math.PI / 2)))
+          m_points.getPoint("Bin").transformBy(new Transform2d(new Translation2d(0.55, 0), new Rotation2d(Math.PI / 2)))
 
       );
 

@@ -29,7 +29,7 @@ public class Vision extends SubsystemBase
     boolean pickedflag;
 
     private boolean getNewBarcode;
-    private double convert = 0.0013;
+    private double convert = 0.0012;
 
     // private final GetTrajectory m_trajectory = RobotContainer.m_trajectory;
     
@@ -181,10 +181,10 @@ public class Vision extends SubsystemBase
       var Bin = m_points.getPoint("Bin");
       if (Bin.getTranslation().getY() < 2)
         m_points.updatePoint("binPick", m_points.getPoint("BinRight"));
-      else if (Bin.getTranslation().getX() < 1.25) {
+      else if (Bin.getTranslation().getX() < 1.1) {
         m_points.updatePoint("binPick", m_points.getPoint("BinRight"));
       }
-      else if (Bin.getTranslation().getX() > 1.25) {
+      else if (Bin.getTranslation().getX() > 1.1) {
         m_points.updatePoint("binPick", m_points.getPoint("BinLeft"));
       }
     }

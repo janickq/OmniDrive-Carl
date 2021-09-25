@@ -130,27 +130,11 @@ public class PathMap {
 
       for (int xboundary = 0; xboundary < xsize; xboundary++) {
         for (int yboundary = 0; yboundary < ysize; yboundary++) {
-          int xplus = x + xboundary;
-          int xminus = x - xboundary;
-          int yplus = y + yboundary;
-          int yminus = y - yboundary;   
-
-          if (yminus < 0 || yplus < 0) {
-            yminus = 0;
-            yplus = 0;
-          }
-          if (yminus >= n || yplus >= n) {
-            yplus = n - 1;
-            yminus = n - 1;
-          }
-          if (xminus < 0 || xplus < 0) {
-            xminus = 0;
-            xplus = 0;
-          }
-          if (xminus >= n || xplus >= n) {
-            xplus = n - 1;
-            xminus = n - 1;
-          }
+          int xplus = Math.min(n-1, Math.max((x + xboundary), 0));
+          int xminus = Math.min(n-1, Math.max((x - xboundary), 0));
+          int yplus = Math.min(n-1, Math.max((y + yboundary), 0));
+          int yminus = Math.min(n - 1, Math.max((y - yboundary), 0));
+          
           matrix[xplus][yplus] = boundary;
           matrix[xplus][yminus] = boundary;
           matrix[xminus][yplus] = boundary;
@@ -162,7 +146,7 @@ public class PathMap {
 
   public void calculate() {
 
-    pathfinder.generateHValue(matrix, Ai, Aj, Bi, Bj, n, 10, 15, true, 1);
+    pathfinder.generateHValue(matrix, Ai, Aj, Bi, Bj, n, 10, 15, true, 3);
     SmartDashboard.putNumber("Pathlistsize", pathfinder.pathList.size());
     // if(curPose.getTranslation().getY()<endPose.getTranslation().getY())
     Collections.reverse(pathfinder.pathList);
