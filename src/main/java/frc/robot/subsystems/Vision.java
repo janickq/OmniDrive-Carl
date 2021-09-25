@@ -109,9 +109,9 @@ public class Vision extends SubsystemBase
 
     public boolean checkOverlap(double x1, double y1, double x2, double y2) {
 
-      if (Math.sqrt((Math.pow(x2-x1, 2) + Math.pow(y2-y1, 2))) < 0.05)
-        return true;
-      else return false;
+      return (Math.sqrt((Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2))) < 0.05);
+      //   return true;
+      // else return false;
       
 
     }
@@ -119,24 +119,27 @@ public class Vision extends SubsystemBase
     public void getItem(){
 
       Globals.start = true;
-      if (getChips(0) != 0 && getChips(1) != 0) {
+      if (getChips(0) != 0 && getChips(1) != 0 && Globals.itemCount[0] <2) {
 
         if ((getKitkat(0) != 0 && getKitkat(1) != 0)
-            && checkOverlap(getKitkat(0), getKitkat(1), getChips(0), getChips(1)))
+            && checkOverlap(getKitkat(0), getKitkat(1), getChips(0), getChips(1))) {
           Globals.curItem = 2;
-
-        else if ((getBall(0) != 0 && getBall(1) != 0) && checkOverlap(getBall(0), getBall(1), getChips(0), getChips(1)))
+        } 
+        else if ((getBall(0) != 0 && getBall(1) != 0)
+            && checkOverlap(getBall(0), getBall(1), getChips(0), getChips(1))) {
           Globals.curItem = 1;
 
+        } 
         else if ((getNissin(0) != 0 && getNissin(1) != 0)
-            && checkOverlap(getBall(0), getBall(1), getChips(0), getChips(1)))
+            && checkOverlap(getBall(0), getBall(1), getChips(0), getChips(1))) {
           Globals.curItem = 3;
-
-        else
+        } 
+        else {
           Globals.curItem = 0;
+        }
       }
       
-      else if (getNissin(0) != 0 && getNissin(1) != 0) {
+      else if (getNissin(0) != 0 && getNissin(1) != 0 && Globals.itemCount[3] < 2) {
         
         if ((getKitkat(0) != 0 && getKitkat(1) != 0)
             && checkOverlap(getKitkat(0), getKitkat(1), getNissin(0), getNissin(1))) 
@@ -149,11 +152,12 @@ public class Vision extends SubsystemBase
         else 
           Globals.curItem = 3;
       }
-          
-      else if (getKitkat(0) != 0 && getKitkat(1) != 0)
+      else if (getBall(0) != 0 && getBall(1) != 0 && Globals.itemCount[1] <2)
+        Globals.curItem = 1;
+
+      else if (getKitkat(0) != 0 && getKitkat(1) != 0 && Globals.itemCount[2] < 2)
           Globals.curItem = 2;
-      else if (getBall(0) != 0 && getBall(1) != 0)
-          Globals.curItem = 1;
+
       else{
           Globals.curItem = 4;
           Globals.start = false;
@@ -161,63 +165,28 @@ public class Vision extends SubsystemBase
       
     }
 
-    public void getItemBool(){
-      
 
-      if (Globals.curItem == 4)
-        Globals.checkItem =true;
-      else
-        Globals.checkItem = false;
-        
-
-    }
-    public double getDistance(String xbox, String ybox, int i){
+    public double getDistance(String xbox, String ybox, int i) {
 
       double[] boxDist = new double[2];
 
-      boxDist[1] = 24424/SmartDashboard.getNumber(ybox, 0);
-      boxDist[0] = Math.tan((SmartDashboard.getNumber(xbox, 0)/320)*35)*boxDist[1];
-
+      boxDist[1] = 24424 / SmartDashboard.getNumber(ybox, 0);
+      boxDist[0] = Math.tan((SmartDashboard.getNumber(xbox, 0) / 320) * 35) * boxDist[1];
 
       return boxDist[i];
 
-
     }
-    
-    public Pose2d getDropPose(String point1, String point2, String posename) {
 
-      m_points.updatePoint(point1, new Pose2d(SmartDashboard.getNumber(point1 + "x", 0) / 100,
-          SmartDashboard.getNumber(point1 + "y", 0) / 100, new Rotation2d(0))
-
-      );
-      m_points.updatePoint(point2, new Pose2d(SmartDashboard.getNumber(point2 + "x", 0) / 100,
-          SmartDashboard.getNumber(point2 + "y", 0) / 100, new Rotation2d(0))
-
-      );
-      m_points.updatePoint(posename, new Pose2d(
-          (m_points.getPoint(point1).getTranslation().getX() + m_points.getPoint(point2).getTranslation().getX()) / 2,
-
-          (-m_points.getPoint(point1).getTranslation().getY() + -m_points.getPoint(point2).getTranslation().getY()) / 2,
-
-          new Rotation2d(Math.atan(
-              (-m_points.getPoint(point1).getTranslation().getY() - -m_points.getPoint(point2).getTranslation().getY())
-                  / (m_points.getPoint(point1).getTranslation().getX()
-                      - m_points.getPoint(point2).getTranslation().getX())))
-
-      ).transformBy(new Transform2d(new Translation2d(-0.2, -0.4), new Rotation2d(0))));
-
-      return new Pose2d(
-          (m_points.getPoint(point1).getTranslation().getX() + m_points.getPoint(point2).getTranslation().getX()) / 2,
-
-          (-m_points.getPoint(point1).getTranslation().getY() + -m_points.getPoint(point2).getTranslation().getY()) / 2,
-
-          new Rotation2d(Math.atan(
-              (-m_points.getPoint(point1).getTranslation().getY() - -m_points.getPoint(point2).getTranslation().getY())
-                  / (m_points.getPoint(point1).getTranslation().getX()
-                      - m_points.getPoint(point2).getTranslation().getX())))
-
-      ).transformBy(new Transform2d(new Translation2d(-0.2, -0.4), new Rotation2d(0)));
-
+    public void getBin() {
+      var Bin = m_points.getPoint("Bin");
+      if (Bin.getTranslation().getY() < 2)
+        m_points.updatePoint("binPick", m_points.getPoint("BinRight"));
+      else if (Bin.getTranslation().getX() < 1.25) {
+        m_points.updatePoint("binPick", m_points.getPoint("BinRight"));
+      }
+      else if (Bin.getTranslation().getX() > 1.25) {
+        m_points.updatePoint("binPick", m_points.getPoint("BinLeft"));
+      }
     }
 
     public void pickBall() {
@@ -263,7 +232,7 @@ public class Vision extends SubsystemBase
         
         
 
-        // SmartDashboard.putNumber("curItem", Globals.curItem);
+        SmartDashboard.putNumber("curItem", Globals.curItem);
         // SmartDashboard.putNumber("chipy", getChips(1));
         
         // SmartDashboard.putNumber("nissinx", getNissin(0));
@@ -294,6 +263,7 @@ public class Vision extends SubsystemBase
         SmartDashboard.putString("kitKatDrop", m_points.getPoint("kitKatDrop").toString());
         SmartDashboard.putString("ballDrop", m_points.getPoint("ballDrop").toString());
         SmartDashboard.putString("nissinDrop", m_points.getPoint("nissinDrop").toString());
+        SmartDashboard.putString("Bin2", m_points.getPoint("Bin2").toString());
         SmartDashboard.putString("Bin", m_points.getPoint("Bin").toString());
         SmartDashboard.putBoolean("mapping", pickedflag);
         servo3.setAngle(cameraAngle);

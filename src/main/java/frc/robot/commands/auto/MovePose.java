@@ -38,7 +38,7 @@ public class MovePose extends CommandBase {
   public MovePose(double x, double y, double omegaRadian) {
 
     desiredPose = new Pose2d(x, y, new Rotation2d(omegaRadian));
-
+    name = false;
   }
 
   public MovePose(Pose2d desiredPose) {

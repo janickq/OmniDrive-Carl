@@ -48,14 +48,14 @@ public final class Constants
 
     //PIDs
     public static final int PID_NUM = 3;
-    public static final double PID_DT = 0.005;
-    public static final boolean PID_THREAD = true;
+    public static final double PID_DT = 0.02;
+    public static final boolean PID_THREAD = false;
 
     //Arm
     public static final double ARM1 = 0.24;
     public static final double ARM2 = 0.325;
 
-    public static final String[] obstacles = {"Bin", "unadjustedDrop1", "unadjustedDrop2" ,"Bin2"};
+    public static final String[] obstacles = {"Bin", "unadjustedDrop1", "unadjustedDrop2" };
     public static final int gridsize = 100;
 
 

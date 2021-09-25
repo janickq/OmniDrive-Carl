@@ -74,8 +74,9 @@ public class PathMap {
     for (int i = 0; i < Obstacles.size(); i++) {
       int x = Math.toIntExact(Math.round((Obstacles.get(i).getTranslation().getX() / 2.25) * n / 2));
       int y = Math.toIntExact(Math.round((Obstacles.get(i).getTranslation().getY() / 4.5) * n));
-      createBoundary(13,13, x, y, false);
+      createBoundary(13, 13, x, y, false);
     }
+    createBoundary(13, 10, 36, 25, false);
     clearPath(Ai, Aj);
     clearPath(Bi, Bj);
  
@@ -161,7 +162,7 @@ public class PathMap {
 
   public void calculate() {
 
-    pathfinder.generateHValue(matrix, Ai, Aj, Bi, Bj, n, 10, 10, true, 3);
+    pathfinder.generateHValue(matrix, Ai, Aj, Bi, Bj, n, 10, 15, true, 1);
     SmartDashboard.putNumber("Pathlistsize", pathfinder.pathList.size());
     // if(curPose.getTranslation().getY()<endPose.getTranslation().getY())
     Collections.reverse(pathfinder.pathList);

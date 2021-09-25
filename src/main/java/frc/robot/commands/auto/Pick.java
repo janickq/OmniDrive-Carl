@@ -135,7 +135,7 @@ public class Pick extends AutoCommand {
 
                 Map.entry(CommandSelector.END, 
 
-                     new InstantCommand(m_vision::getItemBool)
+                     new InstantCommand()
                 
                 )
             

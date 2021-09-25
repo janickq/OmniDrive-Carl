@@ -85,7 +85,7 @@ public class Arm extends SubsystemBase
     }
 
     public void setServo3Angle(final double degrees) {
-        servo3.setAngle(degrees);
+        servo3.setAngle(degrees+5);
     }
 
     /*

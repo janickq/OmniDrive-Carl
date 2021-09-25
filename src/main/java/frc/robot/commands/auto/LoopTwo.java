@@ -12,18 +12,17 @@ import frc.robot.Globals;
  * <p>
  * This class creates the inline auto command to drive the motor
  */
-public class MoveTest2 extends CommandBase
-{
-    private int state=1;
-    private boolean flag = false;
-    private boolean m_endFlag = false;
-    private CommandSchedule cmd; 
+public class LoopTwo extends CommandBase {
+  private int state = 1;
+  private boolean flag = false;
+  private boolean m_endFlag = false;
+  private SequenceTwo cmd;
 
-    //private final ShuffleboardTab tab = Shuffleboard.getTab("Debug");
+  // private final ShuffleboardTab tab = Shuffleboard.getTab("Debug");
 
-    //private final NetworkTableEntry D_state = tab.add("State", 0).getEntry();
+  // private final NetworkTableEntry D_state = tab.add("State", 0).getEntry();
 
-	  public MoveTest2()
+  public LoopTwo()
     {
       state=0;
     }
@@ -46,7 +45,7 @@ public class MoveTest2 extends CommandBase
     {
         if (flag==false) {
             //launch command group
-            cmd = new CommandSchedule();
+            cmd = new SequenceTwo();
             cmd.schedule(false);
             flag = true;
             Globals.runFlag = true;
@@ -78,6 +77,6 @@ public class MoveTest2 extends CommandBase
     @Override
     public void end(boolean interrupted)
     {
-        //D_state.setNumber(-1);
+        // Globals.curItem = 5;
     }
 }

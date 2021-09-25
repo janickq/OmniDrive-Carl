@@ -2,6 +2,7 @@ package frc.robot.commands.auto;
 
 import java.util.Map;
 
+import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.SelectCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.Globals;
@@ -53,6 +54,7 @@ public class Deliver extends AutoCommand {
             new SequentialCommandGroup(
                 
               new FollowPath("chipsDrop"),
+              new InstantCommand(()->  Globals.itemCount[0]++),
               new AlignDrop("YellowBox")
             )
 
@@ -61,6 +63,7 @@ public class Deliver extends AutoCommand {
           Map.entry(CommandSelector.NISSIN,
             new SequentialCommandGroup(
               new FollowPath("nissinDrop"),
+              new InstantCommand(()->  Globals.itemCount[3]++),
               new AlignDrop("GreenBox")
             )
           ),
@@ -68,6 +71,7 @@ public class Deliver extends AutoCommand {
           Map.entry(CommandSelector.KITKAT, 
             new SequentialCommandGroup(
               new FollowPath("kitKatDrop"),
+              new InstantCommand(()->  Globals.itemCount[2]++),
               new AlignDrop("RedBox")
             )
           ),
@@ -75,6 +79,7 @@ public class Deliver extends AutoCommand {
           Map.entry(CommandSelector.BALL, 
             new SequentialCommandGroup(
               new FollowPath("ballDrop"),
+              new InstantCommand(()->  Globals.itemCount[1]++),
               new AlignDrop("BlueBox")
               
 

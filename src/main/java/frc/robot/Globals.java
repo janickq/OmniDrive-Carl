@@ -83,6 +83,7 @@ public class Globals {
     public static boolean poserunFlag = false;
     static public boolean runFlag;
     public static boolean alignFlag;
+    public static int[] itemCount = new int[4];
     
 
     public static Pose2d referencePose;

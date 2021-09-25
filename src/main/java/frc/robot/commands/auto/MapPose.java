@@ -53,6 +53,7 @@ public class MapPose extends CommandBase {
     endflag = false;
 
     m_drop.getBoxes();
+    m_drop.getBin();
     m_drop.generatePair();
     m_drop.getDropPose();
     endflag = true;

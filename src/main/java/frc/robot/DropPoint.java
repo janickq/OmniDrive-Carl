@@ -22,62 +22,49 @@ public class DropPoint {
   ArrayList<BoxPair> boxPair = new ArrayList<>();
   // BoxPair[] boxPair;
 
-  Pose2d Drop1;
-  Pose2d Drop2;
-  Pose2d RedBox;
-  Pose2d GreenBox;
-  Pose2d BlueBox;
-  Pose2d BlackBox;
-  Pose2d YellowBox;
-  Pose2d Bin;
   static Points m_points = RobotContainer.m_points;
 
   public void getBoxes() {
     for (int i = 0; i < boxes.length; i++) {
-      // if(m_points.getPoint(boxes[i]).equals(new Pose2d(0, 0, new Rotation2d(0))))
-        m_points.updatePoint(boxes[i], Globals.curPose.transformBy(new Transform2d(new Translation2d( SmartDashboard.getNumber(boxes[i] + "x", 0) / 100,
-            -SmartDashboard.getNumber(boxes[i] + "y", 0) / 100), new Rotation2d(0)))
+      if(m_points.getPoint(boxes[i]).equals(new Pose2d(0, 0, new Rotation2d(0))))
+      m_points.updatePoint(boxes[i],
+          Globals.curPose
+              .transformBy(new Transform2d(new Translation2d(SmartDashboard.getNumber(boxes[i] + "x", 0) / 100,
+                  -SmartDashboard.getNumber(boxes[i] + "y", 0) / 100), new Rotation2d(0)))
 
       );
 
     }
 
-    m_points.updatePoint("Bin",Globals.curPose.transformBy(new Transform2d(new Translation2d(
+  }
 
-        SmartDashboard.getNumber("Binx", 0) / 100,
-        -SmartDashboard.getNumber("Biny", 0) / 100), new Rotation2d(0))
-        )
-    );
+  public void getBin() {
+    if (m_points.getPoint("Bin").equals(new Pose2d())) {
+      m_points.updatePoint("Bin", Globals.curPose.transformBy(new Transform2d(new Translation2d(
 
+          SmartDashboard.getNumber("Binx", 0) / 100, -SmartDashboard.getNumber("Biny", 0) / 100), new Rotation2d(0))));
 
-    m_points.updatePoint("BinBack",
-        m_points.getPoint("Bin").transformBy(new Transform2d(new Translation2d(0, -0.5), new Rotation2d(0)))
+      m_points.updatePoint("BinBack",
+          m_points.getPoint("Bin").transformBy(new Transform2d(new Translation2d(0, -0.4), new Rotation2d(0)))
 
-    );
+      );
 
-    m_points.updatePoint("BinFront",
-      m_points.getPoint("Bin").transformBy(new Transform2d(new Translation2d(0, 0.5), new Rotation2d(0)))
+      m_points.updatePoint("BinFront",
+          m_points.getPoint("Bin").transformBy(new Transform2d(new Translation2d(0, 0.4), new Rotation2d(-Math.PI)))
 
-    );
+      );
 
-    m_points.updatePoint("BinLeft",
-      m_points.getPoint("Bin").transformBy(new Transform2d(new Translation2d(-0.5, 0), new Rotation2d(0)))
+      m_points.updatePoint("BinLeft", m_points.getPoint("Bin")
+          .transformBy(new Transform2d(new Translation2d(-0.4, 0), new Rotation2d(-Math.PI / 2)))
 
-    );
-    
-    m_points.updatePoint("BinRight",
-      m_points.getPoint("Bin").transformBy(new Transform2d(new Translation2d(0.5, 0), new Rotation2d(0)))
+      );
 
-    );
-  
-  
+      m_points.updatePoint("BinRight",
+          m_points.getPoint("Bin").transformBy(new Transform2d(new Translation2d(0.4, 0), new Rotation2d(Math.PI / 2)))
 
-    RedBox = m_points.getPoint("RedBox");
-    BlueBox = m_points.getPoint("BlueBox");
-    BlackBox = m_points.getPoint("BlackBox");
-    YellowBox = m_points.getPoint("YellowBox");
-    GreenBox = m_points.getPoint("GreenBox");
-    Bin = m_points.getPoint("Bin");
+      );
+
+    }
 
   }
 
@@ -121,8 +108,7 @@ public class DropPoint {
 
   public void generatePose(String posename, Pose2d box1, Pose2d box2) {
 
-    var generatedPose = Globals.curPose.transformBy(
-      new Transform2d(
+    var generatedPose = new Pose2d(
         new Translation2d(
           (box1.getTranslation().getX() + 
           box2.getTranslation().getX()
@@ -141,7 +127,7 @@ public class DropPoint {
               box1.getTranslation().getX() - 
               box2.getTranslation().getX()
             )
-          )))));
+          ))));
     
     m_points.updatePoint(posename, generatedPose.transformBy(  
         new Transform2d(
@@ -220,6 +206,8 @@ public class DropPoint {
       m_points.setAlignment(box1, true);
       m_points.setAlignment(box2, false);
     }
+    m_points.updatePoint(box1 ,m_points.getPoint(posename));
+    m_points.updatePoint(box2 ,m_points.getPoint(posename));
 
     Globals.debug10 = relativePose1.toString();
     Globals.debug9 = relativePose2.toString();
