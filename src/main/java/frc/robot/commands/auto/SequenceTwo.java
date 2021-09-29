@@ -7,12 +7,14 @@ import frc.robot.Points;
 import frc.robot.RobotContainer;
 import frc.robot.commands.auto.PickCommands.GripperPick;
 import frc.robot.subsystems.OmniDrive;
+import frc.robot.subsystems.Sensor;
 import frc.robot.subsystems.Vision;
 
 public class SequenceTwo extends AutoCommand {
 
   private final static Vision m_vision = RobotContainer.m_vision;
   private final static OmniDrive m_omnidrive = RobotContainer.m_omnidrive;
+  private final static Sensor m_sensor = RobotContainer.m_sensor;
 
   public SequenceTwo() {
 
@@ -20,6 +22,7 @@ public class SequenceTwo extends AutoCommand {
       new FollowPath("binPick"),
       new WaitCommand(1),
       new InstantCommand(m_vision::itemLook),
+      new MoveRobotSense(1, 0.1, 0, 0, 0.2, () -> m_sensor.getSonicDistance1() < 130),
       new MoveRobot(0, -0.1, 0, 0, 0.2),
       new WaitCommand(2), 
       new InstantCommand(m_vision::getItem),

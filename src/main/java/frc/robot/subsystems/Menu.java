@@ -3,14 +3,17 @@ package frc.robot.subsystems;
 import java.util.Map;
 
 import edu.wpi.first.networktables.NetworkTableEntry;
+import edu.wpi.first.wpilibj.geometry.Rotation2d;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
+import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.SelectCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 //WPI imports
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import frc.robot.Globals;
+import frc.robot.Points;
 import frc.robot.RobotContainer;
 import frc.robot.commands.auto.MoveArmXY;
 import frc.robot.commands.auto.Test;
@@ -30,7 +33,7 @@ public class Menu extends SubsystemBase
 {
 
     private final OI m_oi = RobotContainer.m_oi;
-
+    private final Points m_points = RobotContainer.m_points;
 
 
     // Shuffleboard
@@ -56,6 +59,7 @@ public class Menu extends SubsystemBase
                 Map.entry(menuNum++, new Task9()),
                 Map.entry(menuNum++, 
                     new SequentialCommandGroup(
+                        new InstantCommand(() -> Globals.curPose = m_points.jigOffset),
                         new GripperPick(4), 
                         new MoveArmXY(Constants.ARM2-0.05, Constants.ARM1+0.15, 0, 0, 0.5)
                     )

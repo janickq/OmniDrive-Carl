@@ -106,12 +106,12 @@ public class ArmPickY extends CommandBase {
         m_goal = new TrapezoidProfile.State(dist, 0);
 
         //checks if target coordinates are within boundaries
-        if(Math.sqrt(Math.pow(startCo[0], 2)+Math.pow(ygoal, 2)) > (Constants.ARM1 + Constants.ARM2)){
-            m_endFlag = true;
-        }
-        else{
+        // if(Math.sqrt(Math.pow(startCo[0], 2)+Math.pow(ygoal, 2)) > (Constants.ARM1 + Constants.ARM2)){
+        //     m_endFlag = true;
+        // }
+        // else{
             m_endFlag = false;
-        }
+        
         
         //debug stuff
 
@@ -132,10 +132,10 @@ public class ArmPickY extends CommandBase {
              2 = kitkat
              3 = nissin
         */
-        itemCo[0] = Globals.yArm - (m_sensor.getIRDistance2() / 100)-0.04;
-        itemCo[1] = Globals.yArm - (m_sensor.getIRDistance2() / 100) + 0.07;//-0.06;
-        itemCo[2] = Globals.yArm - (m_sensor.getIRDistance2() / 100)+0.06;
-        itemCo[3] = Globals.yArm - (m_sensor.getIRDistance2() / 100)+0.02;
+        itemCo[0] = Math.max((Globals.yArm - (m_sensor.getIRDistance2() / 100)-0.04), -0.07);
+        itemCo[1] = Math.max((Globals.yArm - (m_sensor.getIRDistance2() / 100) + 0.07), -0.05);
+        itemCo[2] = Math.max((Globals.yArm - (m_sensor.getIRDistance2() / 100)+0.07),-0.08);
+        itemCo[3] = Math.max((Globals.yArm - (m_sensor.getIRDistance2() / 100) + 0.02), -0.05);
 
         // add offset of arm to camera
         return itemCo[item];
