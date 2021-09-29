@@ -27,10 +27,10 @@ public class DropPoint {
   public void getBoxes() {
     for (int i = 0; i < boxes.length; i++) {
       if(m_points.getPoint(boxes[i]).equals(new Pose2d(0, 0, new Rotation2d(0))))
-      m_points.updatePoint(boxes[i],
-          Globals.curPose
-              .transformBy(new Transform2d(new Translation2d(SmartDashboard.getNumber(boxes[i] + "x", 0) / 100,
-                  -SmartDashboard.getNumber(boxes[i] + "y", 0) / 100), new Rotation2d(0)))
+        m_points.updatePoint(boxes[i],
+            Globals.curPose
+                .transformBy(new Transform2d(new Translation2d(SmartDashboard.getNumber(boxes[i] + "x", 0) / 100,
+                    -SmartDashboard.getNumber(boxes[i] + "y", 0) / 100), new Rotation2d(0)))
 
       );
 
@@ -183,7 +183,8 @@ public class DropPoint {
       
           
       setAlignment(boxPair.get(i).box1, boxPair.get(i).box2, "unadjustedDrop" + str);
-
+      m_points.updatePoint(boxPair.get(i).box1 ,m_points.getPoint("Drop" + str));
+      m_points.updatePoint(boxPair.get(i).box2 ,m_points.getPoint("Drop" + str));
 
     }
 
@@ -206,15 +207,13 @@ public class DropPoint {
       m_points.setAlignment(box1, true);
       m_points.setAlignment(box2, false);
     }
-    m_points.updatePoint(box1 ,m_points.getPoint(posename));
-    m_points.updatePoint(box2 ,m_points.getPoint(posename));
+
 
     Globals.debug10 = relativePose1.toString();
     Globals.debug9 = relativePose2.toString();
     SmartDashboard.putString("Relativepose1", relativePose1.toString());
     SmartDashboard.putString("Relativepose2", relativePose2.toString());
-    SmartDashboard.putString("box1", box1);
-    SmartDashboard.putString("box2", box2);
+
   }
 
   

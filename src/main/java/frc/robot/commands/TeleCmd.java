@@ -1,5 +1,9 @@
 package frc.robot.commands;
 
+import org.opencv.video.KalmanFilter;
+
+import edu.wpi.first.wpilibj.MedianFilter;
+import edu.wpi.first.wpilibj.SlewRateLimiter;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Globals;
 import frc.robot.RobotContainer;
@@ -15,6 +19,10 @@ public class TeleCmd extends CommandBase
      */
     private final OmniDrive m_omnidrive = RobotContainer.m_omnidrive;
     private final OI m_oi = RobotContainer.m_oi;
+    private SlewRateLimiter filter1 = new SlewRateLimiter(1);
+    private SlewRateLimiter filter2 = new SlewRateLimiter(1);
+    private SlewRateLimiter filter3 = new SlewRateLimiter(1);
+    private SlewRateLimiter filter4 = new SlewRateLimiter(1);
 
 
     /**
@@ -58,10 +66,10 @@ public class TeleCmd extends CommandBase
          */
         //Right stick for X-Y control
         //Left stick for W (rotational) control
-        x = m_oi.getRightDriveX();
-        y = -m_oi.getRightDriveY();//Down is positive. Need to negate
-        w = -m_oi.getLeftDriveX(); //X-positive is CW. Need to negate
-        z = -m_oi.getLeftDriveY();
+        x = filter1.calculate(m_oi.getRightDriveX());
+        y = filter2.calculate(-m_oi.getRightDriveY());//Down is positive. Need to negate
+        w = filter3.calculate(-m_oi.getLeftDriveX()); //X-positive is CW. Need to negate
+        z = filter4.calculate(-m_oi.getLeftDriveY());
         
         m_omnidrive.setRobotSpeedXYW(x/2, y/2, w*Math.PI);
         //m_arm.setServo1Angle((Globals.curAngle1+=y*2));

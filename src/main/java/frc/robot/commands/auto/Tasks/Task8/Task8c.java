@@ -1,4 +1,4 @@
-package frc.robot.commands.auto.Tasks;
+package frc.robot.commands.auto.Tasks.Task8;
 
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
@@ -8,17 +8,20 @@ import frc.robot.commands.auto.AutoCommand;
 import frc.robot.commands.auto.Pick;
 import frc.robot.subsystems.Vision;
 
-public class Task5 extends AutoCommand {
+public class Task8c extends AutoCommand {
 
-  static final Vision m_vision = RobotContainer.m_vision;
+  private final static Vision m_vision = RobotContainer.m_vision;
 
-  public Task5() {
+  public Task8c() {
+    
     super(
+      
       new InstantCommand(m_vision::itemLook),
       new WaitCommand(2),
-      new InstantCommand(m_vision::getItem),
+      new InstantCommand(() -> Globals.curItem = 0),
       new Pick()
     );
+
   }
 
 }
