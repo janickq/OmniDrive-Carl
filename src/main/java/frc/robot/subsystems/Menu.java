@@ -40,6 +40,7 @@ public class Menu extends SubsystemBase
 
     private final OI m_oi = RobotContainer.m_oi;
     private final Points m_points = RobotContainer.m_points;
+    private final OmniDrive m_omnidrive = RobotContainer.m_omnidrive;
 
 
     // Shuffleboard
@@ -72,7 +73,8 @@ public class Menu extends SubsystemBase
                 Map.entry(menuNum++, new Task9Green()),
                 Map.entry(menuNum++, 
                     new SequentialCommandGroup(
-                        new InstantCommand(() -> Globals.curPose = m_points.jigOffset),
+                        new InstantCommand(m_points::resetMap),
+                        new InstantCommand(m_omnidrive::setZeroPose),
                         new GripperPick(4), 
                         new MoveArmXY(Constants.ARM2-0.05, Constants.ARM1+0.15, 0, 0, 0.5)
                     )

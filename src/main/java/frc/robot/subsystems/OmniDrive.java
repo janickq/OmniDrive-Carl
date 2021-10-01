@@ -116,8 +116,8 @@ public class OmniDrive extends SubsystemBase
         // x, y and w speed controler
         pidControllers = new PIDController[Constants.PID_NUM];
         //Speed control
-        pidControllers[0] = new PIDController(1.3, 15.0, 0.04, pid_dT);  //x
-        pidControllers[1] = new PIDController(1.3, 15.0, 0.04, pid_dT);  //y 2.0,32.0,0.02
+        pidControllers[0] = new PIDController(1.3, 16.0, 0.04, pid_dT);  //x
+        pidControllers[1] = new PIDController(1.3, 16.0, 0.04, pid_dT);  //y 2.0,32.0,0.02
         pidControllers[2] = new PIDController(2.5,0.0,0.05, pid_dT);    //w
         pidControllers[2].enableContinuousInput(-Math.PI, Math.PI);
 
@@ -149,7 +149,7 @@ public class OmniDrive extends SubsystemBase
 
     public void setreferencePose(){
 
-        Globals.referencePose = getPose();
+        Globals.referencePose = m_points.getPoint("Map");
 
     }
 
@@ -159,8 +159,12 @@ public class OmniDrive extends SubsystemBase
         odometryW = sPose2d.getRotation().getRadians();
     }
 
-    public void resetPose(){
+    public void resetPose() {
         setPose(Globals.referencePose);
+    }
+
+    public void setZeroPose() {
+        setPose(m_points.getPoint("jigOffset"));
     }
 
     public Pose2d getPose() {
@@ -250,7 +254,7 @@ public class OmniDrive extends SubsystemBase
     
 
     public void doPID( ){
-
+        debugout1.set(true);
         //This is for translational speed PID
         //First calculate wheel speed from encoder feedback
         double dcValue = 0.0;
@@ -316,7 +320,7 @@ public class OmniDrive extends SubsystemBase
             motors[i].set(motorOuts[i]/max);
             //motors[i].set(0);   //off motor to test encoders manually
         }   
-
+        debugout1.set(false);
    }
     /**
      * Code that runs once every robot loop
@@ -325,18 +329,18 @@ public class OmniDrive extends SubsystemBase
     @Override
     public void periodic()
     {
-
+  
         if (initCnt<20) {
             initCnt++;
             gyro.zeroYaw();
             curHeading = targetHeading = getYawRad();
             return;
         }
-        debugout1.set(true);
+
         if (!Constants.PID_THREAD ) {
             doPID();
         }
-        debugout1.set(false);
+
         /**
          * Updates for outputs to the shuffleboard
          */

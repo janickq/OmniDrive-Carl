@@ -17,7 +17,7 @@ public class TeleCmd extends CommandBase
     /**
      * Bring in Subsystem and Gamepad code
      */
-    private double rate = 100;
+    private double rate = 1.5;
     private final OmniDrive m_omnidrive = RobotContainer.m_omnidrive;
     private final OI m_oi = RobotContainer.m_oi;
     private SlewRateLimiter filter1 = new SlewRateLimiter(rate);

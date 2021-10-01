@@ -35,7 +35,7 @@ public class SequenceTwo extends AutoCommand {
       new MoveRobot(2, 0.1, 0, 0, 0.5),
       new MoveRobot(2, -0.1, 0, 0, 0.5),
       new FollowPath("Pick"),
-      new AlignRight(),
+      new AlignPick(),
       new WaitCommand(1),
       new ZeroPose(),
       new InstantCommand(m_omnidrive::resetPose),

@@ -16,9 +16,9 @@ public class AlignPick extends AutoCommand {
 
     super(
 
-          new MoveRobotSense(0, 5, 0, 0, spd2, () -> m_sensor.getSonicDistance1()< 900),
+          new MoveRobotSense(0, 5, 0, 0, spd2, () -> m_sensor.getSonicDistance2()< 900),
 
-          new MoveRobotSense(1, 1, 0, 0, spd2, () -> m_sensor.getSonicDistance2()< 300),
+          new MoveRobotSense(1, 1, 0, 0, spd2, () -> m_sensor.getSonicDistance1()< 300),
           new AlignLeft()
 
 

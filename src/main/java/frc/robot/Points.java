@@ -16,10 +16,11 @@ public class Points{
   public Map<String, Pose2d> pointMap = new HashMap<>();
   public Map<String, Pose2d> obstacleMap = new HashMap<>();
   public Map<String, Boolean> commandMap = new HashMap<>();
-
+  public Map<String, Pose2d> backedpointMap = new HashMap<>();
+ 
   public Pose2d binPick = new Pose2d();
-  public Pose2d Pick = new Pose2d(0.8, 1.12, new Rotation2d(-Math.PI / 2));
-  public Pose2d Map = new Pose2d(0.85, 1.1 + 0.13, new Rotation2d(0));
+  public Pose2d Pick = new Pose2d(0.85, 1.1, new Rotation2d(-Math.PI / 2));
+  public Pose2d Map = new Pose2d(1.13, 1.1, new Rotation2d(-Math.PI / 2));
   public Pose2d kitKatDrop = new Pose2d();//0.5, 3.95, new Rotation2d(0));
   public Pose2d chipsDrop = new Pose2d();//0.5, 3.95, new Rotation2d(0));
   public Pose2d waypoint1 = new Pose2d();//0.75, 3, new Rotation2d(0));
@@ -68,9 +69,14 @@ public class Points{
     pointMap.put("unadjustedDrop1", UnadjustedDrop1);
     pointMap.put("unadjustedDrop2", UnadjustedDrop2);
     pointMap.put("binPick", binPick);
+    backedpointMap.putAll(pointMap);
   }
   
 
+  public void resetMap() {
+    pointMap.clear();
+    pointMap.putAll(backedpointMap);
+  }
 
   public void updatePoint(String pointname, Pose2d newpose) {
     pointMap.put(pointname, newpose);;

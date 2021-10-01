@@ -39,7 +39,7 @@ public class Vision extends SubsystemBase
 
         servo3 = new Servo(Constants.SERVO4);
         boxLook();
-        servo3.setAngle(120);
+        servo3.setAngle(150);
         
     }
 
@@ -47,12 +47,12 @@ public class Vision extends SubsystemBase
     public void boxLook() {
 
       pickedflag = true;
-      cameraAngle = 120;
+      cameraAngle = 150;
     }
     
     public void itemLook() {
       pickedflag = false;
-      cameraAngle = 25 ;
+      cameraAngle = 45 ;
     }
 
     public void readBarcode()
