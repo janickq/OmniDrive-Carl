@@ -17,12 +17,13 @@ public class DropPoint {
 
   // Comparator<BoxPair> byDistance = Comparator.comparingDouble(BoxPair::getDistance);
 
-  String[] boxes = new String[] { "RedBox", "BlueBox", "YellowBox", "BlackBox", "GreenBox" };
-  String[] items = new String[] { "kitKatDrop", "ballDrop", "chipsDrop", "kitKatDrop", "nissinDrop" };
-  ArrayList<BoxPair> boxPair = new ArrayList<>();
+  public static String[] boxes = new String[] { "RedBox", "BlueBox", "YellowBox", "BlackBox", "GreenBox" };
+  public static String[] items = new String[] { "kitKatDrop", "ballDrop", "chipsDrop", "kitKatDrop", "nissinDrop" };
+  public static ArrayList<BoxPair> boxPair = new ArrayList<>();
+
   // BoxPair[] boxPair;
 
-  static Points m_points = RobotContainer.m_points;
+  public final static Points m_points = RobotContainer.m_points;
 
   public void getBoxes() {
     for (int i = 0; i < boxes.length; i++) {
@@ -81,7 +82,7 @@ public class DropPoint {
         var y2 = -m_points.getPoint(boxes[j]).getTranslation().getY();
 
         double dist = Math.sqrt((Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2)));
-        if (x1 + x2 == 0 || y1 + y2 == 0)
+        if (x1 + y1 == 0 || x2 + y2 == 0)
           break;
         boxPair.add(x, new BoxPair(boxes[i], boxes[j], Math.abs(dist), items[i], items[j]));
         x++;
@@ -208,12 +209,15 @@ public class DropPoint {
       m_points.setAlignment(box2, false);
     }
 
-
     Globals.debug10 = relativePose1.toString();
     Globals.debug9 = relativePose2.toString();
     SmartDashboard.putString("Relativepose1", relativePose1.toString());
     SmartDashboard.putString("Relativepose2", relativePose2.toString());
 
+  }
+  
+  public void reset(){
+    boxPair.clear();
   }
 
   

@@ -21,7 +21,7 @@ public class Task9Yellow extends AutoCommand {
   private final static Vision m_vision = RobotContainer.m_vision;
   private final static Points m_points = RobotContainer.m_points;
   private final static Sensor m_sensor = RobotContainer.m_sensor;
-  private final static DropPoint m_drop = new DropPoint();
+  private final static DropPoint m_drop = RobotContainer.m_drop;
 
   public Task9Yellow() {
     super(

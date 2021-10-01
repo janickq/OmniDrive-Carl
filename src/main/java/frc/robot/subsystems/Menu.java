@@ -11,6 +11,7 @@ import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 //WPI imports
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
+import frc.robot.DropPoint;
 import frc.robot.Globals;
 import frc.robot.Points;
 import frc.robot.RobotContainer;
@@ -41,7 +42,7 @@ public class Menu extends SubsystemBase
     private final OI m_oi = RobotContainer.m_oi;
     private final Points m_points = RobotContainer.m_points;
     private final OmniDrive m_omnidrive = RobotContainer.m_omnidrive;
-
+    private final static DropPoint m_drop = RobotContainer.m_drop;
 
     // Shuffleboard
     private final ShuffleboardTab tab = Shuffleboard.getTab("Menu");
@@ -75,6 +76,7 @@ public class Menu extends SubsystemBase
                     new SequentialCommandGroup(
                         new InstantCommand(m_points::resetMap),
                         new InstantCommand(m_omnidrive::setZeroPose),
+                        new InstantCommand(m_drop::reset),
                         new GripperPick(4), 
                         new MoveArmXY(Constants.ARM2-0.05, Constants.ARM1+0.15, 0, 0, 0.5)
                     )

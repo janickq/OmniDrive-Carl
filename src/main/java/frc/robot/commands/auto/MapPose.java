@@ -28,7 +28,7 @@ public class MapPose extends CommandBase {
 
 
   PathMap pathMap = new PathMap();
-  static final DropPoint m_drop = new DropPoint();
+  private final static DropPoint m_drop = RobotContainer.m_drop;
 
   private static final Points m_points = RobotContainer.m_points;
   private static final Vision m_vision = RobotContainer.m_vision;

@@ -29,6 +29,7 @@ public class RobotContainer {
   public final static Sensor m_sensor = new Sensor();
   public final static OmniDrive m_omnidrive = new OmniDrive();
   public final static Arm m_arm = new Arm();
+  public final static DropPoint m_drop = new DropPoint();
   public final static TeleCmd m_teleCmd = new TeleCmd();// (m_arm, m_omnidrive);
   public final static Menu m_menu = new Menu();
 
