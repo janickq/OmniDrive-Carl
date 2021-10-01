@@ -40,7 +40,7 @@ public class Sensor extends SubsystemBase
     //private final DigitalInput input11;
     private final Cobra cobra;
     private final Ultrasonic sonic1;
-    // private final Ultrasonic sonic2;
+    private final Ultrasonic sonic2;
     private final AnalogInput sharp1;
     private final AnalogInput sharp2;
     private final AnalogInput sharp3;
@@ -81,7 +81,7 @@ public class Sensor extends SubsystemBase
         sharp2 = new AnalogInput(Constants.SHARP2);
         sharp3 = new AnalogInput(Constants.SHARP3);
         sonic1 = new Ultrasonic(Constants.SONIC_TRIGG1, Constants.SONIC_ECHO1);
-        // sonic2 = new Ultrasonic(Constants.SONIC_TRIGG2, Constants.SONIC_ECHO2);
+        sonic2 = new Ultrasonic(Constants.SONIC_TRIGG2, Constants.SONIC_ECHO2);
 
     }
 
@@ -141,6 +141,13 @@ public class Sensor extends SubsystemBase
         return filter5.calculate(sonic1.getRangeMM());
 
     }
+    public double getSonicDistance2() {
+        sonic2.ping();
+        Timer.delay(0.02);
+
+        return filter8.calculate(sonic2.getRangeMM());
+
+    }
     // public double getSonicDistance2(final boolean metric) {
     //     sonic2.ping();
     //     Timer.delay(0.005);
@@ -192,7 +199,7 @@ public class Sensor extends SubsystemBase
              D_sharpIR1.setDouble(getIRDistance1());
              D_sharpIR3.setDouble(getIRDistance3());
              D_ultraSonic1.setDouble(getSonicDistance1()); //set to true because we want metric
-            //  D_ultraSonic2.setDouble(getSonicDistance2(true));
+             D_ultraSonic2.setDouble(getSonicDistance2());
          }
 
          else{

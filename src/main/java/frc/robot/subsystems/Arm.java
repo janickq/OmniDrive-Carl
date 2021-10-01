@@ -38,12 +38,12 @@ public class Arm extends SubsystemBase
     private final NetworkTableEntry D_startCo1 = tab.add("startCo1", 0).getEntry();
     private final NetworkTableEntry D_startCo2 = tab.add("startCo2", 0).getEntry();
 
-    public Arm(){
+    public Arm(){ 
         servo2 = new Servo(Constants.SERVO2);
         servo1 = new Servo(Constants.SERVO1);
         servo3 = new Servo(Constants.SERVO3);
         servoC = new ServoContinuous(Constants.SERVO_C);
-        angleInit = setArmAngle(Constants.ARM2 - 0.1 , Constants.ARM1 + 0.12 );
+        angleInit = setArmAngle(Constants.ARM2, Constants.ARM1);//(Constants.ARM2 - 0.1 , Constants.ARM1 + 0.12 );
         Globals.curAngle1 = angleInit[0]*(180/Math.PI);
         Globals.curAngle2 = angleInit[1]*(180/Math.PI);
         Globals.curAngle3 = 0.0;

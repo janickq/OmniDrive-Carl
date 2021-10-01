@@ -17,12 +17,13 @@ public class TeleCmd extends CommandBase
     /**
      * Bring in Subsystem and Gamepad code
      */
+    private double rate = 100;
     private final OmniDrive m_omnidrive = RobotContainer.m_omnidrive;
     private final OI m_oi = RobotContainer.m_oi;
-    private SlewRateLimiter filter1 = new SlewRateLimiter(1);
-    private SlewRateLimiter filter2 = new SlewRateLimiter(1);
-    private SlewRateLimiter filter3 = new SlewRateLimiter(1);
-    private SlewRateLimiter filter4 = new SlewRateLimiter(1);
+    private SlewRateLimiter filter1 = new SlewRateLimiter(rate);
+    private SlewRateLimiter filter2 = new SlewRateLimiter(rate);
+    private SlewRateLimiter filter3 = new SlewRateLimiter(rate);
+    private SlewRateLimiter filter4 = new SlewRateLimiter(rate);
 
 
     /**

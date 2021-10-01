@@ -92,6 +92,7 @@ public class Pick extends AutoCommand {
                         new WaitCommand(0.5), 
                         new ArmPickX(0.2),
                         new WaitCommand(1), 
+                        new GripperPick(6),
                         new ArmPickY(0.3),
                         new WaitCommand(0.5),
                         new GripperPick(),

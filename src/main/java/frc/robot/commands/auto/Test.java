@@ -24,8 +24,10 @@ public class Test extends AutoCommand{
     public Test() {
 
         super(
+                new MoveRobot(1, 1, 0, 0, 0.5)
                 // new InstantCommand(m_vision::boxLook),
                 // new MovePose("Pick"),
+                // new AlignPick()
                 // new MoveRobotSense(0, -0.5, 0, 0, 0.2, () -> m_sensor.getSonicDistance1() > 300),
                 // new MoveRobot(0, 0.1, 0, 0, 0.2),
                 // new AlignRight(),
@@ -48,9 +50,9 @@ public class Test extends AutoCommand{
                 // // new MoveRobot(2, -Math.PI/2, 0, 0, 1),
                 // new LoopOne(),
                 // new LoopTwo()
-                new InstantCommand(m_vision::itemLook),
-                new InstantCommand(m_vision::getItem),
-                new Pick()
+                // new InstantCommand(m_vision::itemLook),
+                // new InstantCommand(m_vision::getItem),
+                // new Pick()
 
         );
     }

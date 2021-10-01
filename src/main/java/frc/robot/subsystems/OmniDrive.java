@@ -8,6 +8,7 @@ import com.studica.frc.TitanQuad;
 import com.studica.frc.TitanQuadEncoder;
 
 import edu.wpi.first.networktables.NetworkTableEntry;
+import edu.wpi.first.wpilibj.DigitalOutput;
 import edu.wpi.first.wpilibj.MedianFilter;
 //import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.SPI;
@@ -50,7 +51,7 @@ public class OmniDrive extends SubsystemBase
 
     MedianFilter filter1 = new MedianFilter(10);
     MedianFilter filter2 = new MedianFilter(10);
-
+    DigitalOutput debugout1 = new DigitalOutput(8);
     // Sensors
 
     private final AHRS gyro;
@@ -70,6 +71,9 @@ public class OmniDrive extends SubsystemBase
     private final NetworkTableEntry D_encoderDisp0 = tab.add("Encoder0", 0).getEntry();
     private final NetworkTableEntry D_encoderDisp1 = tab.add("Encoder1", 0).getEntry();
     private final NetworkTableEntry D_encoderDisp2 = tab.add("Encoder2", 0).getEntry();
+    private final NetworkTableEntry D_encoderDist0 = tab.add("Encoder0dist", 0).getEntry();
+    private final NetworkTableEntry D_encoderDist1 = tab.add("Encoder1dist", 0).getEntry();
+    private final NetworkTableEntry D_encoderDist2 = tab.add("Encoder2dist", 0).getEntry();
     private final NetworkTableEntry D_inputW = tab.add("inputW", 0).getEntry();
     private final NetworkTableEntry D_encoderPidOut0 = tab.add("pidout0", 0).getEntry();
     private final NetworkTableEntry D_encoderPidOut1 = tab.add("pidout1", 0).getEntry();
@@ -252,7 +256,7 @@ public class OmniDrive extends SubsystemBase
         double dcValue = 0.0;
         for (int i=0; i<Constants.MOTOR_NUM; i++) {
             //vmx encoderDists[i] = encoders[i].getDistance();
-            //encoderDists[i] = encoders[i].getEncoderDistance();
+            encoderDists[i] = encoders[i].getEncoderDistance();
             //wheelSpeeds[i] = encoderSpeeds[i] = (encoderDists[i]-encoderDists_2[i])/pid_dT;
             //encoders[i].getSpeed() in rpm
             wheelSpeeds[i] = encoderSpeeds[i] = -encoders[i].getSpeed()*Math.PI*0.1/60;
@@ -328,11 +332,11 @@ public class OmniDrive extends SubsystemBase
             curHeading = targetHeading = getYawRad();
             return;
         }
-
+        debugout1.set(true);
         if (!Constants.PID_THREAD ) {
             doPID();
         }
-
+        debugout1.set(false);
         /**
          * Updates for outputs to the shuffleboard
          */
@@ -344,6 +348,9 @@ public class OmniDrive extends SubsystemBase
         D_encoderDisp0.setDouble(encoderSpeeds[0]);
         D_encoderDisp1.setDouble(encoderSpeeds[1]);
         D_encoderDisp2.setDouble(encoderSpeeds[2]);
+        D_encoderDist0.setDouble(encoderDists[0]);
+        D_encoderDist1.setDouble(encoderDists[1]);
+        D_encoderDist2.setDouble(encoderDists[2]);
         D_encoderPidOut0.setDouble(pidInputs[0]);
         D_encoderPidOut1.setDouble(pidInputs[1]);
         D_encoderPidOut2.setDouble(pidInputs[2]);

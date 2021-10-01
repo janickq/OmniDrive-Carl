@@ -53,10 +53,10 @@ public class GripperPick extends CommandBase{
         // Adds the subsystem to the command
         itemCo = new double[7];
 
-        itemCo[0] = 140; 
+        itemCo[0] = 110; 
         itemCo[1] = 110; 
         itemCo[2] = 140; 
-        itemCo[3] = 110;
+        itemCo[3] = 100;
         itemCo[4] = 0;
         itemCo[5] = 100;
     }
@@ -90,7 +90,7 @@ public class GripperPick extends CommandBase{
         itemCo[4] = 0;
         itemCo[5] = 110;
         itemCo[6] = 70;
-        itemCo[7] = 85;
+        itemCo[7] = 90;
     }
 
     /**

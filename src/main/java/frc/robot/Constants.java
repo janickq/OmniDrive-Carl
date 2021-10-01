@@ -38,6 +38,8 @@ public final class Constants
     public static final int SHARP3           = 2;
     public static final int SONIC_TRIGG1     = 1;
     public static final int SONIC_ECHO1      = 0;
+    public static final int SONIC_TRIGG2     = 5;
+    public static final int SONIC_ECHO2      = 4;
     // public static final int SONIC_TRIGG2     = 9;
     // public static final int SONIC_ECHO2      = 8;
     

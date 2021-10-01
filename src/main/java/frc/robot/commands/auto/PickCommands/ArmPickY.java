@@ -134,7 +134,7 @@ public class ArmPickY extends CommandBase {
         */
         itemCo[0] = Math.max((Globals.yArm - (m_sensor.getIRDistance2() / 100)-0.04), -0.07);
         itemCo[1] = Math.max((Globals.yArm - (m_sensor.getIRDistance2() / 100) + 0.07), -0.05);
-        itemCo[2] = Math.max((Globals.yArm - (m_sensor.getIRDistance2() / 100)+0.07),-0.08);
+        itemCo[2] = Math.max((Globals.yArm - (m_sensor.getIRDistance2() / 100)+0.07),-0.075);
         itemCo[3] = Math.max((Globals.yArm - (m_sensor.getIRDistance2() / 100) + 0.02), -0.05);
 
         // add offset of arm to camera

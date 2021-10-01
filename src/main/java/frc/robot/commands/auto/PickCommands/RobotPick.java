@@ -92,7 +92,7 @@ public class RobotPick extends CommandBase
         itemCo[3] = m_vision.getNissin(0);
 
         // adds offset of arm to camera
-        return itemCo[item] + 0.16;
+        return itemCo[item] + 0.15;
     }
  
     /**
