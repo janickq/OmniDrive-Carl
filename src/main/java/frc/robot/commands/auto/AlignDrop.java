@@ -24,6 +24,8 @@ public class AlignDrop extends CommandBase {
     Globals.alignFlag = true;
     endflag = false;
     flag = false;
+    if (Globals.nullFlag)
+      endflag = true;
     direction = m_points.getAlignment(box);
   }
 
@@ -57,6 +59,7 @@ public class AlignDrop extends CommandBase {
   public void end(boolean interrupted) {
     endflag = false;
     Globals.alignFlag = true;
+    Globals.nullFlag = false;
   }
 
 

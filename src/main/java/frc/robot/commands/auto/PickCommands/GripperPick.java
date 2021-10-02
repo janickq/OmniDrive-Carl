@@ -56,7 +56,7 @@ public class GripperPick extends CommandBase{
         itemCo[0] = 110; 
         itemCo[1] = 110; 
         itemCo[2] = 140; 
-        itemCo[3] = 100;
+        itemCo[3] = 110;
         itemCo[4] = 0;
         itemCo[5] = 100;
     }
@@ -89,8 +89,8 @@ public class GripperPick extends CommandBase{
         itemCo[3] = 110;
         itemCo[4] = 0;
         itemCo[5] = 110;
-        itemCo[6] = 70;
-        itemCo[7] = 90;
+        itemCo[6] = 85;
+        itemCo[7] =110;
     }
 
     /**

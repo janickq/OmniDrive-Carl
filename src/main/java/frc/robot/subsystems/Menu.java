@@ -87,7 +87,8 @@ public class Menu extends SubsystemBase
         ); 
         m_oi.buttonBack.whenPressed(
             new SequentialCommandGroup(
-                new InstantCommand(() -> Globals.curPose = m_points.jigOffset),
+                new InstantCommand(m_points::resetMap),
+                new InstantCommand(m_omnidrive::resetGyro),
                 new GripperPick(4), 
                 new MoveArmXY(Constants.ARM2-0.05, Constants.ARM1+0.15, 0, 0, 0.5)
             )

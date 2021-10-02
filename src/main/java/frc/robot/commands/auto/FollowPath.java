@@ -42,7 +42,10 @@ public class FollowPath extends CommandBase {
   }
   @Override
   public void initialize() {
-    
+    if (m_points.getPoint(pointname) == null){
+      pointname = "Pick";
+      Globals.nullFlag = true;
+    }
     endflag = false;
     u = 0;
     pathMap.generateGrid(Constants.gridsize);
@@ -100,14 +103,15 @@ public class FollowPath extends CommandBase {
       endflag = true;
     
   }
-@Override
-public boolean isFinished() {
-  return endflag;
-}
+  @Override
+  public boolean isFinished() {
+    return endflag;
+  }
   @Override
   public void end(boolean interrupted) {
     pathMap.Path.clear();
     moveposes.clear();
+
   }
 
 }

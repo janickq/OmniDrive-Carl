@@ -199,10 +199,11 @@ public class OmniDrive extends SubsystemBase
      */
     public void resetGyro() {
         gyro.zeroYaw();
+        curHeading = targetHeading = getYawRad();
     }
 
     public void getKinematics(){
-        
+
     }
 
     public void resetHeading() {

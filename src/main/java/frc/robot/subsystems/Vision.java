@@ -52,7 +52,7 @@ public class Vision extends SubsystemBase
     
     public void itemLook() {
       pickedflag = false;
-      cameraAngle = 45 ;
+      cameraAngle = 35 ;
     }
 
     public void readBarcode()
