@@ -58,23 +58,23 @@ public class PathMap {
         matrix[n - x - 1][y] = false;
       }
     }
-    for (int x = 0; x < n / 2; x++) {
+    // for (int x = 0; x < n / 2; x++) {
 
-      for (int y = 0; y < n / 20; y++) {
-        matrix[x][n - y - 1] = false;
-      }
-    }
-    for (int x = 0; x < n / 20; x++) {
-      for (int y = n / 2; y < n; y++) {
-        matrix[x][y] = false;
-        matrix[n / 2 - x - 1][y] = false;
-      }
-    }
+    //   for (int y = 0; y < n / 20; y++) {
+    //     matrix[x][n - y - 1] = false;
+    //   }
+    // }
+    // for (int x = 0; x < n / 20; x++) {
+    //   for (int y = n / 2; y < n; y++) {
+    //     matrix[x][y] = false;
+    //     matrix[n / 2 - x - 1][y] = false;
+    //   }
+    // }
 
     for (int i = 0; i < Obstacles.size(); i++) {
       int x = Math.toIntExact(Math.round((Obstacles.get(i).getTranslation().getX() / 2.25) * n / 2));
       int y = Math.toIntExact(Math.round((Obstacles.get(i).getTranslation().getY() / 4.5) * n));
-      createBoundary(14, 14, x, y, false);
+      createBoundary(7, 7, x, y, false);
     }
     createBoundary(13, 11, 37, 25, false);
     clearPath(Ai, Aj);
@@ -128,21 +128,22 @@ public class PathMap {
 
   public void createBoundary(int xsize, int ysize, int x, int y, boolean boundary) {
 
-      for (int xboundary = 0; xboundary < xsize; xboundary++) {
-        for (int yboundary = 0; yboundary < ysize; yboundary++) {
-          int xplus = Math.min(n-1, Math.max((x + xboundary), 0));
-          int xminus = Math.min(n-1, Math.max((x - xboundary), 0));
-          int yplus = Math.min(n-1, Math.max((y + yboundary), 0));
-          int yminus = Math.min(n - 1, Math.max((y - yboundary), 0));
-          
-          matrix[xplus][yplus] = boundary;
-          matrix[xplus][yminus] = boundary;
-          matrix[xminus][yplus] = boundary;
-          matrix[xminus][yminus] = boundary;
-        }
+    for (int xboundary = 0; xboundary < xsize; xboundary++) {
+      for (int yboundary = 0; yboundary < ysize; yboundary++) {
+        int xplus = Math.min(n-1, Math.max((x + xboundary), 0));
+        int xminus = Math.min(n-1, Math.max((x - xboundary), 0));
+        int yplus = Math.min(n-1, Math.max((y + yboundary), 0));
+        int yminus = Math.min(n-1, Math.max((y - yboundary), 0));
+
+
+        matrix[xplus][yplus] = boundary;
+        matrix[xplus][yminus] = boundary;
+        matrix[xminus][yplus] = boundary;
+        matrix[xminus][yminus] = boundary;
       }
-    
-  }
+    }
+  
+}
 
   public void calculate() {
 

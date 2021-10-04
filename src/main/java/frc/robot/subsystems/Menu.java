@@ -14,6 +14,7 @@ import frc.robot.Constants;
 import frc.robot.Globals;
 import frc.robot.Points;
 import frc.robot.RobotContainer;
+import frc.robot.commands.auto.MainSequence;
 import frc.robot.commands.auto.MoveArmXY;
 import frc.robot.commands.auto.Test;
 import frc.robot.commands.auto.PickCommands.GripperPick;
@@ -74,11 +75,13 @@ public class Menu extends SubsystemBase
                 Map.entry(menuNum++, 
                     new SequentialCommandGroup(
                         new InstantCommand(m_points::resetMap),
+                        new InstantCommand(m_omnidrive::resetGyro),
                         new InstantCommand(m_omnidrive::setZeroPose),
                         new GripperPick(4), 
-                        new MoveArmXY(Constants.ARM2-0.05, Constants.ARM1+0.15, 0, 0, 0.5)
+                        new MoveArmXY(Constants.ARM2 - 0.1 , Constants.ARM1 + 0.12, 0, 0, 0.5)
                     )
-                ) 
+                ) ,
+                Map.entry(menuNum++, new MainSequence())
                 ),
             ()->Globals.menuItem
 
@@ -89,8 +92,10 @@ public class Menu extends SubsystemBase
             new SequentialCommandGroup(
                 new InstantCommand(m_points::resetMap),
                 new InstantCommand(m_omnidrive::resetGyro),
+                new InstantCommand(m_omnidrive::resetPose),
+                // new InstantCommand(m_omnidrive::setZeroPose),
                 new GripperPick(4), 
-                new MoveArmXY(Constants.ARM2-0.05, Constants.ARM1+0.15, 0, 0, 0.5)
+                new MoveArmXY(Constants.ARM2 - 0.1 , Constants.ARM1 + 0.12, 0, 0, 0.5)
             )
         );
         m_oi.buttonA.whenPressed( ()->{Globals.menuItem--;Globals.menuItem=(Globals.menuItem+menuNum)%menuNum;});
@@ -114,6 +119,7 @@ public class Menu extends SubsystemBase
         menuName[15] = "task9yellow";
         menuName[16] = "task9green";
         menuName[17] = "reset";
+        menuName[18] = "MainSequence";
 
     }
 

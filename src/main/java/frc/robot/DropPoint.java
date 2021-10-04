@@ -18,7 +18,7 @@ public class DropPoint {
   // Comparator<BoxPair> byDistance = Comparator.comparingDouble(BoxPair::getDistance);
 
   String[] boxes = new String[] { "RedBox", "BlueBox", "YellowBox", "BlackBox", "GreenBox" };
-  String[] items = new String[] { "kitKatDrop", "ballDrop", "chipsDrop", "nissinDrop", "nissinDrop" };
+  String[] items = new String[] { "ballDrop", "kitKatDrop",  "nissinDrop", "chipsDrop", "chipsDrop" };
   ArrayList<BoxPair> boxPair = new ArrayList<>();
   // BoxPair[] boxPair;
 
@@ -26,11 +26,11 @@ public class DropPoint {
 
   public void getBoxes() {
     for (int i = 0; i < boxes.length; i++) {
-      if(m_points.getPoint(boxes[i]).equals(new Pose2d(0, 0, new Rotation2d(0))))
+      if(-SmartDashboard.getNumber(boxes[i] + "y", 0) !=0 && SmartDashboard.getNumber(boxes[i] + "x", 0) != 0 && m_points.getPoint(boxes[i]).equals(new Pose2d()))
         m_points.updatePoint(boxes[i],
             Globals.curPose
-                .transformBy(new Transform2d(new Translation2d(SmartDashboard.getNumber(boxes[i] + "x", 0) / 100,
-                    -SmartDashboard.getNumber(boxes[i] + "y", 0) / 100), new Rotation2d(0)))
+                .transformBy(new Transform2d(new Translation2d((SmartDashboard.getNumber(boxes[i] + "x", 0) / 100 + 0.1),
+                    (-SmartDashboard.getNumber(boxes[i] + "y", 0) / 100) +0.3) , new Rotation2d(0)))
 
       );
 
@@ -39,28 +39,31 @@ public class DropPoint {
   }
 
   public void getBin() {
-    if (m_points.getPoint("Bin").equals(new Pose2d())) {
+    if ((-SmartDashboard.getNumber("Biny", 0) !=0 && SmartDashboard.getNumber("Binx", 0) != 0 && m_points.getPoint("Bin").equals(new Pose2d()))) {
       m_points.updatePoint("Bin", Globals.curPose.transformBy(new Transform2d(new Translation2d(
+          SmartDashboard.getNumber("Binx", 0) / 100 + 0.1, -SmartDashboard.getNumber("Biny", 0) / 100 + 0.3), new Rotation2d(0))));
 
-          SmartDashboard.getNumber("Binx", 0) / 100, -SmartDashboard.getNumber("Biny", 0) / 100), new Rotation2d(0))));
+      // m_points.updatePoint("Bin", m_points.getPoint("unadjustedBin")
+      //     .transformBy(new Transform2d(new Translation2d(0.1, 0.3), Globals.curPose.getRotation())));
+      // SmartDashboard.putString("unadjustedBin", m_points.getPoint("unadjustedBin").toString());
 
       m_points.updatePoint("BinBack",
-          m_points.getPoint("Bin").transformBy(new Transform2d(new Translation2d(0, -0.55), new Rotation2d(0)))
+          m_points.getPoint("Bin").transformBy(new Transform2d(new Translation2d(0, -0.65), new Rotation2d(0)))
 
       );
 
       m_points.updatePoint("BinFront",
-          m_points.getPoint("Bin").transformBy(new Transform2d(new Translation2d(0, 0.55), new Rotation2d(-Math.PI)))
+          m_points.getPoint("Bin").transformBy(new Transform2d(new Translation2d(0, 0.65), new Rotation2d(-Math.PI)))
 
       );
 
       m_points.updatePoint("BinLeft", m_points.getPoint("Bin")
-          .transformBy(new Transform2d(new Translation2d(-0.55, 0), new Rotation2d(-Math.PI / 2)))
+          .transformBy(new Transform2d(new Translation2d(-0.65, 0), new Rotation2d(-Math.PI / 2)))
 
       );
 
       m_points.updatePoint("BinRight",
-          m_points.getPoint("Bin").transformBy(new Transform2d(new Translation2d(0.55, 0), new Rotation2d(Math.PI / 2)))
+          m_points.getPoint("Bin").transformBy(new Transform2d(new Translation2d(0.65, 0), new Rotation2d(Math.PI / 2)))
 
       );
 
@@ -131,7 +134,7 @@ public class DropPoint {
     
     m_points.updatePoint(posename, generatedPose.transformBy(  
         new Transform2d(
-          new Translation2d(0.1, -0.7),
+          new Translation2d(0 , -0.7),
           new Rotation2d(0)
         )
     ));
@@ -185,7 +188,7 @@ public class DropPoint {
       setAlignment(boxPair.get(i).box1, boxPair.get(i).box2, "unadjustedDrop" + str);
       m_points.updatePoint(boxPair.get(i).box1 ,m_points.getPoint("Drop" + str));
       m_points.updatePoint(boxPair.get(i).box2 ,m_points.getPoint("Drop" + str));
-
+      SmartDashboard.putString("Alignments", m_points.commandMap.values().toString());
     }
 
   }

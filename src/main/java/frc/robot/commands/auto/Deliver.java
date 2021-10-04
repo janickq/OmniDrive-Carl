@@ -55,7 +55,7 @@ public class Deliver extends AutoCommand {
                 
               new FollowPath("chipsDrop"),
               new InstantCommand(()->  Globals.itemCount[0]++),
-              new AlignDrop("YellowBox")
+              new AlignDrop("BlackBox")
             )
 
           ),
@@ -64,7 +64,7 @@ public class Deliver extends AutoCommand {
             new SequentialCommandGroup(
               new FollowPath("nissinDrop"),
               new InstantCommand(()->  Globals.itemCount[3]++),
-              new AlignDrop("GreenBox")
+              new AlignDrop("YellowBox")
             )
           ),
 
@@ -72,7 +72,7 @@ public class Deliver extends AutoCommand {
             new SequentialCommandGroup(
               new FollowPath("kitKatDrop"),
               new InstantCommand(()->  Globals.itemCount[2]++),
-              new AlignDrop("RedBox")
+              new AlignDrop("BlueBox")
             )
           ),
                       
@@ -80,7 +80,7 @@ public class Deliver extends AutoCommand {
             new SequentialCommandGroup(
               new FollowPath("ballDrop"),
               new InstantCommand(()->  Globals.itemCount[1]++),
-              new AlignDrop("BlueBox")
+              new AlignDrop("RedBox")
               
 
             )

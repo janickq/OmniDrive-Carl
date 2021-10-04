@@ -9,6 +9,7 @@ import com.studica.frc.TitanQuadEncoder;
 
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.wpilibj.DigitalOutput;
+import edu.wpi.first.wpilibj.LinearFilter;
 import edu.wpi.first.wpilibj.MedianFilter;
 //import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.SPI;
@@ -48,7 +49,7 @@ public class OmniDrive extends SubsystemBase
 
     //For testing. These should be in another subsystem
     private double pid_dT = Constants.PID_DT;
-
+    LinearFilter filter3 = LinearFilter.movingAverage(20);
     MedianFilter filter1 = new MedianFilter(10);
     MedianFilter filter2 = new MedianFilter(10);
     DigitalOutput debugout1 = new DigitalOutput(8);
@@ -143,8 +144,8 @@ public class OmniDrive extends SubsystemBase
     }
 
     public double getCompassHeading(){
-
-        return gyro.getCompassHeading() * Math.PI / 180;
+        
+        return filter3.calculate(gyro.getCompassHeading())* Math.PI / 180;
     }
 
     public void setreferencePose(){
@@ -191,6 +192,7 @@ public class OmniDrive extends SubsystemBase
      */
     public double getYaw() {
         //return gyro.getYaw();
+        
         return gyro.getRawGyroZ();
     }
 

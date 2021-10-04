@@ -3,6 +3,7 @@ package frc.robot.commands.auto;
 import java.util.ArrayList;
 
 import edu.wpi.first.wpilibj.geometry.Pose2d;
+import edu.wpi.first.wpilibj.geometry.Rotation2d;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandBase;
@@ -42,7 +43,7 @@ public class FollowPath extends CommandBase {
   }
   @Override
   public void initialize() {
-    if (m_points.getPoint(pointname) == null){
+    if (m_points.getPoint(pointname) == null || m_points.getPoint(pointname) == new Pose2d(0,0,new Rotation2d(0))){
       pointname = "Pick";
       Globals.nullFlag = true;
     }

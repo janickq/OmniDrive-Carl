@@ -69,7 +69,7 @@ public class Pick extends AutoCommand {
       
                 Map.entry(CommandSelector.CHIPS, 
                     new SequentialCommandGroup(
-      
+                        new WaitCommand(1),
                         new RobotPick(0, 0, 0, 0.1), 
                         new WaitCommand(0.5), 
                         new ArmPickX(0.2),
@@ -87,7 +87,7 @@ public class Pick extends AutoCommand {
       
                 Map.entry(CommandSelector.NISSIN,
                     new SequentialCommandGroup( 
-                        
+                        new WaitCommand(1),
                         new RobotPick(3, 0, 0, 0.1),
                         new WaitCommand(0.5), 
                         new ArmPickX(0.2),
@@ -103,7 +103,7 @@ public class Pick extends AutoCommand {
       
                 Map.entry(CommandSelector.KITKAT, 
                     new SequentialCommandGroup( 
-                        
+                        new WaitCommand(1),
                         new RobotPick(2, 0, 0, 0.1),
                         new WaitCommand(0.5), 
                         new ArmPickX(0.2),
@@ -119,7 +119,7 @@ public class Pick extends AutoCommand {
                             
                 Map.entry(CommandSelector.BALL, 
                     new SequentialCommandGroup( 
-                        
+                        new WaitCommand(1),
                         new RobotPick(1, 0, 0, 0.1),
                         new WaitCommand(0.5), 
                         new ArmPickX(0.2),

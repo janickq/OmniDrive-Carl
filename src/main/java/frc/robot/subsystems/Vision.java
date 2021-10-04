@@ -187,6 +187,7 @@ public class Vision extends SubsystemBase
       else if (Bin.getTranslation().getX() > 1.1) {
         m_points.updatePoint("binPick", m_points.getPoint("BinLeft"));
       }
+      SmartDashboard.putString("BinPick", m_points.getPoint("binPick").toString());
     }
 
     public void pickBall() {

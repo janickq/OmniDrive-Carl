@@ -20,19 +20,19 @@ public class Points{
  
   public Pose2d binPick = new Pose2d();
   public Pose2d Pick = new Pose2d(0.85, 1.1, new Rotation2d(-Math.PI / 2));
-  public Pose2d Map = new Pose2d(1.13, 1.1, new Rotation2d(-Math.PI / 2));
+  public Pose2d Map = new Pose2d(0.935, 1.1, new Rotation2d(-Math.PI / 2));
   public Pose2d kitKatDrop = new Pose2d();//0.5, 3.95, new Rotation2d(0));
   public Pose2d chipsDrop = new Pose2d();//0.5, 3.95, new Rotation2d(0));
   public Pose2d waypoint1 = new Pose2d();//0.75, 3, new Rotation2d(0));
   public Pose2d nissinDrop = new Pose2d();//1.55, 3.6, new Rotation2d(-Math.PI/2));
   public Pose2d ballDrop = new Pose2d();//1.55, 3.6, new Rotation2d(-Math.PI/2));
-  public Pose2d camOffset = new Pose2d();//-0.1, 0.3, new Rotation2d(0));
+  public Pose2d camOffset = new Pose2d(-0.1, 0.3, new Rotation2d(0));
   public Pose2d BlueBox = new Pose2d(0, 0, new Rotation2d(0));
   public Pose2d BlackBox = new Pose2d(0, 0, new Rotation2d(0));
   public Pose2d RedBox = new Pose2d(0, 0, new Rotation2d(0));
   public Pose2d GreenBox = new Pose2d(0, 0, new Rotation2d(0));
   public Pose2d YellowBox = new Pose2d(0, 0, new Rotation2d(0));
-  public Pose2d Bin = new Pose2d();
+  public Pose2d Bin = new Pose2d(0, 0, new Rotation2d(0));
   public Pose2d Drop1 = new Pose2d();
   public Pose2d Drop2 = new Pose2d();
   public Pose2d UnadjustedDrop1 = new Pose2d();
@@ -79,7 +79,7 @@ public class Points{
   }
 
   public void updatePoint(String pointname, Pose2d newpose) {
-    pointMap.put(pointname, newpose);;
+    pointMap.put(pointname, newpose);
     obstacleMap.put(pointname, newpose);
   }
 
