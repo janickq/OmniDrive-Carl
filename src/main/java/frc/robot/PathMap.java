@@ -58,23 +58,23 @@ public class PathMap {
         matrix[n - x - 1][y] = false;
       }
     }
-    // for (int x = 0; x < n / 2; x++) {
+    for (int x = 0; x < n / 2; x++) {
 
-    //   for (int y = 0; y < n / 20; y++) {
-    //     matrix[x][n - y - 1] = false;
-    //   }
-    // }
-    // for (int x = 0; x < n / 20; x++) {
-    //   for (int y = n / 2; y < n; y++) {
-    //     matrix[x][y] = false;
-    //     matrix[n / 2 - x - 1][y] = false;
-    //   }
-    // }
+      for (int y = 0; y < 4; y++) {
+        matrix[x][n - y - 1] = false;
+      }
+    }
+    for (int x = 0; x < 4; x++) {
+      for (int y = n / 2; y < n; y++) {
+        matrix[x][y] = false;
+        matrix[n / 2 - x - 1][y] = false;
+      }
+    }
 
     for (int i = 0; i < Obstacles.size(); i++) {
       int x = Math.toIntExact(Math.round((Obstacles.get(i).getTranslation().getX() / 2.25) * n / 2));
       int y = Math.toIntExact(Math.round((Obstacles.get(i).getTranslation().getY() / 4.5) * n));
-      createBoundary(7, 7, x, y, false);
+      createBoundary(10, 10, x, y, false);
     }
     createBoundary(13, 11, 37, 25, false);
     clearPath(Ai, Aj);

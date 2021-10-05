@@ -43,7 +43,7 @@ public class FollowPath extends CommandBase {
   }
   @Override
   public void initialize() {
-    if (m_points.getPoint(pointname) == null || m_points.getPoint(pointname) == new Pose2d(0,0,new Rotation2d(0))){
+    if (m_points.getPoint(pointname).equals(new Pose2d())){
       pointname = "Pick";
       Globals.nullFlag = true;
     }

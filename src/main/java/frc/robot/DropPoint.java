@@ -93,6 +93,7 @@ public class DropPoint {
     }
     // Arrays.sort(boxPair, byDistance);
     boxPair.sort(Comparator.comparingDouble(BoxPair::getDistance));
+
     SmartDashboard.putString("Item1", boxPair.get(0).item1);
     SmartDashboard.putString("Item2", boxPair.get(0).item2);
   }
@@ -130,7 +131,24 @@ public class DropPoint {
               box1.getTranslation().getX() - 
               box2.getTranslation().getX()
             )
-          ))));
+            ))));
+     if ((generatedPose.getTranslation().getX() > 0.935
+          && generatedPose.getRotation().getDegrees() > 15)
+        || (generatedPose.getTranslation().getX() < 0.935
+        && generatedPose.getRotation().getDegrees() < -15)) 
+
+        // unadjustedDrop.getRotation().rotateBy(new Rotation2d(Math.PI));
+        // adjustedDrop.getRotation().rotateBy(new Rotation2d(Math.PI));
+
+        
+          generatedPose = generatedPose.transformBy(
+            new Transform2d(
+              new Translation2d(0, 0),
+              new Rotation2d(Math.PI)
+          ));
+
+
+       
     
     m_points.updatePoint(posename, generatedPose.transformBy(  
         new Transform2d(
@@ -150,22 +168,12 @@ public class DropPoint {
 
       generatePose("Drop" + str, box1, box2);
 
-      Pose2d unadjustedDrop = m_points.getPoint("unadjustedDrop" + str);
+  
       Pose2d adjustedDrop = m_points.getPoint("Drop" + str);
               
 
 
-      if ((unadjustedDrop.getTranslation().getX() > 0 && unadjustedDrop.getRotation().getDegrees() > 15)
-          || (unadjustedDrop.getTranslation().getX() < 0 && unadjustedDrop.getRotation().getDegrees() < -15)) {
 
-        // unadjustedDrop.getRotation().rotateBy(new Rotation2d(Math.PI));
-        // adjustedDrop.getRotation().rotateBy(new Rotation2d(Math.PI));
-
-        m_points.updatePoint("unadjustedDrop" + str, new Pose2d(unadjustedDrop.getTranslation(),
-            unadjustedDrop.getRotation().rotateBy(new Rotation2d(Math.PI))));
-
-        m_points.updatePoint("Drop" + str,
-            new Pose2d(adjustedDrop.getTranslation(), adjustedDrop.getRotation().rotateBy(new Rotation2d(Math.PI))));
 
         m_points.updatePoint(boxPair.get(i).item1,  new Pose2d(adjustedDrop.getTranslation(), adjustedDrop.getRotation().rotateBy(new Rotation2d(Math.PI))));
 
@@ -179,7 +187,7 @@ public class DropPoint {
         // m_points.updatePoint(boxPair.get(i).box2,
         //     new Pose2d(adjustedDrop.getTranslation(), adjustedDrop.getRotation().rotateBy(new Rotation2d(Math.PI))));
 
-      }
+      
 
       m_points.updatePoint(boxPair.get(i).item1, m_points.getPoint("Drop" + str));
       m_points.updatePoint(boxPair.get(i).item2, m_points.getPoint("Drop" + str));

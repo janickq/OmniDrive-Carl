@@ -64,6 +64,7 @@ public class MoveRobot extends CommandBase
     {
         m_setpoint = new TrapezoidProfile.State(0, _startSpeed);
         m_endFlag = false;
+        Globals.poserunFlag = false;
     }
     /**
      * Condition to end speed profile

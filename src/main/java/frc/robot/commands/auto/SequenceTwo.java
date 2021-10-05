@@ -22,7 +22,7 @@ public class SequenceTwo extends AutoCommand {
       new FollowPath("binPick"),
       new WaitCommand(1),
       new InstantCommand(m_vision::itemLook),
-      new MoveRobotSense(1, 0.4, 0, 0, 0.2, () -> m_sensor.getSonicDistance1() < 70),
+      new MoveRobotSense(1, 0.4, 0, 0, 0.1, () -> m_sensor.getSonicDistance1() < 85 || m_sensor.getCobraTotal() > 6000),
       new MoveRobot(0, -0.1, 0, 0, 0.2),
       new WaitCommand(2), 
       new InstantCommand(m_vision::getItem),

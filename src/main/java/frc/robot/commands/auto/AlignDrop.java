@@ -12,6 +12,8 @@ public class AlignDrop extends CommandBase {
   String box;
   AlignLeft left = new AlignLeft();
   AlignRight right = new AlignRight();
+  // MoveRobot nullDrop = new MoveRobot(0, 0.5, 0, 0, Math.PI/2);
+  AlignNull nullDrop = new AlignNull();
   private final static Points m_points = RobotContainer.m_points;
   
   
@@ -24,31 +26,39 @@ public class AlignDrop extends CommandBase {
     Globals.alignFlag = true;
     endflag = false;
     flag = false;
-    if (Globals.nullFlag)
-      endflag = true;
-    direction = m_points.getAlignment(box);
+    if (!Globals.nullFlag)
+      direction = m_points.getAlignment(box);
+    else 
+      direction = true;
   }
 
   @Override
   public void execute() {
-    
-    if (flag==false) {
-      //launch command group
-      if (!direction)
-        right.schedule();
-      if (direction)
-        left.schedule();
+    if (Globals.nullFlag && !flag) {
+      nullDrop.schedule();
       flag = true;
-      Globals.alignFlag = true;
- 
-  }
+      Globals.poserunFlag = false;
+    }
+    else if (!Globals.nullFlag) {
+      if (!flag) {
+        //launch command group
+        if (!direction)
+          right.schedule();
+        if (direction)
+          left.schedule();
+        flag = true;
+        Globals.alignFlag = true;
+      }
+
       else {
-      if (Globals.alignFlag == false) {
+        if (Globals.alignFlag == false) 
           //command group finished, reset flag
           endflag = true;
-
       }
-  }
+    }
+    else if(!Globals.alignFlag){
+      endflag = true;
+    }
   }
 
   @Override

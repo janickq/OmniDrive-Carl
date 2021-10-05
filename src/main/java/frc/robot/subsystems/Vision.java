@@ -181,6 +181,10 @@ public class Vision extends SubsystemBase
       var Bin = m_points.getPoint("Bin");
       if (Bin.getTranslation().getY() < 2)
         m_points.updatePoint("binPick", m_points.getPoint("BinRight"));
+      
+      else if(Bin.getTranslation().getY() > 4)
+        m_points.updatePoint("binPick", m_points.getPoint("BinBack"));
+
       else if (Bin.getTranslation().getX() < 1.1) {
         m_points.updatePoint("binPick", m_points.getPoint("BinRight"));
       }
