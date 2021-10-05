@@ -10,6 +10,7 @@ import frc.robot.commands.auto.AlignLeft;
 import frc.robot.commands.auto.AutoCommand;
 import frc.robot.commands.auto.FollowPath;
 import frc.robot.commands.auto.MovePose;
+import frc.robot.commands.auto.MovePose2;
 import frc.robot.commands.auto.MoveRobot;
 import frc.robot.subsystems.OmniDrive;
 import frc.robot.subsystems.Sensor;
@@ -25,9 +26,9 @@ public class Task9Red extends AutoCommand {
 
   public Task9Red() {
     super(
-                new MovePose("Pick"),
+                new MovePose2("Pick"),
                 new MoveRobotSense2(0, 5, 0, 0, 0.1, () -> m_sensor.getSonicDistance1()< 900),
-                new MoveRobotSense2(1, 1, 0, 0, 0.1, () -> m_sensor.getSonicDistance2()< 1100),
+                new MoveRobotSense2(1, 1, 0, 0, 0.1, () -> m_sensor.getSonicDistance2()< 1100 || m_sensor.getCobraTotal() > 6000),
                 new AlignLeft(),
                 new MoveRobot(2, Math.PI/2, 0 , 0 , 0.5),
                 new InstantCommand(m_vision::boxLook),

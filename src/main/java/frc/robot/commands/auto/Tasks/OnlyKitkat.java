@@ -29,8 +29,7 @@ public class OnlyKitkat extends CommandBase {
   
   @Override
   public void initialize() {
-    // m_vision.itemLook();
-    
+
     for (int i = 0; i < 4; i++) {
       item_flag[i] = true;
     }

@@ -35,6 +35,7 @@ public class SequenceOne extends AutoCommand{
       new GripperPick(4),
       new MoveRobot(2, 0.1, 0, 0, 0.5),
       new MoveRobot(2, -0.1, 0, 0, 0.5),
+      new MoveArmXY(Constants.ARM2 - 0.1 , Constants.ARM1 + 0.12, 0, 0, 0.5),
       new FollowPath("Pick"),
       new AlignPick(),
       new WaitCommand(1),
