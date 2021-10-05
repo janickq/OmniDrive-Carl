@@ -15,7 +15,7 @@ public class Task5 extends AutoCommand {
   public Task5() {
     super(
       new InstantCommand(m_vision::itemLook),
-      new WaitCommand(2),
+      new WaitCommand(3),
       new InstantCommand(m_vision::getItem),
       new Pick()
     );

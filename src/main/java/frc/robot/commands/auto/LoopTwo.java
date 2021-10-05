@@ -1,8 +1,10 @@
 package frc.robot.commands.auto;
 
-
+import edu.wpi.first.wpilibj.geometry.Pose2d;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Globals;
+import frc.robot.Points;
+import frc.robot.RobotContainer;
 
 // import the commands
 
@@ -17,6 +19,7 @@ public class LoopTwo extends CommandBase {
   private boolean flag = false;
   private boolean m_endFlag = false;
   private SequenceTwo cmd;
+  Points m_points = RobotContainer.m_points;
 
   // private final ShuffleboardTab tab = Shuffleboard.getTab("Debug");
 
@@ -39,6 +42,8 @@ public class LoopTwo extends CommandBase {
         flag = false;
       state = 0;
       m_endFlag = false;
+      if(m_points.getPoint("Bin").equals(new Pose2d()))
+        m_endFlag = true;
     }
     @Override
     public void execute()

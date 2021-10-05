@@ -2,6 +2,7 @@ package frc.robot.commands.auto;
 
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
+import frc.robot.Constants;
 import frc.robot.Globals;
 import frc.robot.Points;
 import frc.robot.RobotContainer;
@@ -31,6 +32,7 @@ public class SequenceTwo extends AutoCommand {
       new MoveRobot(2, Math.PI/2, 0, 0, 1),
       new WaitCommand(1),
       new Deliver(),
+      new MoveArmXY(Constants.ARM2 - 0.05, Constants.ARM1 - 0.05, 0, 0, 0.2),
       new GripperPick(4),
       new MoveRobot(2, 0.1, 0, 0, 0.5),
       new MoveRobot(2, -0.1, 0, 0, 0.5),
