@@ -75,7 +75,7 @@ public class MovePose3 extends CommandBase {
     curPose = Globals.curPose;
     relativePose = new Transform2d(curPose, desiredPose);
 
-    angle = Math.atan2(relativePose.getTranslation().getY(), relativePose.getTranslation().getX());
+    angle = Globals.curPose.getRotation().getRadians()+Math.atan2(relativePose.getTranslation().getY(), relativePose.getTranslation().getX());
     dist = Math.hypot(relativePose.getTranslation().getX(), relativePose.getTranslation().getX());
 
     //set trapezoid profile
