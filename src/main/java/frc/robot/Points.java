@@ -20,7 +20,7 @@ public class Points{
  
   public Pose2d binPick = new Pose2d();
   public Pose2d Pick = new Pose2d(0.85, 1.1, new Rotation2d(-Math.PI / 2));
-  public Pose2d Map = new Pose2d(0.935, 1.1, new Rotation2d(-Math.PI / 2));
+  public Pose2d Map = new Pose2d(0.96, 1.1, new Rotation2d(-Math.PI / 2));
   public Pose2d kitKatDrop = new Pose2d();//0.5, 3.95, new Rotation2d(0));
   public Pose2d chipsDrop = new Pose2d();//0.5, 3.95, new Rotation2d(0));
   public Pose2d waypoint1 = new Pose2d();//0.75, 3, new Rotation2d(0));

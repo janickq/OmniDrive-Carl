@@ -18,7 +18,7 @@ public class AlignRight extends AutoCommand{
 
           new MoveRobotSense(1, 1, 0, 0, spd2, () -> m_sensor.getCobraTotal() > 7000|| m_sensor.getSonicDistance1()< 100),
           new MoveRobot(1, -0.1, 0, 0, spd2),
-          new MoveRobotSense(0, 0.5, 0, 0, spd2, () -> m_sensor.getCobraTotal() > 4500),
+          new MoveRobotSense(0, 0.25, 0, 0, spd2, () -> m_sensor.getCobraTotal() > 4500 || m_sensor.getSonicDistance1() > 150),
           new MoveRobot(1, 0.1, 0, 0, spd2),
           new InstantCommand(() -> Globals.alignFlag = false )
 

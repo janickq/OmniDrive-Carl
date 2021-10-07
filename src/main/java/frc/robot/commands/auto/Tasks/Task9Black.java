@@ -28,18 +28,22 @@ public class Task9Black extends AutoCommand {
   public Task9Black() {
     super(
                 new MovePose2("Pick"),
-                new MoveRobotSense2(0, 5, 0, 0, 0.1, () -> m_sensor.getSonicDistance1()< 900),
-                new MoveRobotSense2(1, 1, 0, 0, 0.1, () -> m_sensor.getSonicDistance2()< 1100 || m_sensor.getCobraTotal() > 6000),
+                new MovePose("Pick"),
+                new MoveRobotSense2(0, 5, 0, 0, 0.1, () -> m_sensor.getSonicDistance2()< 900),
+                new MoveRobotSense2(1, 1, 0, 0, 0.1, () -> m_sensor.getSonicDistance1()< 1100 || m_sensor.getCobraTotal() > 6000),
                 new AlignLeft(),
                 new MoveRobot(2, Math.PI/2, 0 , 0 , 0.5),
-                new InstantCommand(m_vision::boxLook),
+                new WaitCommand(3),
+                new InstantCommand(m_drop::getBoxes),
                 new WaitCommand(2),
-                new InstantCommand(m_drop::getBin),
+                new MoveRobot(1, -0.8, 0, 0, 0.5),
+                new WaitCommand(3),
                 new InstantCommand(m_drop::getBoxes),
                 new InstantCommand(m_drop::generatePair),
                 new InstantCommand(m_drop::getDropPose),
                 new FollowPath("BlackBox"),
                 new AlignDrop("BlackBox")
+                
     );
   }
 

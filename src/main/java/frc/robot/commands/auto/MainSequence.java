@@ -36,7 +36,7 @@ public class MainSequence extends AutoCommand {
                 new InstantCommand(m_drop::getBoxes),
                 new InstantCommand(m_drop::getBin),
                 new WaitCommand(2),
-                new MoveRobot(1, -0.7, 0, 0, 0.5),
+                new MoveRobot(1, -0.8, 0, 0, 0.5),
                 new WaitCommand(3),
                 new InstantCommand(m_drop::getBin),
                 new InstantCommand(m_drop::getBoxes),

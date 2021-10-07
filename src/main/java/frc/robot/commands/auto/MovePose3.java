@@ -106,7 +106,7 @@ public class MovePose3 extends CommandBase {
     speedY = Math.sin(angle) * setpoint.velocity;
     speedX = Math.cos(angle) * setpoint.velocity;
     m_omnidrive.setRobotSpeedXYW(speedX, speedY, 0);
-    if (setpoint.position >= goal.position && setpoint.position >= goal.position)
+    if (setpoint.position >= goal.position)
       endflag = true;
     
 
@@ -116,7 +116,6 @@ public class MovePose3 extends CommandBase {
   public void execute() {
 
     moveRobot();
-
     curPose = Globals.curPose;
   }
 

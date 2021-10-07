@@ -112,8 +112,13 @@ public class Vision extends SubsystemBase
       return (Math.sqrt((Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2))) < 0.05);
       //   return true;
       // else return false;
-      
 
+    }
+
+    public void resetCount() {
+      for (int i = 0; i < Globals.itemCount.length; i++) {
+        Globals.itemCount[i] = 0;
+      }
     }
 
     public void getItem(){
@@ -139,7 +144,7 @@ public class Vision extends SubsystemBase
         }
       }
       
-      else if (getNissin(0) != 0 && getNissin(1) != 0 && Globals.itemCount[3] < 2) {
+      else if (getNissin(0) != 0 && getNissin(1) != 0 && Globals.itemCount[3] < 3) {
         
         if ((getKitkat(0) != 0 && getKitkat(1) != 0)
             && checkOverlap(getKitkat(0), getKitkat(1), getNissin(0), getNissin(1))) 
@@ -152,10 +157,10 @@ public class Vision extends SubsystemBase
         else 
           Globals.curItem = 3;
       }
-      else if (getBall(0) != 0 && getBall(1) != 0 && Globals.itemCount[1] <2)
+      else if (getBall(0) != 0 && getBall(1) != 0 && Globals.itemCount[1] <3)
         Globals.curItem = 1;
 
-      else if (getKitkat(0) != 0 && getKitkat(1) != 0 && Globals.itemCount[2] < 2)
+      else if (getKitkat(0) != 0 && getKitkat(1) != 0 && Globals.itemCount[2] < 3)
           Globals.curItem = 2;
 
       else{

@@ -42,6 +42,7 @@ public class Menu extends SubsystemBase
     private final OI m_oi = RobotContainer.m_oi;
     private final Points m_points = RobotContainer.m_points;
     private final OmniDrive m_omnidrive = RobotContainer.m_omnidrive;
+    private final Vision m_vision = RobotContainer.m_vision;
 
 
     // Shuffleboard
@@ -78,7 +79,7 @@ public class Menu extends SubsystemBase
                         new InstantCommand(m_omnidrive::resetGyro),
                         new InstantCommand(m_omnidrive::setZeroPose),
                         new GripperPick(4), 
-                        new MoveArmXY(Constants.ARM2 - 0.1 , Constants.ARM1 + 0.12, 0, 0, 0.5)
+                        new MoveArmXY(Constants.ARM2 - 0.1 , Constants.ARM1 + 0.1, 0, 0, 0.5)
                     )
                 ) ,
                 Map.entry(menuNum++, new MainSequence())
@@ -92,10 +93,10 @@ public class Menu extends SubsystemBase
             new SequentialCommandGroup(
                 new InstantCommand(m_points::resetMap),
                 new InstantCommand(m_omnidrive::resetGyro),
-
+                new InstantCommand(m_vision::resetCount),
                 new InstantCommand(m_omnidrive::setZeroPose),
                 new GripperPick(4), 
-                new MoveArmXY(Constants.ARM2 - 0.1 , Constants.ARM1 + 0.12, 0, 0, 0.5)
+                new MoveArmXY(Constants.ARM2 - 0.1 , Constants.ARM1 + 0.1, 0, 0, 0.5)
             )
         );
         m_oi.buttonA.whenPressed( ()->{Globals.menuItem--;Globals.menuItem=(Globals.menuItem+menuNum)%menuNum;});

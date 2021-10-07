@@ -100,11 +100,11 @@ public class DropPoint {
 
   public double getDropAngle(double ang) {
     double dropAngle = Math.toDegrees(ang);
-    if (dropAngle > 70 && dropAngle < 110)
+    if (dropAngle > 80 && dropAngle < 100)
       return Math.PI / 2;
-    else if (dropAngle < -70 && dropAngle > -110)
+    else if (dropAngle < -80 && dropAngle > -100)
       return -Math.PI / 2;
-    else if (dropAngle > -20 && dropAngle < 20)
+    else if (dropAngle > -10 && dropAngle < 10)
       return 0;
     else
       return Math.toRadians(dropAngle);
