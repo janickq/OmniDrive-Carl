@@ -7,6 +7,10 @@
 
 package frc.robot;
 
+import edu.wpi.first.wpilibj.geometry.Rotation2d;
+import edu.wpi.first.wpilibj.geometry.Transform2d;
+import edu.wpi.first.wpilibj.geometry.Translation2d;
+
 /**
  * The Constants class provides a convenient place for teams to hold robot-wide
  * numerical or boolean constants. This class should not be used for any other
@@ -57,11 +61,14 @@ public final class Constants
     public static final double ARM1 = 0.24;
     public static final double ARM2 = 0.325;
 
-    public static final String[] obstacles = {"Bin", "unadjustedDrop1", "unadjustedDrop2" };
+    public static final String[] obstacles = { "Bin", "unadjustedDrop1", "unadjustedDrop2" };
+    public static final String[] obstacles2 = {"YellowBox", "GreenBox", "RedBox", "BlackBox" };
     public static final int gridsize = 100;
 
-
-    
+    public static final Transform2d transformBack = new Transform2d(new Translation2d(0, -0.65), new Rotation2d(0));
+    public static final Transform2d transformFront = new Transform2d(new Translation2d(0, 0.65), new Rotation2d(-Math.PI));
+    public static final Transform2d transformLeft = new Transform2d(new Translation2d(-0.65, 0), new Rotation2d(-Math.PI/2));
+    public static final Transform2d transformRight = new Transform2d(new Translation2d(0.65, 0), new Rotation2d(Math.PI/2));
 
 
 }

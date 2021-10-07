@@ -14,7 +14,7 @@ public class OnlyKitkat extends CommandBase {
   boolean[] item_flag = new boolean[4];
   static End end = new End();
   MoveRobot chipscmd = new MoveRobot(1, 0.1, 0, 0, 0.5);
-  MoveRobot nissincmd = new MoveRobot(1, -0.1, 0, 0, 0.5);
+  MoveRobot nissincmd = new MoveRobot(2, 2*Math.PI, 0, 0, 2);
   MoveRobot ballcmd = new MoveRobot(0, 0.1, 0, 0, 0.5);
   MoveRobot kitkatcmd = new MoveRobot(0, -0.1, 0, 0, 0.5);
   /*
@@ -38,25 +38,25 @@ public class OnlyKitkat extends CommandBase {
   int x = 0;
   public void No() {
 
-    if (Globals.curItem == 0 && item_flag[0]) {
-      chipscmd.schedule();
-      item_flag[0] = false;
-      x++;
-    }
+    // if (Globals.curItem == 0 && item_flag[0]) {
+    //   chipscmd.schedule();
+    //   item_flag[0] = false;
+    //   x++;
+    // }
     
-    else if (Globals.curItem == 1 && item_flag[1]) {
-      ballcmd.schedule();
-      item_flag[1] = false;
-      x++;
-    }
+    // else if (Globals.curItem == 1 && item_flag[1]) {
+    //   ballcmd.schedule();
+    //   item_flag[1] = false;
+    //   x++;
+    // }
 
-    else if (Globals.curItem == 2 && item_flag[2]) {
-      kitkatcmd.schedule();
-      item_flag[2] = false;
-      x++;
-    }
-    else if (Globals.curItem == 3 && item_flag[3]) {
-      nissincmd.schedule();
+    // else if (Globals.curItem == 2 && item_flag[2]) {
+    //   kitkatcmd.schedule();
+    //   item_flag[2] = false;
+    //   x++;
+    // }
+    if (Globals.curItem == 3 && item_flag[3]) {
+      
       item_flag[3] = false; 
       x++;
     }
@@ -64,11 +64,16 @@ public class OnlyKitkat extends CommandBase {
   }
   @Override
   public void execute() {
-    if (x == 4)
-      flag = true;
-    else
+    if (item_flag[3] && Globals.curItem == 3) {
+      nissincmd.schedule();
+      item_flag[3] = false;
+      Globals.poserunFlag = false;
+    } 
+    if (Globals.poserunFlag) {
       m_vision.getItem();
-      No();
+      item_flag[3] = true;
+    }
+    m_vision.getItem();
   }
 
   @Override

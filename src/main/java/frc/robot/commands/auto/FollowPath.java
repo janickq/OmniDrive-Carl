@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import edu.wpi.first.wpilibj.geometry.Pose2d;
 import edu.wpi.first.wpilibj.geometry.Rotation2d;
+import edu.wpi.first.wpilibj.geometry.Transform2d;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandBase;
@@ -23,24 +24,36 @@ public class FollowPath extends CommandBase {
   String pointname;
   String[] obstacles;
 
+  Transform2d transform2d;
+  boolean transformflag = false;
 
   boolean[] moveflag;
   boolean endflag;
   int u;
 
-  public FollowPath(String pointname, String[] obstacles) {
+  public FollowPath(String pointname, String[] obstacle, Transform2d transform2d) {
 
     this.pointname = pointname;
     this.obstacles = obstacles;
+    this.transform2d = transform2d;
+    transformflag = true;
+
+
+  }
+  public FollowPath(String pointname, String[] obstacle) {
+
+    this.pointname = pointname;
+    this.obstacles = obstacles;
+    transformflag = false;
 
   }
   public FollowPath(String pointname) {
 
     this.pointname = pointname;
     obstacles = Constants.obstacles;
-    
-
+    transformflag = false;
   }
+
   @Override
   public void initialize() {
     var point =m_points.getPoint(pointname);
@@ -51,7 +64,10 @@ public class FollowPath extends CommandBase {
     endflag = false;
     u = 0;
     pathMap.generateGrid(Constants.gridsize);
-    pathMap.getPose(Globals.curPose, m_points.getPoint(pointname));
+    if (transformflag)
+      pathMap.getPose(Globals.curPose, m_points.getPoint(pointname).transformBy(transform2d));
+    else
+      pathMap.getPose(Globals.curPose, m_points.getPoint(pointname));
 
     for (int i = 0; i < obstacles.length; i++) {
       pathMap.getObstacles(m_points.getPoint(obstacles[i]));
