@@ -31,6 +31,7 @@ public class MainSequence extends AutoCommand {
                 new InstantCommand(m_omnidrive::setreferencePose),
                 new InstantCommand(m_omnidrive::setreferenceHeading),
                 new InstantCommand(m_omnidrive::resetPose),
+                new InstantCommand(m_drop::getBin),
                 new MoveRobot(2, Math.PI/2, 0, 0, 1),
                 new WaitCommand(3),
                 new InstantCommand(m_drop::getBoxes),

@@ -261,20 +261,20 @@ public class Vision extends SubsystemBase
         //     SmartDashboard.putBoolean("Get New Barcode", false);
         // }
         // SmartDashboard.putNumber("debug8", Globals.debug8);
-        SmartDashboard.putString("unadjustedDrop1", m_points.getPoint("unadjustedDrop1").toString());
-        SmartDashboard.putString("unadjustedDrop2", m_points.getPoint("unadjustedDrop2").toString());
-        SmartDashboard.putString("BlueBox", m_points.getPoint("BlueBox").toString());
-        SmartDashboard.putString("YellowBox", m_points.getPoint("YellowBox").toString());
-        SmartDashboard.putString("BlackBox", m_points.getPoint("BlackBox").toString());
-        SmartDashboard.putString("RedBox", m_points.getPoint("RedBox").toString());
-        SmartDashboard.putString("GreenBox", m_points.getPoint("GreenBox").toString());
+        // SmartDashboard.putString("unadjustedDrop1", m_points.getPoint("unadjustedDrop1").toString());
+        // SmartDashboard.putString("unadjustedDrop2", m_points.getPoint("unadjustedDrop2").toString());
+        // SmartDashboard.putString("BlueBox", m_points.getPoint("BlueBox").toString());
+        // SmartDashboard.putString("YellowBox", m_points.getPoint("YellowBox").toString());
+        // SmartDashboard.putString("BlackBox", m_points.getPoint("BlackBox").toString());
+        // SmartDashboard.putString("RedBox", m_points.getPoint("RedBox").toString());
+        // SmartDashboard.putString("GreenBox", m_points.getPoint("GreenBox").toString());
+        // // SmartDashboard.putString("Bin", m_points.getPoint("Bin").toString());
+        // SmartDashboard.putString("chipsDrop", m_points.getPoint("chipsDrop").toString());
+        // SmartDashboard.putString("kitKatDrop", m_points.getPoint("kitKatDrop").toString());
+        // SmartDashboard.putString("ballDrop", m_points.getPoint("ballDrop").toString());
+        // SmartDashboard.putString("nissinDrop", m_points.getPoint("nissinDrop").toString());
+        // SmartDashboard.putString("Bin2", m_points.getPoint("Bin2").toString());
         // SmartDashboard.putString("Bin", m_points.getPoint("Bin").toString());
-        SmartDashboard.putString("chipsDrop", m_points.getPoint("chipsDrop").toString());
-        SmartDashboard.putString("kitKatDrop", m_points.getPoint("kitKatDrop").toString());
-        SmartDashboard.putString("ballDrop", m_points.getPoint("ballDrop").toString());
-        SmartDashboard.putString("nissinDrop", m_points.getPoint("nissinDrop").toString());
-        SmartDashboard.putString("Bin2", m_points.getPoint("Bin2").toString());
-        SmartDashboard.putString("Bin", m_points.getPoint("Bin").toString());
         SmartDashboard.putBoolean("mapping", pickedflag);
         servo3.setAngle(cameraAngle);
 

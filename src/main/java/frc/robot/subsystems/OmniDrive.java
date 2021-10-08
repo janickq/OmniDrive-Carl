@@ -348,34 +348,34 @@ public class OmniDrive extends SubsystemBase
          * Updates for outputs to the shuffleboard
          */
 
-        D_curHeading.setDouble(curHeading);
-        D_curHeading.setDouble(curHeading*180/Math.PI);
-        D_tgtHeading.setDouble(targetHeading*180/Math.PI);
-        D_navYaw.setDouble(-gyro.getYaw());
-        D_encoderDisp0.setDouble(encoderSpeeds[0]);
-        D_encoderDisp1.setDouble(encoderSpeeds[1]);
-        D_encoderDisp2.setDouble(encoderSpeeds[2]);
-        D_encoderDist0.setDouble(encoderDists[0]);
-        D_encoderDist1.setDouble(encoderDists[1]);
-        D_encoderDist2.setDouble(encoderDists[2]);
-        D_encoderPidOut0.setDouble(pidInputs[0]);
-        D_encoderPidOut1.setDouble(pidInputs[1]);
-        D_encoderPidOut2.setDouble(pidInputs[2]);
-        D_odoX.setDouble(odometryX);
-        D_odoY.setDouble(odometryY);
-        D_odoW.setDouble(odometryW);
+        // D_curHeading.setDouble(curHeading);
+        // D_curHeading.setDouble(curHeading*180/Math.PI);
+        // D_tgtHeading.setDouble(targetHeading*180/Math.PI);
+        // D_navYaw.setDouble(-gyro.getYaw());
+        // D_encoderDisp0.setDouble(encoderSpeeds[0]);
+        // D_encoderDisp1.setDouble(encoderSpeeds[1]);
+        // D_encoderDisp2.setDouble(encoderSpeeds[2]);
+        // D_encoderDist0.setDouble(encoderDists[0]);
+        // D_encoderDist1.setDouble(encoderDists[1]);
+        // D_encoderDist2.setDouble(encoderDists[2]);
+        // D_encoderPidOut0.setDouble(pidInputs[0]);
+        // D_encoderPidOut1.setDouble(pidInputs[1]);
+        // D_encoderPidOut2.setDouble(pidInputs[2]);
+        // D_odoX.setDouble(odometryX);
+        // D_odoY.setDouble(odometryY);
+        // D_odoW.setDouble(odometryW);
         Globals.curPose = getPose();
         // Points.curPoseTransformed = new Pose2d(Globals.curPose.getTranslation(), Globals.curPose.getRotation().times(-1));
 
         // SmartDashboard.putString("curposetransformed", Points.curPoseTransformed.toString());
-        SmartDashboard.putString("relativePose", Globals.debug11);
-        SmartDashboard.putString("curPose", Globals.curPose.toString());
+        // SmartDashboard.putString("relativePose", Globals.debug11);
+        // SmartDashboard.putString("curPose", Globals.curPose.toString());
         // SmartDashboard.putString("referencePose", Globals.referencePose.toString());
         Globals.compassHeading = getCompassHeading();
-        D_Compass.setDouble(Globals.compassHeading);
-        D_HeadingError.setDouble(Globals.headingError);
-        D_referenceAngle.setDouble(Globals.referenceHeading);
-        D_referencePose.setBoolean(Globals.poserunFlag);
-        SmartDashboard.putString("referencePose", Globals.referencePose.toString());
+        // D_Compass.setDouble(Globals.compassHeading);
+        // D_HeadingError.setDouble(Globals.headingError);
+        // D_referenceAngle.setDouble(Globals.referenceHeading);
+        // D_referencePose.setBoolean(Globals.poserunFlag);
+        // SmartDashboard.putString("referencePose", Globals.referencePose.toString());
     }
 }
