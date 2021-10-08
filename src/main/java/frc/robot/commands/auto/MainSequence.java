@@ -24,7 +24,7 @@ public class MainSequence extends AutoCommand {
         super(
 
                 new InstantCommand(m_vision::boxLook),
-
+                new MovePose2("Pick"),
                 new MovePose("Pick"),
                 new AlignPick(),
                 new WaitCommand(2),

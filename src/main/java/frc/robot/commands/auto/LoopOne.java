@@ -80,9 +80,9 @@ public class LoopOne extends CommandBase {
       Globals.curItem = 5;
       Globals.runFlag = true;
       
-      for (int i = 0; i < Globals.itemCount.length; i++) {
-        Globals.itemCount[i] = 0;
-      }
+      // for (int i = 0; i < Globals.itemCount.length; i++) {
+      //   Globals.itemCount[i] = 0;
+      // }
       
     }
 }

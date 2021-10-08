@@ -64,10 +64,8 @@ public class FollowPath extends CommandBase {
     endflag = false;
     u = 0;
     pathMap.generateGrid(Constants.gridsize);
-    if (transformflag)
-      pathMap.getPose(Globals.curPose, m_points.getPoint(pointname).transformBy(transform2d));
-    else
-      pathMap.getPose(Globals.curPose, m_points.getPoint(pointname));
+
+    pathMap.getPose(Globals.curPose, m_points.getPoint(pointname));
 
     for (int i = 0; i < obstacles.length; i++) {
       pathMap.getObstacles(m_points.getPoint(obstacles[i]));

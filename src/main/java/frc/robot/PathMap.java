@@ -74,7 +74,7 @@ public class PathMap {
     for (int i = 0; i < Obstacles.size(); i++) {
       int x = Math.toIntExact(Math.round((Obstacles.get(i).getTranslation().getX() / 2.25) * n / 2));
       int y = Math.toIntExact(Math.round((Obstacles.get(i).getTranslation().getY() / 4.5) * n));
-      createBoundary(10, 10, x, y, false);
+      createBoundary(11, 11, x, y, false);
     }
     createBoundary(13, 11, 37, 25, false);
     clearPath(Ai, Aj);
