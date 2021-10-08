@@ -18,7 +18,7 @@ public class DropPoint {
   // Comparator<BoxPair> byDistance = Comparator.comparingDouble(BoxPair::getDistance);
 
   String[] boxes = new String[] { "RedBox", "BlueBox", "YellowBox", "BlackBox", "GreenBox" };
-  String[] items = new String[] { "ballDrop", "kitKatDrop",  "nissinDrop", "chipsDrop", "chipsDrop" };
+  String[] items = new String[] { "kitKatDrop", "chipsDrop",  "chipsDrop", "ballDrop", "nissinDrop" };
   ArrayList<BoxPair> boxPair = new ArrayList<>();
   // BoxPair[] boxPair;
 
