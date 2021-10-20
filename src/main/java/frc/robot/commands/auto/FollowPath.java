@@ -6,6 +6,7 @@ import edu.wpi.first.wpilibj.geometry.Pose2d;
 import edu.wpi.first.wpilibj.geometry.Rotation2d;
 import edu.wpi.first.wpilibj.geometry.Transform2d;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj.trajectory.TrajectoryConfig;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants;
@@ -30,6 +31,7 @@ public class FollowPath extends CommandBase {
   boolean[] moveflag;
   boolean endflag;
   int u;
+  TrajectoryConfig config = new TrajectoryConfig(0.5, 0.5);
 
   public FollowPath(String pointname, String[] obstacle, Transform2d transform2d) {
 

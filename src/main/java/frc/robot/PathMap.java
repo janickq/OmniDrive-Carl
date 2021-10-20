@@ -7,6 +7,7 @@ import java.util.HashMap;
 import edu.wpi.first.wpilibj.geometry.Pose2d;
 import edu.wpi.first.wpilibj.geometry.Rotation2d;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj.trajectory.TrajectoryConfig;
 
 public class PathMap {
 
@@ -29,6 +30,11 @@ public class PathMap {
   public HashMap<String, Pose2d> namedPath = new HashMap<>();
   public ArrayList<Pose2d> Path = new ArrayList<>();
   public Points m_points = RobotContainer.m_points;
+  public TrajectoryConfig config = new TrajectoryConfig(0.5, 0.5);
+
+  public void generatePath() {
+    
+  }
 
   public void getPose(Pose2d startpoint, Pose2d endpoint) {
     curPose = startpoint;

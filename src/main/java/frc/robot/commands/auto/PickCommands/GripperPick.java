@@ -81,7 +81,7 @@ public class GripperPick extends CommandBase{
         // Easier to make distance positive and use m_dir to keep track of negative
         // speed.
         // Adds the subsystem to the command
-        itemCo = new double[8];
+        itemCo = new double[9];
 
         itemCo[0] = 130; 
         itemCo[1] = 100; 
