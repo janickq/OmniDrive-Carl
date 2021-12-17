@@ -8,7 +8,6 @@ import frc.robot.RobotContainer;
 
 //Subsystem imports
 import frc.robot.subsystems.OmniDrive;
-import frc.robot.Globals;
 
 /**
  * SimpleDrive class
@@ -24,9 +23,9 @@ public class MoveRobot extends CommandBase
     private int m_profType;
     private TrapezoidProfile.Constraints m_constraints;
     private TrapezoidProfile.State m_goal = new TrapezoidProfile.State();
-    private static TrapezoidProfile.State m_setpoint = new TrapezoidProfile.State();
+    private TrapezoidProfile.State m_setpoint = new TrapezoidProfile.State();
     private int m_dir;
-    public static double distMoved;
+
     private final double _startSpeed;
 
     /**
@@ -38,10 +37,10 @@ public class MoveRobot extends CommandBase
         _startSpeed = startSpeed;
         m_profType = type;
         if (type==2){
-            m_constraints = new TrapezoidProfile.Constraints(maxSpeed, Math.PI/2);
+            m_constraints = new TrapezoidProfile.Constraints(maxSpeed, 2.0*Math.PI);
         }
         else{
-            m_constraints = new TrapezoidProfile.Constraints(maxSpeed, 0.2);
+            m_constraints = new TrapezoidProfile.Constraints(maxSpeed, 0.5);
         }
         m_setpoint = new TrapezoidProfile.State(0, _startSpeed);
         
@@ -53,7 +52,7 @@ public class MoveRobot extends CommandBase
         m_goal = new TrapezoidProfile.State(dist, endSpeed);
 
         //addRequirements(m_drive); // Adds the subsystem to the command
-
+     
     }
 
     /**
@@ -61,10 +60,9 @@ public class MoveRobot extends CommandBase
      */
     @Override
     public void initialize()
-    {
+    {   
         m_setpoint = new TrapezoidProfile.State(0, _startSpeed);
         m_endFlag = false;
-        Globals.poserunFlag = false;
     }
     /**
      * Condition to end speed profile
@@ -79,7 +77,6 @@ public class MoveRobot extends CommandBase
     @Override
     public void execute()
     {
-
         //Create a new profile to calculate the next setpoint(speed) for the profile
         var profile = new TrapezoidProfile(m_constraints, m_goal, m_setpoint);
         m_setpoint = profile.calculate(dT);
@@ -100,8 +97,7 @@ public class MoveRobot extends CommandBase
     @Override
     public void end(boolean interrupted)
     {
-        Globals.distCount += m_setpoint.position;
-        Globals.poserunFlag = true;
+
     }
 
     /**
@@ -111,10 +107,6 @@ public class MoveRobot extends CommandBase
     public boolean isFinished()
     {
         return m_endFlag;
-    }
-
-    public static double getDistMoved() {
-        return m_setpoint.position;
     }
 
 }

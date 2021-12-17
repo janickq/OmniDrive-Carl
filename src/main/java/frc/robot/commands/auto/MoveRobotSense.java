@@ -20,13 +20,9 @@ public class MoveRobotSense extends MoveRobot
         f_ptr = f;
     }
 
-
-
-	@Override
+    @Override
     public boolean endCondition()
     {
         return f_ptr.endCondition();
     }
-
-
 }

@@ -7,12 +7,11 @@ import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 
 public class OI
 {
-    // Create the joystick
+    //Create the joystick
     public Joystick drivePad;
     public Button buttonStart;
     public Button buttonA;
     public Button buttonY;
-    public Button buttonBack;
 
     public OI()
     {
@@ -21,7 +20,6 @@ public class OI
         buttonStart = new JoystickButton(drivePad, GamepadConstants.START_BUTTON);//.whenPressed( m_menu.GetCmd() );
         buttonA = new JoystickButton(drivePad, GamepadConstants.A_BUTTON);//.whenPressed( ()->{Globals.menuItem--;Globals.menuItem%=4;} );
         buttonY = new JoystickButton(drivePad, GamepadConstants.Y_BUTTON);//.whenPressed( ()->{Globals.menuItem++;Globals.menuItem%=4;});
-        buttonBack = new JoystickButton(drivePad, GamepadConstants.BACK_BUTTON);
     }
 
     /**
@@ -188,8 +186,13 @@ public class OI
         {
             return drivePad.getRawButton(GamepadConstants.LEFT_ANALOG_BUTTON);
         }
+        /**
+         * 
+         * Cycle through all buttons to check if any is pressed
+         * @return the number of the gamepad buttons
+         */
         public int getDriveButtons() {
-            for (int i=1; i<32; i++) {
+            for (int i=1; i<=16; i++) {
                 if (drivePad.getRawButton(i)) {
                     return i;
                 }

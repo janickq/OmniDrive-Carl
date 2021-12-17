@@ -7,11 +7,19 @@
 
 package frc.robot;
 
-import edu.wpi.first.wpilibj.Notifier;
+import java.net.DatagramPacket;
+import java.net.DatagramSocket;
+import java.net.InetSocketAddress;
+import java.net.SocketException;
+
+import java.io.IOException;
+
+//import edu.wpi.cscore.CvSink;
+//import edu.wpi.cscore.CvSource;
+//import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
-import frc.robot.subsystems.OmniDrive;
 
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to
@@ -19,18 +27,59 @@ import frc.robot.subsystems.OmniDrive;
  * the package after creating this project, you must also update the build.gradle file in the
  * project.
  */
-public class Robot extends TimedRobot {
+public class Robot_notuse extends TimedRobot {
   private Command m_autonomousCommand;
   private Command m_teleopCommand;
   private RobotContainer m_robotContainer;
-  private OmniDrive m_omnidrive;
-  private Notifier m_follower;
-  // public Robot() {
-  //   addPeriodic(() -> {
-  //       m_omnidrive.doPID();
-  //   }, 0.01, 0.005);
+
+  // public static FakeDS fakeDS;
+  // private Thread dsThread = new Thread(
+  //   () -> {
+  //     DatagramSocket socket;
+  //     try {
+  //       socket = new DatagramSocket();
+  //     } catch (SocketException e1) {
+  //       e1.printStackTrace();
+  //       return;
+  //     }
+  //     InetSocketAddress addr = new InetSocketAddress("127.0.0.1", 1110);
+  //     byte[] sendData = new byte[6];
+  //     DatagramPacket packet = new DatagramPacket(sendData, 0, 6, addr);
+  //     short sendCount = 0;
+  //     int initCount = 0;
+  //     while (!Thread.currentThread().isInterrupted()) {
+  //       if (RobotContainer.m_sensor.getSwitch() == false) {
+  //         try {
+  //           Thread.sleep(20);
+  //           generateEnabledDsPacket(sendData, sendCount++);
+  //           // ~50 disabled packets are required to make the robot actually enable
+  //           // 1 is definitely not enough.
+  //           if (initCount < 50) {
+  //             initCount++;
+  //             sendData[3] = 0;
+  //           }
+  //           packet.setData(sendData);
+  //           socket.send(packet);
+  //         } catch (InterruptedException ex) {
+  //           Thread.currentThread().interrupt();
+  //         } catch (IOException ex) {
+  //           ex.printStackTrace();
+  //         }
+  //       }
+  //     }
+  //     socket.close();
+  //   });;
+    
+  // private void generateEnabledDsPacket(byte[] data, short sendCount) {
+  //   data[0] = (byte) (sendCount >> 8);
+  //   data[1] = (byte) sendCount;
+  //   data[2] = 0x01; // general data tag
+  //   data[3] = 0x04; // teleop enabled
+  //   data[4] = 0x10; // normal data request
+  //   data[5] = 0x00; // red 1 station
   // }
-   /**
+
+  /**
    * This function is run when the robot is first started up and should be used for any
    * initialization code.
    */
@@ -38,13 +87,9 @@ public class Robot extends TimedRobot {
   public void robotInit() {
     // Instantiate our RobotContainer. 
     m_robotContainer = new RobotContainer();
-    m_omnidrive = RobotContainer.m_omnidrive;
 
-    //Run PID in different thread at higher rate
-    if (Constants.PID_THREAD ) {
-      m_follower = new Notifier(() -> { m_omnidrive.doPID(); });
-      m_follower.startPeriodic(Constants.PID_DT);
-    }
+    //dsThread.setDaemon(true);
+    //dsThread.start();
 
     //CameraServer.getInstance().startAutomaticCapture();
     //CvSink cvSink = CameraServer.getInstance().getVideo();

@@ -1,5 +1,6 @@
 package frc.robot.subsystems;
 
+
 //Java imports
 
 //Vendor imports
@@ -9,28 +10,25 @@ import com.studica.frc.TitanQuadEncoder;
 
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.wpilibj.DigitalOutput;
-import edu.wpi.first.wpilibj.LinearFilter;
-import edu.wpi.first.wpilibj.MedianFilter;
 //import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj.controller.PIDController;
 import edu.wpi.first.wpilibj.geometry.Pose2d;
 import edu.wpi.first.wpilibj.geometry.Rotation2d;
-import edu.wpi.first.wpilibj.geometry.Transform2d;
+
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 //WPI imports
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
-import frc.robot.Globals;
-import frc.robot.Points;
-import frc.robot.RobotContainer;
+import frc.robot.Astar.Layout;
+import frc.robot.utils.OmniDriveOdometry;
+
 
 public class OmniDrive extends SubsystemBase
 {
+    //Creates all necessary hardware interface here for omni-drive
 
-    private final static Points m_points = RobotContainer.m_points;
     //Motors and encoders
     private final TitanQuad[] motors;
     private final TitanQuadEncoder[] encoders;
@@ -40,29 +38,27 @@ public class OmniDrive extends SubsystemBase
     private PIDController[] pidControllers;
     private double[] pidInputs;
     private double[] pidOutputs;
+    private double[] pidFBs;
     private double[] encoderDists;
     private double[] encoderDists_2;
     private double[] encoderSpeeds;
     private double[] wheelSpeeds;
     private double curHeading, targetHeading;
     private double[] motorOuts;
-    private double headingDiv;
+    
+    // Odometry class for tracking robot pose
+    private final OmniDriveOdometry m_odometry;
+    
+    //DigitalOutput debugOut = new DigitalOutput(8);
+
 
     //For testing. These should be in another subsystem
     private double pid_dT = Constants.PID_DT;
-    LinearFilter filter3 = LinearFilter.movingAverage(20);
-    MedianFilter filter1 = new MedianFilter(10);
-    MedianFilter filter2 = new MedianFilter(10);
-    DigitalOutput debugout1 = new DigitalOutput(8);
+
     // Sensors
+    private final DigitalOutput outDebug8;
 
     private final AHRS gyro;
-
-    //Odometry
-    private double odometryX = 0;
-    private double odometryY = 0;
-    private double odometryW = 0;
-
 
     // Shuffleboard
     private final ShuffleboardTab tab = Shuffleboard.getTab("OmniDrive");
@@ -73,23 +69,15 @@ public class OmniDrive extends SubsystemBase
     private final NetworkTableEntry D_encoderDisp0 = tab.add("Encoder0", 0).getEntry();
     private final NetworkTableEntry D_encoderDisp1 = tab.add("Encoder1", 0).getEntry();
     private final NetworkTableEntry D_encoderDisp2 = tab.add("Encoder2", 0).getEntry();
-    private final NetworkTableEntry D_encoderDist0 = tab.add("Encoder0dist", 0).getEntry();
-    private final NetworkTableEntry D_encoderDist1 = tab.add("Encoder1dist", 0).getEntry();
-    private final NetworkTableEntry D_encoderDist2 = tab.add("Encoder2dist", 0).getEntry();
     private final NetworkTableEntry D_inputW = tab.add("inputW", 0).getEntry();
-    private final NetworkTableEntry D_encoderPidOut0 = tab.add("pidout0", 0).getEntry();
-    private final NetworkTableEntry D_encoderPidOut1 = tab.add("pidout1", 0).getEntry();
-    private final NetworkTableEntry D_encoderPidOut2 = tab.add("pidout2", 0).getEntry();
-    private final NetworkTableEntry D_odoX = tab.add("odoX", 0).getEntry();
-    private final NetworkTableEntry D_odoY = tab.add("odoY", 0).getEntry();
-    private final NetworkTableEntry D_odoW = tab.add("odoW", 0).getEntry();
-    private final NetworkTableEntry D_Compass = tab.add("Compass", 0).getEntry();
-    private final NetworkTableEntry D_HeadingError = tab.add("HeadingError", 0).getEntry();
-    private final NetworkTableEntry D_referencePose = tab.add("poseendflag", 0).getEntry();
-    private final NetworkTableEntry D_referenceAngle = tab.add("ReferenceAngle", 0).getEntry();
+    private final NetworkTableEntry D_odometry0 = tab.add("odo x", 0).getEntry();
+    private final NetworkTableEntry D_odometry1 = tab.add("odo y", 0).getEntry();
+    private final NetworkTableEntry D_odometry2 = tab.add("odo A", 0).getEntry();
+
     //Subsystem for omnidrive
     public OmniDrive() {
 
+        outDebug8 = new DigitalOutput(8);
 
         //Omni drive motors
         motors = new TitanQuad[Constants.MOTOR_NUM];
@@ -113,73 +101,33 @@ public class OmniDrive extends SubsystemBase
             //vmx encoderDists[i] = encoders[i].getDistance();
             encoders[i] = new TitanQuadEncoder(motors[i], i, Constants.KENCODERDISTPERPULSE);
             encoders[i].reset();
-            encoderDists_2[i] =encoderDists[i] = encoders[i].getEncoderDistance();
+            encoderDists[i] = encoders[i].getEncoderDistance();
         }
         
         // x, y and w speed controler
         pidControllers = new PIDController[Constants.PID_NUM];
         //Speed control
-        pidControllers[0] = new PIDController(1, 32.0, 0.0, pid_dT);  //x
-        pidControllers[1] = new PIDController(1, 32.0, 0.0, pid_dT);  //y 2.0,32.0,0.02
-        pidControllers[2] = new PIDController(2.5,0.0,0.1, pid_dT);    //w
+        pidControllers[0] = new PIDController(1.2,18.0,0.00, pid_dT);  //x
+        pidControllers[1] = new PIDController(1.2,18.0,0.00, pid_dT);  //y 2.0,32.0,0.02
+        pidControllers[2] = new PIDController(2.0,0.0,0.1, pid_dT);    //w
         pidControllers[2].enableContinuousInput(-Math.PI, Math.PI);
 
         //Inputs and Outputs for wheel controller
         pidInputs = new double[Constants.PID_NUM];
         pidOutputs = new double[Constants.PID_NUM];
+        pidFBs = new double[Constants.PID_NUM];
 
         // gyro for rotational heading control
         gyro = new AHRS(SPI.Port.kMXP);
         gyro.zeroYaw();
+        curHeading = targetHeading = getYawRad();
 
+        m_odometry = new OmniDriveOdometry( Layout.Convert_mm_Pose2d(Layout.startPos));
 
-        setPose(m_points.getPoint("jigOffset"));
-        // setPose(m_points.getPoint("Pick"));
-        setreferencePose();
-
-
-    }
-
-    public void setreferenceHeading() {
-
-        Globals.referenceHeading = gyro.getCompassHeading() * Math.PI / 180;
-    }
-
-    public double getCompassHeading(){
-        
-        return filter3.calculate(gyro.getCompassHeading())* Math.PI / 180;
-    }
-
-    public void setreferencePose(){
-
-        Globals.referencePose = m_points.getPoint("Map");
-
-    }
-
-    public void setPose(Pose2d sPose2d){
-        odometryX = sPose2d.getTranslation().getX();
-        odometryY = sPose2d.getTranslation().getY();
-        odometryW = sPose2d.getRotation().getRadians();
-    }
-
-    public void resetPose() {
-        setPose(Globals.referencePose);
-    }
-
-    public void setZeroPose() {
-        setPose(m_points.getPoint("jigOffset"));
     }
 
     public Pose2d getPose() {
-        double dT = 0.02;
-        odometryW += (pidInputs[2])*dT;
-        if (odometryW>Math.PI) odometryW -= Math.PI*2;
-        if (odometryW<-Math.PI) odometryW += Math.PI*2;
-        odometryX += (Math.cos(odometryW)*pidInputs[0] + Math.cos(odometryW+Math.PI/2)*pidInputs[1])*dT;
-        odometryY += (Math.sin(odometryW+Math.PI/2)*pidInputs[1]+ Math.sin(odometryW)*pidInputs[0])*dT;
-        Rotation2d rotation = new Rotation2d(odometryW);
-        
-        return new Pose2d(odometryX, odometryY, rotation);
+        return m_odometry.getPose();
     }
 
     public double getYawRad() {
@@ -194,7 +142,6 @@ public class OmniDrive extends SubsystemBase
      */
     public double getYaw() {
         //return gyro.getYaw();
-        
         return gyro.getRawGyroZ();
     }
 
@@ -203,11 +150,6 @@ public class OmniDrive extends SubsystemBase
      */
     public void resetGyro() {
         gyro.zeroYaw();
-        curHeading = targetHeading = getYawRad();
-    }
-
-    public void getKinematics(){
-
     }
 
     public void resetHeading() {
@@ -235,12 +177,6 @@ public class OmniDrive extends SubsystemBase
         motors[2].set(speed2);
         
     }
-
-    public void compensateGyro(){
-
-        //0 - 1:34
-        //0.75 - 3:35
-    }
     
     /***
      * 
@@ -256,17 +192,17 @@ public class OmniDrive extends SubsystemBase
     public void setRobotSpeedType(int type, double speed) {
         pidInputs[type] = speed; 
     }
-    
 
     public void doPID( ){
-        debugout1.set(true);
+        outDebug8.set(true);
+
         //This is for translational speed PID
         //First calculate wheel speed from encoder feedback
         double dcValue = 0.0;
         for (int i=0; i<Constants.MOTOR_NUM; i++) {
             //vmx encoderDists[i] = encoders[i].getDistance();
             encoderDists[i] = encoders[i].getEncoderDistance();
-            wheelSpeeds[i] = encoderSpeeds[i] = (encoderDists[i] - encoderDists_2[i]) / pid_dT;
+            wheelSpeeds[i] = encoderSpeeds[i] = (encoderDists[i]-encoderDists_2[i])/pid_dT;
             encoderDists_2[i] = encoderDists[i];
             //encoders[i].getSpeed() in rpm
             //wheelSpeeds[i] = encoderSpeeds[i] = -encoders[i].getSpeed()*Math.PI*0.1/60;
@@ -285,11 +221,13 @@ public class OmniDrive extends SubsystemBase
         //See formula below
         double speedX = (-(wheelSpeeds[0] + wheelSpeeds[2]) + wheelSpeeds[1])/2;
         double speedY = (-wheelSpeeds[0] + wheelSpeeds[2])/(0.866025*2);
+        pidFBs[0] = speedX;
+        pidFBs[1] = speedX;
 
         //PID control for x and y speed
         //Speed control + feedforward
-        pidOutputs[0] = pidControllers[0].calculate(speedX, pidInputs[0]) + pidInputs[0];
-        pidOutputs[1] = pidControllers[1].calculate(speedY, pidInputs[1]) + pidInputs[1];
+        pidOutputs[0] = pidControllers[0].calculate(speedX, pidInputs[0]) + pidInputs[0]*0.0;
+        pidOutputs[1] = pidControllers[1].calculate(speedY, pidInputs[1]) + pidInputs[1]*0.0;
         
         //Translate x and y output to wheel outputs
         // The x and y speed are resolved into individual wheel speed
@@ -312,6 +250,10 @@ public class OmniDrive extends SubsystemBase
         //Limit targetHeading to -Pi to +Pi
         if (targetHeading>Math.PI) targetHeading -= Math.PI*2;
         if (targetHeading<-Math.PI) targetHeading += Math.PI*2;
+        pidFBs[2] = targetHeading-curHeading;
+        if (pidFBs[2]>Math.PI) pidFBs[2] -= Math.PI*2;
+        if (pidFBs[2]<-Math.PI) pidFBs[2] += Math.PI*2;
+        pidFBs[2] /= pid_dT;
 
         pidOutputs[2] = pidControllers[2].calculate(curHeading, targetHeading);
 
@@ -326,7 +268,14 @@ public class OmniDrive extends SubsystemBase
             motors[i].set(motorOuts[i]/max);
             //motors[i].set(0);   //off motor to test encoders manually
         }   
-        debugout1.set(false);
+
+        //Use PIDInputs for odometry?
+        //m_odometry.update(pidFBs[0]*pid_dT, pidFBs[1]*pid_dT, pidFBs[2]*pid_dT);
+        m_odometry.update(pidInputs[0]*pid_dT, pidInputs[1]*pid_dT, pidInputs[2]*pid_dT);
+
+        //Use feedback signal. Should be more accurate?
+
+        outDebug8.set(false);
    }
     /**
      * Code that runs once every robot loop
@@ -335,8 +284,8 @@ public class OmniDrive extends SubsystemBase
     @Override
     public void periodic()
     {
-  
-        if (initCnt<20) {
+ 
+        if (initCnt<1) {
             initCnt++;
             gyro.zeroYaw();
             curHeading = targetHeading = getYawRad();
@@ -351,34 +300,28 @@ public class OmniDrive extends SubsystemBase
          * Updates for outputs to the shuffleboard
          */
 
-        // D_curHeading.setDouble(curHeading);
-        // D_curHeading.setDouble(curHeading*180/Math.PI);
-        // D_tgtHeading.setDouble(targetHeading*180/Math.PI);
-        // D_navYaw.setDouble(-gyro.getYaw());
-        // D_encoderDisp0.setDouble(encoderSpeeds[0]);
-        // D_encoderDisp1.setDouble(encoderSpeeds[1]);
-        // D_encoderDisp2.setDouble(encoderSpeeds[2]);
-        // D_encoderDist0.setDouble(encoderDists[0]);
-        // D_encoderDist1.setDouble(encoderDists[1]);
-        // D_encoderDist2.setDouble(encoderDists[2]);
-        // D_encoderPidOut0.setDouble(pidInputs[0]);
-        // D_encoderPidOut1.setDouble(pidInputs[1]);
-        // D_encoderPidOut2.setDouble(pidInputs[2]);
-        // D_odoX.setDouble(odometryX);
-        // D_odoY.setDouble(odometryY);
-        // D_odoW.setDouble(odometryW);
-        Globals.curPose = getPose();
-        // Points.curPoseTransformed = new Pose2d(Globals.curPose.getTranslation(), Globals.curPose.getRotation().times(-1));
+        //D_curHeading.setDouble(curHeading);
+        D_curHeading.setDouble(curHeading*180/Math.PI);
+        D_tgtHeading.setDouble(targetHeading*180/Math.PI);
+        D_navYaw.setDouble(-gyro.getYaw());
+        //Vmx encoder
+        //vmx D_encoderDisp0.setDouble(encoders[0].getDistance());//encoderSpeeds[0]);
+        //vmx D_encoderDisp1.setDouble(encoders[1].getDistance());//encoderSpeeds[1]);
+        //vmx D_encoderDisp2.setDouble(encoders[2].getDistance());//encoderSpeeds[2]);
+        //Titan encoder
+        D_encoderDisp0.setDouble(encoderSpeeds[0]);//encoderSpeeds[0]);
+        D_encoderDisp1.setDouble(encoderSpeeds[1]);//encoders[1].getEncoderDistance());//encoderSpeeds[1]);
+        D_encoderDisp2.setDouble(encoderSpeeds[2]);//encoderSpeeds[2]);
+        D_inputW.setDouble(pidInputs[2]);
+        double [] value;
+        value = new double[3];
+        value[0] = m_odometry.getPose().getTranslation().getX();
+        value[1] = m_odometry.getPose().getTranslation().getY();
+        value[2] = m_odometry.getPose().getRotation().getDegrees();
 
-        // SmartDashboard.putString("curposetransformed", Points.curPoseTransformed.toString());
-        // SmartDashboard.putString("relativePose", Globals.debug11);
-        // SmartDashboard.putString("curPose", Globals.curPose.toString());
-        // SmartDashboard.putString("referencePose", Globals.referencePose.toString());
-        Globals.compassHeading = getCompassHeading();
-        // D_Compass.setDouble(Globals.compassHeading);
-        // D_HeadingError.setDouble(Globals.headingError);
-        // D_referenceAngle.setDouble(Globals.referenceHeading);
-        // D_referencePose.setBoolean(Globals.poserunFlag);
-        // SmartDashboard.putString("referencePose", Globals.referencePose.toString());
+        D_odometry0.setDouble(value[0]);
+        D_odometry1.setDouble(value[1]);
+        D_odometry2.setDouble(value[2]);
+  
     }
 }

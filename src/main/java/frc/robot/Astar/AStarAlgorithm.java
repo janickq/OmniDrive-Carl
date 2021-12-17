@@ -105,9 +105,9 @@ public class AStarAlgorithm {
                     n.setFunction(n.getCost() + n.getHeuristic());
 
                 }
+
             }
         }
-
         //updateUI();
     }
 

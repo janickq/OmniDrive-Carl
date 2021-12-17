@@ -5,7 +5,7 @@ import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.Astar.Layout;
 // import the commands
 import frc.robot.commands.auto.MoveRobot;
-
+import frc.robot.commands.auto.RotateTest;
 
 
 /**

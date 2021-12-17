@@ -1,15 +1,8 @@
 package frc.robot.commands;
 
-import org.opencv.video.KalmanFilter;
-
-import edu.wpi.first.wpilibj.MedianFilter;
-import edu.wpi.first.wpilibj.SlewRateLimiter;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.Globals;
 import frc.robot.RobotContainer;
-//import frc.robot.commands.auto.MoveArm;
 import frc.robot.commands.gamepad.OI;
-import frc.robot.subsystems.Arm;
 import frc.robot.subsystems.OmniDrive;
 
 public class TeleCmd extends CommandBase
@@ -17,13 +10,8 @@ public class TeleCmd extends CommandBase
     /**
      * Bring in Subsystem and Gamepad code
      */
-    private double rate = 1.5;
-    private final OmniDrive m_omnidrive = RobotContainer.m_omnidrive;
-    private final OI m_oi = RobotContainer.m_oi;
-    private SlewRateLimiter filter1 = new SlewRateLimiter(rate);
-    private SlewRateLimiter filter2 = new SlewRateLimiter(rate);
-    private SlewRateLimiter filter3 = new SlewRateLimiter(rate);
-    private SlewRateLimiter filter4 = new SlewRateLimiter(rate);
+    private final OmniDrive m_omnidrive;
+    private final OI m_oi;
 
 
     /**
@@ -33,17 +21,16 @@ public class TeleCmd extends CommandBase
     double x=0;
     double y=0;
     double w=0;
-    double z=0;
 
     /**
      * Constructor
      */
-    public TeleCmd()//(Arm arm, OmniDrive drive)
+    public TeleCmd(OmniDrive omnidrive, OI oi)
     {
-        //addRequirements(m_omnidrive);
-        //m_arm = arm;
-        //m_omnidrive = drive;
-        //addRequirements(m_arm); //add the traning subsystem as a requirement 
+        m_omnidrive = RobotContainer.m_omnidrive;
+        m_oi = RobotContainer.m_oi;
+        addRequirements(m_omnidrive); //add the drive subsystem as a requirement 
+		//addRequirements(m_menu); 
     }
 
     /**
@@ -54,7 +41,6 @@ public class TeleCmd extends CommandBase
     {
 
     }
-
 
     /**
      * Code here will run continously every robot loop until the command is stopped
@@ -67,24 +53,13 @@ public class TeleCmd extends CommandBase
          */
         //Right stick for X-Y control
         //Left stick for W (rotational) control
-        x = filter1.calculate(m_oi.getRightDriveX());
-        y = filter2.calculate(-m_oi.getRightDriveY());//Down is positive. Need to negate
-        w = filter3.calculate(-m_oi.getLeftDriveX()); //X-positive is CW. Need to negate
-        z = filter4.calculate(-m_oi.getLeftDriveY());
-        
-        m_omnidrive.setRobotSpeedXYW(x/2, y/2, w*Math.PI);
-        //m_arm.setServo1Angle((Globals.curAngle1+=y*2));
-        //m_arm.setServo2Angle((Globals.curAngle2+=z*2));
-       // m_arm.setServo3Angle((Globals.curAngle3+=w*2));
-        Globals.debug3 = y;
-        //m_oi.buttonTest();
+        x = m_oi.getRightDriveX();
+        y = -m_oi.getRightDriveY();//Down is positive. Need to negate
+        w = -m_oi.getLeftDriveX(); //X-positive is CW. Need to negate
 
-        //hardware.setMotorSpeed012(speed0, speed1, speed2);
-        //m_hardware.setPIDSpeed012(speed0, speed1, speed2);
-        //hardware.doPID();
+        m_omnidrive.setRobotSpeedXYW(x*0.6, y*0.6, w*Math.PI);
+
     }
-
-
 
     /**
      * When the comamnd is stopped or interrupted this code is run
@@ -94,7 +69,7 @@ public class TeleCmd extends CommandBase
     @Override
     public void end(boolean interrupted)
     {
-       // m_omnidrive.setMotorSpeedAll(0);
+        m_omnidrive.setMotorSpeedAll(0);
     }
 
     /**
