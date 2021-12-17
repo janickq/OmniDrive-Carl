@@ -193,35 +193,35 @@ public class Sensor extends SubsystemBase
          * Updates for outputs to the shuffleboard
          */
 
-         if(!flag){
-             D_sharpIR2.setDouble(getIRDistance2());
-             D_sharpIR1.setDouble(getIRDistance1());
-             D_sharpIR3.setDouble(getIRDistance3());
-             sonic1.ping();
-             sonic2.ping();
-             cobraValue[0] = getCobraRawValue(0);
-             cobraValue[1] = getCobraRawValue(1);
-             flag = true;
-         }
+        //  if(!flag){
+        //      D_sharpIR2.setDouble(getIRDistance2());
+        //      D_sharpIR1.setDouble(getIRDistance1());
+        //      D_sharpIR3.setDouble(getIRDistance3());
+        //      sonic1.ping();
+        //      sonic2.ping();
+        //      cobraValue[0] = getCobraRawValue(0);
+        //      cobraValue[1] = getCobraRawValue(1);
+        //      flag = true;
+        //  }
 
-         else {
-             Globals.UltrasonicDistance1 = filter5.calculate(sonic1.getRangeMM());
-             Globals.UltrasonicDistance2 = filter8.calculate(sonic2.getRangeMM());
-             D_ultraSonic1.setNumber(getSonicDistance1());
-             D_ultraSonic2.setNumber(getSonicDistance2());
-             //  for(int i=0; i<4; i++) {
-             //      cobraValue[i] = getCobraRawValue(i);
-             //  }
-             cobraValue[2] = getCobraRawValue(2);
-             cobraValue[3] = getCobraRawValue(3);
-             flag = false;
+        //  else {
+        //      Globals.UltrasonicDistance1 = filter5.calculate(sonic1.getRangeMM());
+        //      Globals.UltrasonicDistance2 = filter8.calculate(sonic2.getRangeMM());
+        //      D_ultraSonic1.setNumber(getSonicDistance1());
+        //      D_ultraSonic2.setNumber(getSonicDistance2());
+        //      //  for(int i=0; i<4; i++) {
+        //      //      cobraValue[i] = getCobraRawValue(i);
+        //      //  }
+        //      cobraValue[2] = getCobraRawValue(2);
+        //      cobraValue[3] = getCobraRawValue(3);
+        //      flag = false;
 
-         }
+        //  }
 
-         D_cobra1.setDouble(cobraValue[0]);
-         D_cobra2.setDouble(cobraValue[1]);
-         D_cobra3.setDouble(cobraValue[2]);
-         D_cobra4.setDouble(cobraValue[3]);
+        //  D_cobra1.setDouble(cobraValue[0]);
+        //  D_cobra2.setDouble(cobraValue[1]);
+        //  D_cobra3.setDouble(cobraValue[2]);
+        //  D_cobra4.setDouble(cobraValue[3]);
 
     }
 }

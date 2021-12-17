@@ -1,15 +1,15 @@
-Date : 2021-09-20 13:49:20
+Date : 2021-11-11 09:29:34
 Directory : c:\Users\carlc\Desktop\WSS\WSS code\OmniDrive-Carl
-Total : 66 files,  3559 codes, 941 comments, 1223 blanks, all 5723 lines
+Total : 85 files,  4806 codes, 1099 comments, 1526 blanks, all 7431 lines
 
 Languages
 +------------+------------+------------+------------+------------+------------+
 | language   | files      | code       | comment    | blank      | total      |
 +------------+------------+------------+------------+------------+------------+
-| Java       |         56 |      3,253 |        888 |      1,175 |      5,316 |
+| Java       |         75 |      4,493 |      1,037 |      1,479 |      7,009 |
 | JSON       |          4 |        142 |          0 |          5 |        147 |
 | Batch      |          1 |         76 |          0 |         25 |        101 |
-| Groovy     |          2 |         66 |         18 |         13 |         97 |
+| Groovy     |          2 |         73 |         27 |         12 |        112 |
 | Python     |          1 |         16 |         34 |          3 |         53 |
 | Properties |          2 |          6 |          1 |          2 |          9 |
 +------------+------------+------------+------------+------------+------------+
@@ -18,21 +18,24 @@ Directories
 +------------------------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
 | path                                                                                                                   | files      | code       | comment    | blank      | total      |
 +------------------------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
-| .                                                                                                                      |         66 |      3,559 |        941 |      1,223 |      5,723 |
+| .                                                                                                                      |         85 |      4,806 |      1,099 |      1,526 |      7,431 |
 | .wpilib                                                                                                                |          1 |          6 |          0 |          4 |         10 |
 | gradle                                                                                                                 |          1 |          5 |          0 |          1 |          6 |
 | gradle\wrapper                                                                                                         |          1 |          5 |          0 |          1 |          6 |
-| src                                                                                                                    |         56 |      3,253 |        888 |      1,175 |      5,316 |
-| src\main                                                                                                               |         56 |      3,253 |        888 |      1,175 |      5,316 |
-| src\main\java                                                                                                          |         56 |      3,253 |        888 |      1,175 |      5,316 |
-| src\main\java\frc                                                                                                      |         56 |      3,253 |        888 |      1,175 |      5,316 |
-| src\main\java\frc\robot                                                                                                |         56 |      3,253 |        888 |      1,175 |      5,316 |
-| src\main\java\frc\robot\commands                                                                                       |         40 |      1,802 |        516 |        681 |      2,999 |
-| src\main\java\frc\robot\commands\auto                                                                                  |         37 |      1,621 |        410 |        638 |      2,669 |
-| src\main\java\frc\robot\commands\auto\PickCommands                                                                     |          4 |        366 |        205 |        167 |        738 |
-| src\main\java\frc\robot\commands\auto\Tasks                                                                            |         11 |        226 |         12 |         76 |        314 |
-| src\main\java\frc\robot\commands\gamepad                                                                               |          2 |        139 |         65 |         27 |        231 |
-| src\main\java\frc\robot\subsystems                                                                                     |          5 |        706 |        190 |        249 |      1,145 |
+| src                                                                                                                    |         75 |      4,493 |      1,037 |      1,479 |      7,009 |
+| src\main                                                                                                               |         75 |      4,493 |      1,037 |      1,479 |      7,009 |
+| src\main\java                                                                                                          |         75 |      4,493 |      1,037 |      1,479 |      7,009 |
+| src\main\java\frc                                                                                                      |         75 |      4,493 |      1,037 |      1,479 |      7,009 |
+| src\main\java\frc\robot                                                                                                |         75 |      4,493 |      1,037 |      1,479 |      7,009 |
+| src\main\java\frc\robot\commands                                                                                       |         53 |      2,467 |        540 |        838 |      3,845 |
+| src\main\java\frc\robot\commands\auto                                                                                  |         50 |      2,276 |        434 |        794 |      3,504 |
+| src\main\java\frc\robot\commands\auto\PickCommands                                                                     |          4 |        362 |        209 |        168 |        739 |
+| src\main\java\frc\robot\commands\auto\Tasks                                                                            |         18 |        492 |         26 |        125 |        643 |
+| src\main\java\frc\robot\commands\auto\Tasks\Task8                                                                      |          4 |         76 |          0 |         32 |        108 |
+| src\main\java\frc\robot\commands\gamepad                                                                               |          2 |        141 |         65 |         27 |        233 |
+| src\main\java\frc\robot\pathfinding                                                                                    |          5 |        351 |         22 |        100 |        473 |
+| src\main\java\frc\robot\pathfinding\element                                                                            |          4 |        223 |         16 |         61 |        300 |
+| src\main\java\frc\robot\subsystems                                                                                     |          5 |        682 |        278 |        237 |      1,197 |
 | vendordeps                                                                                                             |          3 |        136 |          0 |          1 |        137 |
 +------------------------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
 
@@ -42,69 +45,88 @@ Files
 +------------------------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
 | c:\Users\carlc\Desktop\WSS\WSS code\OmniDrive-Carl\.gitattributes                                                      | Properties |          1 |          1 |          1 |          3 |
 | c:\Users\carlc\Desktop\WSS\WSS code\OmniDrive-Carl\.wpilib\wpilib_preferences.json                                     | JSON       |          6 |          0 |          4 |         10 |
-| c:\Users\carlc\Desktop\WSS\WSS code\OmniDrive-Carl\build.gradle                                                        | Groovy     |         40 |         18 |         11 |         69 |
+| c:\Users\carlc\Desktop\WSS\WSS code\OmniDrive-Carl\build.gradle                                                        | Groovy     |         47 |         27 |         10 |         84 |
 | c:\Users\carlc\Desktop\WSS\WSS code\OmniDrive-Carl\gradle\wrapper\gradle-wrapper.properties                            | Properties |          5 |          0 |          1 |          6 |
 | c:\Users\carlc\Desktop\WSS\WSS code\OmniDrive-Carl\gradlew.bat                                                         | Batch      |         76 |          0 |         25 |        101 |
 | c:\Users\carlc\Desktop\WSS\WSS code\OmniDrive-Carl\robotconfig.py                                                      | Python     |         16 |         34 |          3 |         53 |
 | c:\Users\carlc\Desktop\WSS\WSS code\OmniDrive-Carl\settings.gradle                                                     | Groovy     |         26 |          0 |          2 |         28 |
 | c:\Users\carlc\Desktop\WSS\WSS code\OmniDrive-Carl\src\main\java\frc\robot\BoxPair.java                                | Java       |         20 |          5 |          6 |         31 |
-| c:\Users\carlc\Desktop\WSS\WSS code\OmniDrive-Carl\src\main\java\frc\robot\Constants.java                              | Java       |         26 |         27 |         13 |         66 |
-| c:\Users\carlc\Desktop\WSS\WSS code\OmniDrive-Carl\src\main\java\frc\robot\DropPoint.java                              | Java       |        170 |          6 |         58 |        234 |
-| c:\Users\carlc\Desktop\WSS\WSS code\OmniDrive-Carl\src\main\java\frc\robot\Globals.java                                | Java       |         66 |          0 |         26 |         92 |
+| c:\Users\carlc\Desktop\WSS\WSS code\OmniDrive-Carl\src\main\java\frc\robot\Constants.java                              | Java       |         32 |         27 |         12 |         71 |
+| c:\Users\carlc\Desktop\WSS\WSS code\OmniDrive-Carl\src\main\java\frc\robot\DropPoint.java                              | Java       |        147 |         13 |         72 |        232 |
+| c:\Users\carlc\Desktop\WSS\WSS code\OmniDrive-Carl\src\main\java\frc\robot\Globals.java                                | Java       |         70 |          0 |         25 |         95 |
 | c:\Users\carlc\Desktop\WSS\WSS code\OmniDrive-Carl\src\main\java\frc\robot\Main.java                                   | Java       |          9 |         16 |          5 |         30 |
 | c:\Users\carlc\Desktop\WSS\WSS code\OmniDrive-Carl\src\main\java\frc\robot\Node.java                                   | Java       |         13 |          0 |          5 |         18 |
-| c:\Users\carlc\Desktop\WSS\WSS code\OmniDrive-Carl\src\main\java\frc\robot\PathMap.java                                | Java       |         87 |          5 |         21 |        113 |
+| c:\Users\carlc\Desktop\WSS\WSS code\OmniDrive-Carl\src\main\java\frc\robot\PathMap.java                                | Java       |        158 |          5 |         34 |        197 |
+| c:\Users\carlc\Desktop\WSS\WSS code\OmniDrive-Carl\src\main\java\frc\robot\PathMap2.java                               | Java       |        177 |          7 |         34 |        218 |
 | c:\Users\carlc\Desktop\WSS\WSS code\OmniDrive-Carl\src\main\java\frc\robot\Pathfinder.java                             | Java       |        176 |         34 |         37 |        247 |
-| c:\Users\carlc\Desktop\WSS\WSS code\OmniDrive-Carl\src\main\java\frc\robot\Points.java                                 | Java       |         80 |          3 |         33 |        116 |
-| c:\Users\carlc\Desktop\WSS\WSS code\OmniDrive-Carl\src\main\java\frc\robot\Robot.java                                  | Java       |         70 |         67 |         31 |        168 |
+| c:\Users\carlc\Desktop\WSS\WSS code\OmniDrive-Carl\src\main\java\frc\robot\Points.java                                 | Java       |         94 |          3 |         32 |        129 |
+| c:\Users\carlc\Desktop\WSS\WSS code\OmniDrive-Carl\src\main\java\frc\robot\Robot.java                                  | Java       |         69 |         68 |         32 |        169 |
 | c:\Users\carlc\Desktop\WSS\WSS code\OmniDrive-Carl\src\main\java\frc\robot\RobotContainer.java                         | Java       |         28 |         19 |         10 |         57 |
-| c:\Users\carlc\Desktop\WSS\WSS code\OmniDrive-Carl\src\main\java\frc\robot\commands\TeleCmd.java                       | Java       |         42 |         41 |         16 |         99 |
-| c:\Users\carlc\Desktop\WSS\WSS code\OmniDrive-Carl\src\main\java\frc\robot\commands\auto\AlignDrop.java                | Java       |         49 |          2 |         12 |         63 |
+| c:\Users\carlc\Desktop\WSS\WSS code\OmniDrive-Carl\src\main\java\frc\robot\commands\TeleCmd.java                       | Java       |         50 |         41 |         17 |        108 |
+| c:\Users\carlc\Desktop\WSS\WSS code\OmniDrive-Carl\src\main\java\frc\robot\commands\auto\AlignDrop.java                | Java       |         63 |          3 |         10 |         76 |
 | c:\Users\carlc\Desktop\WSS\WSS code\OmniDrive-Carl\src\main\java\frc\robot\commands\auto\AlignLeft.java                | Java       |         21 |          0 |         10 |         31 |
+| c:\Users\carlc\Desktop\WSS\WSS code\OmniDrive-Carl\src\main\java\frc\robot\commands\auto\AlignNull.java                | Java       |         23 |          0 |         11 |         34 |
+| c:\Users\carlc\Desktop\WSS\WSS code\OmniDrive-Carl\src\main\java\frc\robot\commands\auto\AlignPick.java                | Java       |         23 |          0 |         11 |         34 |
 | c:\Users\carlc\Desktop\WSS\WSS code\OmniDrive-Carl\src\main\java\frc\robot\commands\auto\AlignRight.java               | Java       |         21 |          0 |         10 |         31 |
 | c:\Users\carlc\Desktop\WSS\WSS code\OmniDrive-Carl\src\main\java\frc\robot\commands\auto\AutoCommand.java              | Java       |         14 |         14 |          5 |         33 |
-| c:\Users\carlc\Desktop\WSS\WSS code\OmniDrive-Carl\src\main\java\frc\robot\commands\auto\CheckItem.java                | Java       |         23 |          0 |         12 |         35 |
-| c:\Users\carlc\Desktop\WSS\WSS code\OmniDrive-Carl\src\main\java\frc\robot\commands\auto\CommandSchedule.java          | Java       |         36 |          0 |         19 |         55 |
-| c:\Users\carlc\Desktop\WSS\WSS code\OmniDrive-Carl\src\main\java\frc\robot\commands\auto\Deliver.java                  | Java       |         57 |         11 |         35 |        103 |
+| c:\Users\carlc\Desktop\WSS\WSS code\OmniDrive-Carl\src\main\java\frc\robot\commands\auto\Deliver.java                  | Java       |         62 |         11 |         35 |        108 |
 | c:\Users\carlc\Desktop\WSS\WSS code\OmniDrive-Carl\src\main\java\frc\robot\commands\auto\End.java                      | Java       |         15 |          1 |          8 |         24 |
 | c:\Users\carlc\Desktop\WSS\WSS code\OmniDrive-Carl\src\main\java\frc\robot\commands\auto\FollowLine.java               | Java       |         36 |          2 |         10 |         48 |
-| c:\Users\carlc\Desktop\WSS\WSS code\OmniDrive-Carl\src\main\java\frc\robot\commands\auto\FollowPath.java               | Java       |         60 |          1 |         16 |         77 |
-| c:\Users\carlc\Desktop\WSS\WSS code\OmniDrive-Carl\src\main\java\frc\robot\commands\auto\MapPose.java                  | Java       |         53 |         10 |         28 |         91 |
+| c:\Users\carlc\Desktop\WSS\WSS code\OmniDrive-Carl\src\main\java\frc\robot\commands\auto\FollowPath.java               | Java       |         97 |          2 |         36 |        135 |
+| c:\Users\carlc\Desktop\WSS\WSS code\OmniDrive-Carl\src\main\java\frc\robot\commands\auto\GetBin.java                   | Java       |         27 |          0 |          5 |         32 |
+| c:\Users\carlc\Desktop\WSS\WSS code\OmniDrive-Carl\src\main\java\frc\robot\commands\auto\LoopOne.java                  | Java       |         60 |         15 |         13 |         88 |
+| c:\Users\carlc\Desktop\WSS\WSS code\OmniDrive-Carl\src\main\java\frc\robot\commands\auto\LoopTwo.java                  | Java       |         64 |         13 |         10 |         87 |
+| c:\Users\carlc\Desktop\WSS\WSS code\OmniDrive-Carl\src\main\java\frc\robot\commands\auto\MainSequence.java             | Java       |         46 |          0 |         12 |         58 |
+| c:\Users\carlc\Desktop\WSS\WSS code\OmniDrive-Carl\src\main\java\frc\robot\commands\auto\MapPose.java                  | Java       |         53 |          0 |         32 |         85 |
 | c:\Users\carlc\Desktop\WSS\WSS code\OmniDrive-Carl\src\main\java\frc\robot\commands\auto\MoveArmXY.java                | Java       |         87 |         39 |         33 |        159 |
-| c:\Users\carlc\Desktop\WSS\WSS code\OmniDrive-Carl\src\main\java\frc\robot\commands\auto\MovePose.java                 | Java       |         95 |          6 |         33 |        134 |
+| c:\Users\carlc\Desktop\WSS\WSS code\OmniDrive-Carl\src\main\java\frc\robot\commands\auto\MovePose.java                 | Java       |        100 |          6 |         31 |        137 |
 | c:\Users\carlc\Desktop\WSS\WSS code\OmniDrive-Carl\src\main\java\frc\robot\commands\auto\MovePose2.java                | Java       |         98 |          6 |         35 |        139 |
-| c:\Users\carlc\Desktop\WSS\WSS code\OmniDrive-Carl\src\main\java\frc\robot\commands\auto\MoveRobot.java                | Java       |         69 |         35 |         15 |        119 |
+| c:\Users\carlc\Desktop\WSS\WSS code\OmniDrive-Carl\src\main\java\frc\robot\commands\auto\MovePose3.java                | Java       |         99 |          3 |         36 |        138 |
+| c:\Users\carlc\Desktop\WSS\WSS code\OmniDrive-Carl\src\main\java\frc\robot\commands\auto\MoveRobot.java                | Java       |         70 |         35 |         15 |        120 |
 | c:\Users\carlc\Desktop\WSS\WSS code\OmniDrive-Carl\src\main\java\frc\robot\commands\auto\MoveRobotSense.java           | Java       |         19 |          5 |          8 |         32 |
 | c:\Users\carlc\Desktop\WSS\WSS code\OmniDrive-Carl\src\main\java\frc\robot\commands\auto\MoveRobotSense1.java          | Java       |         38 |          6 |         11 |         55 |
-| c:\Users\carlc\Desktop\WSS\WSS code\OmniDrive-Carl\src\main\java\frc\robot\commands\auto\MoveTest2.java                | Java       |         58 |         13 |         12 |         83 |
-| c:\Users\carlc\Desktop\WSS\WSS code\OmniDrive-Carl\src\main\java\frc\robot\commands\auto\Pick.java                     | Java       |         98 |         22 |         37 |        157 |
+| c:\Users\carlc\Desktop\WSS\WSS code\OmniDrive-Carl\src\main\java\frc\robot\commands\auto\Pick.java                     | Java       |        111 |         21 |         33 |        165 |
 | c:\Users\carlc\Desktop\WSS\WSS code\OmniDrive-Carl\src\main\java\frc\robot\commands\auto\PickCommands\ArmPickX.java    | Java       |         94 |         48 |         48 |        190 |
-| c:\Users\carlc\Desktop\WSS\WSS code\OmniDrive-Carl\src\main\java\frc\robot\commands\auto\PickCommands\ArmPickY.java    | Java       |        105 |         64 |         53 |        222 |
-| c:\Users\carlc\Desktop\WSS\WSS code\OmniDrive-Carl\src\main\java\frc\robot\commands\auto\PickCommands\GripperPick.java | Java       |         88 |         49 |         41 |        178 |
+| c:\Users\carlc\Desktop\WSS\WSS code\OmniDrive-Carl\src\main\java\frc\robot\commands\auto\PickCommands\ArmPickY.java    | Java       |        100 |         68 |         54 |        222 |
+| c:\Users\carlc\Desktop\WSS\WSS code\OmniDrive-Carl\src\main\java\frc\robot\commands\auto\PickCommands\GripperPick.java | Java       |         89 |         49 |         41 |        179 |
 | c:\Users\carlc\Desktop\WSS\WSS code\OmniDrive-Carl\src\main\java\frc\robot\commands\auto\PickCommands\RobotPick.java   | Java       |         79 |         44 |         25 |        148 |
 | c:\Users\carlc\Desktop\WSS\WSS code\OmniDrive-Carl\src\main\java\frc\robot\commands\auto\Reset.java                    | Java       |         20 |          0 |          9 |         29 |
+| c:\Users\carlc\Desktop\WSS\WSS code\OmniDrive-Carl\src\main\java\frc\robot\commands\auto\SequenceOne.java              | Java       |         41 |          0 |         18 |         59 |
+| c:\Users\carlc\Desktop\WSS\WSS code\OmniDrive-Carl\src\main\java\frc\robot\commands\auto\SequenceTwo.java              | Java       |         44 |          0 |         15 |         59 |
 | c:\Users\carlc\Desktop\WSS\WSS code\OmniDrive-Carl\src\main\java\frc\robot\commands\auto\Tasks\MoveRobotSense2.java    | Java       |         19 |          5 |          8 |         32 |
-| c:\Users\carlc\Desktop\WSS\WSS code\OmniDrive-Carl\src\main\java\frc\robot\commands\auto\Tasks\OnlyKitkat.java         | Java       |         65 |          7 |         13 |         85 |
-| c:\Users\carlc\Desktop\WSS\WSS code\OmniDrive-Carl\src\main\java\frc\robot\commands\auto\Tasks\Task1.java              | Java       |         10 |          0 |          4 |         14 |
+| c:\Users\carlc\Desktop\WSS\WSS code\OmniDrive-Carl\src\main\java\frc\robot\commands\auto\Tasks\OnlyKitkat.java         | Java       |         54 |         21 |         14 |         89 |
+| c:\Users\carlc\Desktop\WSS\WSS code\OmniDrive-Carl\src\main\java\frc\robot\commands\auto\Tasks\Task1.java              | Java       |         14 |          0 |          4 |         18 |
 | c:\Users\carlc\Desktop\WSS\WSS code\OmniDrive-Carl\src\main\java\frc\robot\commands\auto\Tasks\Task2.java              | Java       |         30 |          0 |         13 |         43 |
 | c:\Users\carlc\Desktop\WSS\WSS code\OmniDrive-Carl\src\main\java\frc\robot\commands\auto\Tasks\Task3.java              | Java       |         10 |          0 |          4 |         14 |
-| c:\Users\carlc\Desktop\WSS\WSS code\OmniDrive-Carl\src\main\java\frc\robot\commands\auto\Tasks\Task4.java              | Java       |         17 |          0 |          5 |         22 |
-| c:\Users\carlc\Desktop\WSS\WSS code\OmniDrive-Carl\src\main\java\frc\robot\commands\auto\Tasks\Task5.java              | Java       |         20 |          0 |          5 |         25 |
-| c:\Users\carlc\Desktop\WSS\WSS code\OmniDrive-Carl\src\main\java\frc\robot\commands\auto\Tasks\Task6.java              | Java       |         14 |          0 |          4 |         18 |
+| c:\Users\carlc\Desktop\WSS\WSS code\OmniDrive-Carl\src\main\java\frc\robot\commands\auto\Tasks\Task4.java              | Java       |         18 |          0 |          5 |         23 |
+| c:\Users\carlc\Desktop\WSS\WSS code\OmniDrive-Carl\src\main\java\frc\robot\commands\auto\Tasks\Task5.java              | Java       |         19 |          0 |          5 |         24 |
+| c:\Users\carlc\Desktop\WSS\WSS code\OmniDrive-Carl\src\main\java\frc\robot\commands\auto\Tasks\Task6.java              | Java       |         16 |          0 |          4 |         20 |
 | c:\Users\carlc\Desktop\WSS\WSS code\OmniDrive-Carl\src\main\java\frc\robot\commands\auto\Tasks\Task7.java              | Java       |         18 |          0 |          9 |         27 |
-| c:\Users\carlc\Desktop\WSS\WSS code\OmniDrive-Carl\src\main\java\frc\robot\commands\auto\Tasks\Task8.java              | Java       |         19 |          0 |          8 |         27 |
-| c:\Users\carlc\Desktop\WSS\WSS code\OmniDrive-Carl\src\main\java\frc\robot\commands\auto\Tasks\Task9.java              | Java       |          4 |          0 |          3 |          7 |
-| c:\Users\carlc\Desktop\WSS\WSS code\OmniDrive-Carl\src\main\java\frc\robot\commands\auto\Test.java                     | Java       |         20 |         20 |         13 |         53 |
+| c:\Users\carlc\Desktop\WSS\WSS code\OmniDrive-Carl\src\main\java\frc\robot\commands\auto\Tasks\Task8\Task8b.java       | Java       |         19 |          0 |          8 |         27 |
+| c:\Users\carlc\Desktop\WSS\WSS code\OmniDrive-Carl\src\main\java\frc\robot\commands\auto\Tasks\Task8\Task8c.java       | Java       |         19 |          0 |          8 |         27 |
+| c:\Users\carlc\Desktop\WSS\WSS code\OmniDrive-Carl\src\main\java\frc\robot\commands\auto\Tasks\Task8\Task8k.java       | Java       |         19 |          0 |          8 |         27 |
+| c:\Users\carlc\Desktop\WSS\WSS code\OmniDrive-Carl\src\main\java\frc\robot\commands\auto\Tasks\Task8\Task8n.java       | Java       |         19 |          0 |          8 |         27 |
+| c:\Users\carlc\Desktop\WSS\WSS code\OmniDrive-Carl\src\main\java\frc\robot\commands\auto\Tasks\Task9Black.java         | Java       |         44 |          0 |          6 |         50 |
+| c:\Users\carlc\Desktop\WSS\WSS code\OmniDrive-Carl\src\main\java\frc\robot\commands\auto\Tasks\Task9Blue.java          | Java       |         45 |          0 |          6 |         51 |
+| c:\Users\carlc\Desktop\WSS\WSS code\OmniDrive-Carl\src\main\java\frc\robot\commands\auto\Tasks\Task9Green.java         | Java       |         43 |          0 |          5 |         48 |
+| c:\Users\carlc\Desktop\WSS\WSS code\OmniDrive-Carl\src\main\java\frc\robot\commands\auto\Tasks\Task9Red.java           | Java       |         43 |          0 |          5 |         48 |
+| c:\Users\carlc\Desktop\WSS\WSS code\OmniDrive-Carl\src\main\java\frc\robot\commands\auto\Tasks\Task9Yellow.java        | Java       |         43 |          0 |          5 |         48 |
+| c:\Users\carlc\Desktop\WSS\WSS code\OmniDrive-Carl\src\main\java\frc\robot\commands\auto\Test.java                     | Java       |         28 |         17 |         15 |         60 |
 | c:\Users\carlc\Desktop\WSS\WSS code\OmniDrive-Carl\src\main\java\frc\robot\commands\auto\ZeroPose.java                 | Java       |         42 |          0 |         24 |         66 |
 | c:\Users\carlc\Desktop\WSS\WSS code\OmniDrive-Carl\src\main\java\frc\robot\commands\gamepad\GamepadConstants.java      | Java       |         25 |          5 |          4 |         34 |
-| c:\Users\carlc\Desktop\WSS\WSS code\OmniDrive-Carl\src\main\java\frc\robot\commands\gamepad\OI.java                    | Java       |        114 |         60 |         23 |        197 |
-| c:\Users\carlc\Desktop\WSS\WSS code\OmniDrive-Carl\src\main\java\frc\robot\subsystems\Arm.java                         | Java       |         97 |         37 |         31 |        165 |
-| c:\Users\carlc\Desktop\WSS\WSS code\OmniDrive-Carl\src\main\java\frc\robot\subsystems\Menu.java                        | Java       |         77 |          3 |         15 |         95 |
-| c:\Users\carlc\Desktop\WSS\WSS code\OmniDrive-Carl\src\main\java\frc\robot\subsystems\OmniDrive.java                   | Java       |        218 |         81 |         68 |        367 |
-| c:\Users\carlc\Desktop\WSS\WSS code\OmniDrive-Carl\src\main\java\frc\robot\subsystems\Sensor.java                      | Java       |        110 |         65 |         40 |        215 |
-| c:\Users\carlc\Desktop\WSS\WSS code\OmniDrive-Carl\src\main\java\frc\robot\subsystems\Vision.java                      | Java       |        204 |          4 |         95 |        303 |
+| c:\Users\carlc\Desktop\WSS\WSS code\OmniDrive-Carl\src\main\java\frc\robot\commands\gamepad\OI.java                    | Java       |        116 |         60 |         23 |        199 |
+| c:\Users\carlc\Desktop\WSS\WSS code\OmniDrive-Carl\src\main\java\frc\robot\pathfinding\AStarAlgorithm.java             | Java       |        128 |          6 |         39 |        173 |
+| c:\Users\carlc\Desktop\WSS\WSS code\OmniDrive-Carl\src\main\java\frc\robot\pathfinding\element\Grid.java               | Java       |         82 |          5 |         12 |         99 |
+| c:\Users\carlc\Desktop\WSS\WSS code\OmniDrive-Carl\src\main\java\frc\robot\pathfinding\element\Network.java            | Java       |          4 |          0 |          3 |          7 |
+| c:\Users\carlc\Desktop\WSS\WSS code\OmniDrive-Carl\src\main\java\frc\robot\pathfinding\element\Node.java               | Java       |         61 |          0 |         24 |         85 |
+| c:\Users\carlc\Desktop\WSS\WSS code\OmniDrive-Carl\src\main\java\frc\robot\pathfinding\element\Tile.java               | Java       |         76 |         11 |         22 |        109 |
+| c:\Users\carlc\Desktop\WSS\WSS code\OmniDrive-Carl\src\main\java\frc\robot\subsystems\Arm.java                         | Java       |         89 |         45 |         31 |        165 |
+| c:\Users\carlc\Desktop\WSS\WSS code\OmniDrive-Carl\src\main\java\frc\robot\subsystems\Menu.java                        | Java       |        119 |          3 |         13 |        135 |
+| c:\Users\carlc\Desktop\WSS\WSS code\OmniDrive-Carl\src\main\java\frc\robot\subsystems\OmniDrive.java                   | Java       |        214 |        104 |         66 |        384 |
+| c:\Users\carlc\Desktop\WSS\WSS code\OmniDrive-Carl\src\main\java\frc\robot\subsystems\Sensor.java                      | Java       |         98 |         83 |         46 |        227 |
+| c:\Users\carlc\Desktop\WSS\WSS code\OmniDrive-Carl\src\main\java\frc\robot\subsystems\Vision.java                      | Java       |        162 |         43 |         81 |        286 |
 | c:\Users\carlc\Desktop\WSS\WSS code\OmniDrive-Carl\vendordeps\Studica.json                                             | JSON       |         64 |          0 |          0 |         64 |
 | c:\Users\carlc\Desktop\WSS\WSS code\OmniDrive-Carl\vendordeps\WPILibNewCommands.json                                   | JSON       |         37 |          0 |          1 |         38 |
 | c:\Users\carlc\Desktop\WSS\WSS code\OmniDrive-Carl\vendordeps\navx_frc.json                                            | JSON       |         35 |          0 |          0 |         35 |
-| Total                                                                                                                  |            |      3,559 |        941 |      1,223 |      5,723 |
+| Total                                                                                                                  |            |      4,806 |      1,099 |      1,526 |      7,431 |
 +------------------------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+

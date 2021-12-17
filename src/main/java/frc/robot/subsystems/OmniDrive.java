@@ -41,6 +41,7 @@ public class OmniDrive extends SubsystemBase
     private double[] pidInputs;
     private double[] pidOutputs;
     private double[] encoderDists;
+    private double[] encoderDists_2;
     private double[] encoderSpeeds;
     private double[] wheelSpeeds;
     private double curHeading, targetHeading;
@@ -101,6 +102,7 @@ public class OmniDrive extends SubsystemBase
         encoders = new TitanQuadEncoder[Constants.MOTOR_NUM];
         //vmx encoders = new Encoder[Constants.MOTOR_NUM];
         encoderDists = new double[Constants.MOTOR_NUM];
+        encoderDists_2 = new double[Constants.MOTOR_NUM];
         encoderSpeeds = new double[Constants.MOTOR_NUM];
         wheelSpeeds = new double[Constants.MOTOR_NUM];
         motorOuts = new double[Constants.MOTOR_NUM];
@@ -111,15 +113,15 @@ public class OmniDrive extends SubsystemBase
             //vmx encoderDists[i] = encoders[i].getDistance();
             encoders[i] = new TitanQuadEncoder(motors[i], i, Constants.KENCODERDISTPERPULSE);
             encoders[i].reset();
-            encoderDists[i] = encoders[i].getEncoderDistance();
+            encoderDists_2[i] =encoderDists[i] = encoders[i].getEncoderDistance();
         }
         
         // x, y and w speed controler
         pidControllers = new PIDController[Constants.PID_NUM];
         //Speed control
-        pidControllers[0] = new PIDController(1.3, 16.0, 0.04, pid_dT);  //x
-        pidControllers[1] = new PIDController(1.3, 16.0, 0.04, pid_dT);  //y 2.0,32.0,0.02
-        pidControllers[2] = new PIDController(2.5,0.0,0.05, pid_dT);    //w
+        pidControllers[0] = new PIDController(1, 32.0, 0.0, pid_dT);  //x
+        pidControllers[1] = new PIDController(1, 32.0, 0.0, pid_dT);  //y 2.0,32.0,0.02
+        pidControllers[2] = new PIDController(2.5,0.0,0.1, pid_dT);    //w
         pidControllers[2].enableContinuousInput(-Math.PI, Math.PI);
 
         //Inputs and Outputs for wheel controller
@@ -264,9 +266,10 @@ public class OmniDrive extends SubsystemBase
         for (int i=0; i<Constants.MOTOR_NUM; i++) {
             //vmx encoderDists[i] = encoders[i].getDistance();
             encoderDists[i] = encoders[i].getEncoderDistance();
-            //wheelSpeeds[i] = encoderSpeeds[i] = (encoderDists[i]-encoderDists_2[i])/pid_dT;
+            wheelSpeeds[i] = encoderSpeeds[i] = (encoderDists[i] - encoderDists_2[i]) / pid_dT;
+            encoderDists_2[i] = encoderDists[i];
             //encoders[i].getSpeed() in rpm
-            wheelSpeeds[i] = encoderSpeeds[i] = -encoders[i].getSpeed()*Math.PI*0.1/60;
+            //wheelSpeeds[i] = encoderSpeeds[i] = -encoders[i].getSpeed()*Math.PI*0.1/60;
             dcValue += wheelSpeeds[i];
         }
 

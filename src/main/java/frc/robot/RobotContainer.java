@@ -8,7 +8,11 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj2.command.Command;
+import frc.robot.Astar.AStarAlgorithm;
+import frc.robot.Astar.Grid;
+import frc.robot.Astar.Layout;
 import frc.robot.commands.TeleCmd;
+import frc.robot.commands.auto.AutoMainCmd;
 import frc.robot.commands.auto.Test;
 import frc.robot.commands.gamepad.OI;
 import frc.robot.subsystems.Arm;
@@ -32,12 +36,23 @@ public class RobotContainer {
   public final static TeleCmd m_teleCmd = new TeleCmd();// (m_arm, m_omnidrive);
   public final static Menu m_menu = new Menu();
 
+  public final static AutoMainCmd m_autoCmd = new AutoMainCmd();
+
+  //Create grid
+  public static Layout m_layout;
+  public static Grid m_Grid;
+  public static AStarAlgorithm m_Astar;
+
   public RobotContainer() {
     // Create new instances
 
 
-      //Set the default command for the hardware subsytem
+    m_layout = new Layout();
+    m_Grid = new Grid(m_layout);
+    m_Grid.ExpandObstacles(150);
 
+    //Create solver
+    m_Astar = new AStarAlgorithm(m_Grid);
   }
 
   /**
@@ -47,7 +62,7 @@ public class RobotContainer {
    */
   public Command getAutonomousCommand() {
     // An ExampleCommand will run in autonomous
-    return new Test();
+    return m_autoCmd;
   }
   public Command getTeleopCommand() {
     // An ExampleCommand will run in autonomous
