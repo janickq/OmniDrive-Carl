@@ -16,6 +16,7 @@ import frc.robot.Points;
 import frc.robot.RobotContainer;
 import frc.robot.commands.auto.MainSequence;
 import frc.robot.commands.auto.MoveArmXY;
+import frc.robot.commands.auto.Pick;
 import frc.robot.commands.auto.Test;
 import frc.robot.commands.auto.PickCommands.GripperPick;
 import frc.robot.commands.auto.Tasks.Task1;

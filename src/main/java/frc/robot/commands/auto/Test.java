@@ -28,11 +28,11 @@ public class Test extends AutoCommand{
 
             // new MainSequence()
                 
-        //         // new InstantCommand(m_vision::itemLook),
-        //         // new InstantCommand(m_vision::getItem),
-                // // new Pick()
+                new InstantCommand(m_vision::itemLook),
+                new InstantCommand(m_vision::getItem),
+                new Pick()
                 // new InstantCommand(() -> Globals.curPose = m_points.Map),
-                new InstantCommand(m_vision::boxLook),
+                // new InstantCommand(m_vision::boxLook),
 
         //         new MovePose("Pick"),
         //         new AlignPick(),
@@ -46,11 +46,11 @@ public class Test extends AutoCommand{
         //         new WaitCommand(2),
         //         new MoveRobot(1, -0.7, 0, 0, 0.5),
         //         new WaitCommand(3),
-                new InstantCommand(m_drop::getBin),
-                new InstantCommand(m_drop::getBoxes),
-                new InstantCommand(m_drop::generatePair),
-                new InstantCommand(m_drop::getDropPose),
-                new InstantCommand(m_vision::getBin)
+                // new InstantCommand(m_drop::getBin),
+                // new InstantCommand(m_drop::getBoxes),
+                // new InstantCommand(m_drop::generatePair),
+                // new InstantCommand(m_drop::getDropPose),
+                // new InstantCommand(m_vision::getBin)
 
         );
     }

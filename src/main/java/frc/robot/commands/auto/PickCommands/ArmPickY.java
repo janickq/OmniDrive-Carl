@@ -132,7 +132,7 @@ public class ArmPickY extends CommandBase {
              2 = kitkat
              3 = nissin
         */
-        itemCo[0] = Math.max((Globals.yArm - (m_sensor.getIRDistance2() / 100)-0.0), -0.025);
+        itemCo[0] = Math.max((Globals.yArm - (m_sensor.getIRDistance2() / 100)-0.0), -0.05);
         itemCo[1] = Math.max((Globals.yArm - (m_sensor.getIRDistance2() / 100) + 0.07), -0.05);
         itemCo[2] = Math.max((Globals.yArm - (m_sensor.getIRDistance2() / 100)+0.07),-0.075);
         itemCo[3] = Math.max((Globals.yArm - (m_sensor.getIRDistance2() / 100) + 0.02), -0.05);

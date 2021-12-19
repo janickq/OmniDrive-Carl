@@ -29,12 +29,9 @@ public class PathMap {
   public int Bj;
   public HashMap<String, Pose2d> namedPath = new HashMap<>();
   public ArrayList<Pose2d> Path = new ArrayList<>();
-  public Points m_points = RobotContainer.m_points;
-  public TrajectoryConfig config = new TrajectoryConfig(0.5, 0.5);
 
-  public void generatePath() {
-    
-  }
+  public Points m_points = RobotContainer.m_points;
+
 
   public void getPose(Pose2d startpoint, Pose2d endpoint) {
     curPose = startpoint;
@@ -81,15 +78,8 @@ public class PathMap {
     for (int i = 0; i < Obstacles.size(); i++) {
       int x = Math.toIntExact(Math.round((Obstacles.get(i).getTranslation().getX() / 2.25) * n / 2));
       int y = Math.toIntExact(Math.round((Obstacles.get(i).getTranslation().getY() / 4.5) * n));
-      createBoundary(13, 13, x, y, false);
+      createBoundary(11, 11, x, y, false);
     }
-    createBoundary(10, 10, 
-    Math.toIntExact(Math.round((
-        m_points.getPoint("Bin").getTranslation().getX() / 2.25) * n
-            / 2)),
-        Math.toIntExact(
-            Math.round((
-                 m_points.getPoint("Bin").getTranslation().getY() / 4.5) * n)), false);
     createBoundary(13, 11, 37, 25, false);
     clearPath(Ai, Aj);
     clearPath(Bi, Bj);
