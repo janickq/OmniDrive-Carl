@@ -49,7 +49,7 @@ public class RobotContainer {
 
     m_layout = new Layout();
     m_Grid = new Grid(m_layout);
-    m_Grid.ExpandObstacles(150);
+    m_Grid.ExpandObstacles(250);
 
     //Create solver
     m_Astar = new AStarAlgorithm(m_Grid);

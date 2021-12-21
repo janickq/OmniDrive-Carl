@@ -38,11 +38,11 @@ public class Layout {
     public static final int obs_mm[][] = {
         //(x0,y0) - centre of box
         //x0   y0    xSize ySize Angle
-        {1013, 755,  210,  150,  0 },   //corridoor gurney
-        {2023, 755,  210,  150,  0 }, 
-        {3033, 755,  210,  150,  0 }, 
-        {1957, 2038-425,  150,  210,  0 }, 
-        {3007, 2038-425,  150,  210,  0 }, 
+        {1013, 755,  250,  200,  0 },   //corridoor gurney
+        {2023, 755,  250,  200,  0 }, 
+        {3033, 755,  250,  200,  0 }, 
+        {1957, 2038-425,  200,  250,  0 }, 
+        {3007, 2038-425,  200,  250,  0 }, 
         {1546, 115,       150,  210, 0}, //Room gurney
         {2546, 115,       150,  210, 0}, 
         {3546, 115,       150,  210, 0}, 
@@ -93,7 +93,7 @@ public class Layout {
     public static final int dispensaryPos[] = {525, 2038-500, 90};  
 
     // Position for robot to go to for reading work order
-    public static final int workOrderPos[] = {950, 2038-500, 90};
+    public static final int workOrderPos[] = {1210, 2038-500, 90};
 
     // Initial Position for robot to go to for disposing hazmat
     public static final int HazMatBinPos[] = {500, 980, 180};

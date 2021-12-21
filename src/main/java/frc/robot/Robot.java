@@ -77,7 +77,7 @@ public class Robot extends TimedRobot {
   public void robotPeriodic() {
     CommandScheduler.getInstance().run();
     
-    CommandScheduler.getInstance().enable();
+    // CommandScheduler.getInstance().enable();
     
   }
 
