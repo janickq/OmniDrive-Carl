@@ -51,7 +51,6 @@ public class Menu extends SubsystemBase
             new SequentialCommandGroup(
                 new InstantCommand(m_points::resetMap),
                 new InstantCommand(m_omnidrive::resetGyro),
-                new InstantCommand(m_vision::resetCount),
                 new InstantCommand(m_omnidrive::setZeroPose),
                 new GripperPick(4), 
                 new MoveArmXY(Constants.ARM2 - 0.1 , Constants.ARM1 + 0.1, 0, 0, 0.5)

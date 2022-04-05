@@ -27,7 +27,7 @@ public class Robot extends TimedRobot {
   private RobotContainer m_robotContainer;
   private OmniDrive m_omnidrive;
   private Notifier m_follower;
-
+  private Vision m_vision;
 
   // private void generateEnabledDsPacket(byte[] data, short sendCount) {
   //   data[0] = (byte) (sendCount >> 8);
@@ -47,7 +47,7 @@ public class Robot extends TimedRobot {
     // Instantiate our RobotContainer.
     m_robotContainer = new RobotContainer();
     m_omnidrive = RobotContainer.m_omnidrive;
-
+    m_vision = RobotContainer.m_vision;
     // m_drivetest = RobotContainer.m_drivetest;
 
     //Run PID in different thread at higher rate

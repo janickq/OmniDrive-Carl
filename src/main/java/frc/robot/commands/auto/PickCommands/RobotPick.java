@@ -86,10 +86,6 @@ public class RobotPick extends CommandBase
 
         double [] itemCo = new double[4];
 
-        itemCo[0] = m_vision.getChips(0);
-        itemCo[1] = m_vision.getBall(0);
-        itemCo[2] = m_vision.getKitkat(0);
-        itemCo[3] = m_vision.getNissin(0);
 
         // adds offset of arm to camera
         return itemCo[item] + 0.145;

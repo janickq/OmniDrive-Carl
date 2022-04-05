@@ -99,10 +99,7 @@ public class ArmPickX extends CommandBase {
         //gets item type to pick and returns item coordinate
         double[] itemCo = new double[4];
 
-        itemCo[0] = m_vision.getChips(1);
-        itemCo[1] = m_vision.getBall(1);
-        itemCo[2] = m_vision.getKitkat(1);
-        itemCo[3] = m_vision.getNissin(1);
+   
 
         // add offset of arm to camera
         return itemCo[item] + 0.245; //+ 0.27;
