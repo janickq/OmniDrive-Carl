@@ -16,6 +16,7 @@ import frc.robot.commands.auto.AutoMainCmd;
 import frc.robot.commands.auto.Test;
 import frc.robot.commands.gamepad.OI;
 import frc.robot.subsystems.Arm;
+import frc.robot.subsystems.Comms;
 import frc.robot.subsystems.Menu;
 import frc.robot.subsystems.OmniDrive;
 //import frc.robot.commands.auto.TestMove;
@@ -35,7 +36,7 @@ public class RobotContainer {
   public final static Arm m_arm = new Arm();
   public final static TeleCmd m_teleCmd = new TeleCmd();// (m_arm, m_omnidrive);
   public final static Menu m_menu = new Menu();
-
+  public final static Comms m_comms = new Comms();
   public final static AutoMainCmd m_autoCmd = new AutoMainCmd();
 
   //Create grid
