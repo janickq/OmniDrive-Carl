@@ -5,6 +5,7 @@ import java.util.Map;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.SelectCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
@@ -68,6 +69,8 @@ public class Menu extends SubsystemBase
     public void periodic()
     {
         D_menu.setString( menuName[Globals.menuItem]);
-
+        if(getCurrentCommand() != null){
+            SmartDashboard.putString("current menu command", getCurrentCommand().toString());
+        }
     }
 }

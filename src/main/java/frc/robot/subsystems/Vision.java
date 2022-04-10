@@ -37,7 +37,7 @@ public class Vision extends SubsystemBase
     double cameraAngle;
     boolean pickedflag;
 
-    
+    String[] DefaultStr = {"0"};
     private double convert = 0.0012;
 
     // private final GetTrajectory m_trajectory = RobotContainer.m_trajectory;
@@ -55,6 +55,9 @@ public class Vision extends SubsystemBase
         WOB.setString("test");
         SmartDashboard.putBoolean("mapping", pickedflag);
         servo3.setAngle(cameraAngle);
+        SmartDashboard.getStringArray("Deliver", DefaultStr);
+        SmartDashboard.getStringArray("Return", DefaultStr);
+        
 
 
     }

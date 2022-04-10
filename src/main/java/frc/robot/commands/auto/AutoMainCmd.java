@@ -13,7 +13,7 @@ import frc.robot.commands.auto.MoveRobot;
  * <p>
  * This class creates the inline auto command to drive the motor
  */
-public class AutoMainCmd extends SequentialCommandGroup
+public class AutoMainCmd extends AutoCommand
 {   
 
       @Override

@@ -1,5 +1,6 @@
 package frc.robot.commands.auto;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 //WPI imports
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
@@ -28,6 +29,11 @@ public abstract class AutoCommand extends SequentialCommandGroup
     {
         super(cmd);
 
+    }
+
+    @Override
+    public void execute() {
+        SmartDashboard.putString("Current Command", super.getName());
     }
 
 }

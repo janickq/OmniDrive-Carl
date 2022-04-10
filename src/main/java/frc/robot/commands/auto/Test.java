@@ -2,6 +2,7 @@ package frc.robot.commands.auto;
 
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
+import edu.wpi.first.wpilibj2.command.WaitUntilCommand;
 import frc.robot.Constants;
 import frc.robot.Globals;
 import frc.robot.Points;
@@ -25,6 +26,8 @@ public class Test extends AutoCommand{
         super(
 
             // new MainSequence()
+            new WaitCommand(2),
+            new WaitUntilCommand(2.0)
 
 
         );
