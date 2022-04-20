@@ -52,11 +52,11 @@ public class Vision extends SubsystemBase
     @Override
     public void periodic()
     {
-        WOB.setString("test");
-        SmartDashboard.putBoolean("mapping", pickedflag);
-        servo3.setAngle(cameraAngle);
-        SmartDashboard.getStringArray("Deliver", DefaultStr);
-        SmartDashboard.getStringArray("Return", DefaultStr);
+        // WOB.setString("test");
+        // SmartDashboard.putBoolean("mapping", pickedflag);
+        // servo3.setAngle(cameraAngle);
+        // SmartDashboard.getStringArray("Deliver", DefaultStr);
+        // SmartDashboard.getStringArray("Return", DefaultStr);
         
 
 

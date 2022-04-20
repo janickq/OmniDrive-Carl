@@ -25,9 +25,7 @@ public class Test extends AutoCommand{
 
         super(
 
-            // new MainSequence()
-            new WaitCommand(2),
-            new WaitUntilCommand(2.0)
+            new AutoMainCmd()
 
 
         );

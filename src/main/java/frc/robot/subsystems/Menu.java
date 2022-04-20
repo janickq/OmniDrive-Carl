@@ -71,6 +71,7 @@ public class Menu extends SubsystemBase
         D_menu.setString( menuName[Globals.menuItem]);
         if(getCurrentCommand() != null){
             SmartDashboard.putString("current menu command", getCurrentCommand().toString());
+            
         }
     }
 }

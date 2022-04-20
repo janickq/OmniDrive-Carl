@@ -23,7 +23,7 @@ import frc.robot.utils.MyGenerateTrajectory;
  * <p>
  * This class creates the inline auto command to drive the motor
  */
-public class MovetoB extends AutoCommand
+public class MovetoB extends SequentialCommandGroup
 {   
 // Waypoints for testing purpose
 //   static private List<Translation2d> waypoints = List.of(

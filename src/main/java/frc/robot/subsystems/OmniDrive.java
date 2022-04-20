@@ -140,7 +140,11 @@ public class OmniDrive extends SubsystemBase
     }
 
 
-
+    public void updateOdom(){
+        SmartDashboard.putNumber("OdomX", m_odometry.getPose().getTranslation().getX());
+        SmartDashboard.putNumber("OdomY", m_odometry.getPose().getTranslation().getY());
+        SmartDashboard.putNumber("OdomW", m_odometry.getPose().getRotation().getRadians());
+    }
 
 
     public double getYawRad() {
@@ -311,7 +315,7 @@ public class OmniDrive extends SubsystemBase
         //Use PIDInputs for odometry?
         //m_odometry.update(pidFBs[0]*pid_dT, pidFBs[1]*pid_dT, pidFBs[2]*pid_dT);
         m_odometry.update(pidInputs[0]*pid_dT, pidInputs[1]*pid_dT, pidInputs[2]*pid_dT);
-
+        updateOdom();
         //Use feedback signal. Should be more accurate?
 
         debugout1.set(false);
@@ -334,7 +338,22 @@ public class OmniDrive extends SubsystemBase
         if (!Constants.PID_THREAD ) {
             doPID();
         }
-
+        D_curHeading.setDouble(curHeading);
+        D_curHeading.setDouble(curHeading*180/Math.PI);
+        D_tgtHeading.setDouble(targetHeading*180/Math.PI);
+        D_navYaw.setDouble(-gyro.getYaw());
+        D_encoderDisp0.setDouble(encoderSpeeds[0]);
+        D_encoderDisp1.setDouble(encoderSpeeds[1]);
+        D_encoderDisp2.setDouble(encoderSpeeds[2]);
+        D_encoderDist0.setDouble(encoderDists[0]);
+        D_encoderDist1.setDouble(encoderDists[1]);
+        D_encoderDist2.setDouble(encoderDists[2]);
+        D_encoderPidOut0.setDouble(pidInputs[0]);
+        D_encoderPidOut1.setDouble(pidInputs[1]);
+        D_encoderPidOut2.setDouble(pidInputs[2]);
+        D_odoX.setDouble(m_odometry.getPose().getTranslation().getX());
+        D_odoY.setDouble(m_odometry.getPose().getTranslation().getY());
+        D_odoW.setDouble(m_odometry.getPose().getRotation().getRadians());
 
     }
 }

@@ -33,7 +33,10 @@ public abstract class AutoCommand extends SequentialCommandGroup
 
     @Override
     public void execute() {
-        SmartDashboard.putString("Current Command", super.getName());
+        // SmartDashboard.putString("Autocommand debug", "debugging works");
+        //
+        SmartDashboard.putString("Autocommand super name", super.getName());
+        // SmartDashboard.putString("Autocommand super name 2 lmao", super.getName());
     }
 
 }

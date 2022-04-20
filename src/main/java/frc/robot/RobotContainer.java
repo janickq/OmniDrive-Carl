@@ -22,6 +22,7 @@ import frc.robot.subsystems.OmniDrive;
 //import frc.robot.commands.auto.TestMove;
 import frc.robot.subsystems.Sensor;
 import frc.robot.subsystems.Vision;
+import frc.robot.utils.CommandID;
 
 public class RobotContainer {
 
@@ -38,6 +39,7 @@ public class RobotContainer {
   public final static Menu m_menu = new Menu();
   public final static Comms m_comms = new Comms();
   public final static AutoMainCmd m_autoCmd = new AutoMainCmd();
+  public final static CommandID m_ID = new CommandID();
 
   //Create grid
   public static Layout m_layout;

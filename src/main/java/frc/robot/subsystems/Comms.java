@@ -1,5 +1,21 @@
 package frc.robot.subsystems;
 
-public class Comms {
+import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.RobotContainer;
+import frc.robot.utils.CommandID;
+
+public class Comms extends SubsystemBase{
+    public final static CommandID cmdID = RobotContainer.m_ID;
+
+    public Comms(){
+        
+    }
+
+
+
+    @Override
+    public void periodic() {
+        cmdID.updateID();
+    }
 
 }

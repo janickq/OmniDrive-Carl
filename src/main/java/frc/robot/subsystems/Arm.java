@@ -145,9 +145,9 @@ public class Arm extends SubsystemBase
     @Override
     public void periodic(){
   
-        setServo1Angle(getServoAngle(0));
-        setServo2Angle(getServoAngle(1));
-        setServo3Angle(Globals.curAngle3);
+        // setServo1Angle(getServoAngle(0));
+        // setServo2Angle(getServoAngle(1));
+        // setServo3Angle(Globals.curAngle3);
         
     }
 
