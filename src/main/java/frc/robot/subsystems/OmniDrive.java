@@ -133,9 +133,7 @@ public class OmniDrive extends SubsystemBase
         gyro = new AHRS(SPI.Port.kMXP);
         gyro.zeroYaw();
 
-
         m_odometry = new OmniDriveOdometry( Layout.Convert_mm_Pose2d(Layout.startPos));
-
 
     }
 

@@ -39,12 +39,12 @@ public class Sensor extends SubsystemBase
      * Sensors
      */
     //private final DigitalInput input11;
-    private final Cobra cobra;
-    private final Ultrasonic sonic1;
-    private final Ultrasonic sonic2;
-    private final AnalogInput sharp1;
-    private final AnalogInput sharp2;
-    private final AnalogInput sharp3;
+    // private final Cobra cobra;
+    // private final Ultrasonic sonic1;
+    // private final Ultrasonic sonic2;
+    // private final AnalogInput sharp1;
+    // private final AnalogInput sharp2;
+    // private final AnalogInput sharp3;
 
 
     /**
@@ -74,114 +74,114 @@ public class Sensor extends SubsystemBase
 
     public Sensor() {
 
-        cobraValue = new double[4];
+        // cobraValue = new double[4];
 
         // Sensors
-        cobra = new Cobra();
-        sharp1 = new AnalogInput(Constants.SHARP1);
-        sharp2 = new AnalogInput(Constants.SHARP2);
-        sharp3 = new AnalogInput(Constants.SHARP3);
-        sonic1 = new Ultrasonic(Constants.SONIC_TRIGG1, Constants.SONIC_ECHO1);
-        sonic2 = new Ultrasonic(Constants.SONIC_TRIGG2, Constants.SONIC_ECHO2);
+        // cobra = new Cobra();
+        // sharp1 = new AnalogInput(Constants.SHARP1);
+        // sharp2 = new AnalogInput(Constants.SHARP2);
+        // sharp3 = new AnalogInput(Constants.SHARP3);
+        // sonic1 = new Ultrasonic(Constants.SONIC_TRIGG1, Constants.SONIC_ECHO1);
+        // sonic2 = new Ultrasonic(Constants.SONIC_TRIGG2, Constants.SONIC_ECHO2);
 
     }
 
 
-    /**
-     * Call for the raw ADC value
-     * <p>
-     * 
-     * @param channel range 0 - 3 (matches what is on the adc)
-     * @return value between 0 and 2047 (11-bit)
-     */
-    public double getCobraRawValue(final int channel) {
-        return cobra.getRawValue(channel);
-    }
-
-    /**
-     * Call for the voltage from the ADC
-     * <p>
-     * 
-     * @param channel range 0 - 3 (matches what is on the adc)
-     * @return voltage between 0 - 5V (0 - 3.3V if the constructor Cobra(3.3F) is
-     *         used)
-     */
-    public double getCobraVoltage(final int channel) {
-        return cobra.getVoltage(channel);
-    }
-
-    /**
-     * Call for the distance measured by the Sharp IR Sensor
-     * <p>
-     * 
-     * @return value between 0 - 100 (valid data range is 10cm - 80cm)
-     */
-    public double getIRDistance1() {
-        return filter2.calculate((Math.pow(sharp1.getAverageVoltage(), -1.2045) * 27.726));
-    }
-
-    public double getIRDistance2() {
-        return filter3.calculate(Math.pow(sharp2.getAverageVoltage(), -1.2045) * 27.726);
-    }
-
-    public double getIRDistance3() {
-        return filter4.calculate((Math.pow(sharp3.getAverageVoltage(), -1.2045) * 27.726));
-    }
-
-    /**
-     * Call for the distance measured by the Ultrasonic Sensor
-     * <p>
-     * 
-     * @param metric true or false for metric output
-     * @return distance in mm when metric is true, and inches when metric is false
-     */
-    public double getSonicDistance1() {
-
-
-        return Globals.UltrasonicDistance1;
-
-    }
-    public double getSonicDistance2() {
-
-
-        return Globals.UltrasonicDistance2;
-
-    }
-    // public double getSonicDistance2(final boolean metric) {
-    //     sonic2.ping();
-    //     Timer.delay(0.005);
-    //     if (metric)
-    //         return sonic2.getRangeMM();
-    //     else
-    //         return sonic2.getRangeInches();
+    // /**
+    //  * Call for the raw ADC value
+    //  * <p>
+    //  * 
+    //  * @param channel range 0 - 3 (matches what is on the adc)
+    //  * @return value between 0 and 2047 (11-bit)
+    //  */
+    // public double getCobraRawValue(final int channel) {
+    //     return cobra.getRawValue(channel);
     // }
+
+    // /**
+    //  * Call for the voltage from the ADC
+    //  * <p>
+    //  * 
+    //  * @param channel range 0 - 3 (matches what is on the adc)
+    //  * @return voltage between 0 - 5V (0 - 3.3V if the constructor Cobra(3.3F) is
+    //  *         used)
+    //  */
+    // public double getCobraVoltage(final int channel) {
+    //     return cobra.getVoltage(channel);
+    // }
+
+    // /**
+    //  * Call for the distance measured by the Sharp IR Sensor
+    //  * <p>
+    //  * 
+    //  * @return value between 0 - 100 (valid data range is 10cm - 80cm)
+    //  */
+    // public double getIRDistance1() {
+    //     return filter2.calculate((Math.pow(sharp1.getAverageVoltage(), -1.2045) * 27.726));
+    // }
+
+    // public double getIRDistance2() {
+    //     return filter3.calculate(Math.pow(sharp2.getAverageVoltage(), -1.2045) * 27.726);
+    // }
+
+    // public double getIRDistance3() {
+    //     return filter4.calculate((Math.pow(sharp3.getAverageVoltage(), -1.2045) * 27.726));
+    // }
+
+    // /**
+    //  * Call for the distance measured by the Ultrasonic Sensor
+    //  * <p>
+    //  * 
+    //  * @param metric true or false for metric output
+    //  * @return distance in mm when metric is true, and inches when metric is false
+    //  */
+    // public double getSonicDistance1() {
+
+
+    //     return Globals.UltrasonicDistance1;
+
+    // }
+    // public double getSonicDistance2() {
+
+
+    //     return Globals.UltrasonicDistance2;
+
+    // }
+    // // public double getSonicDistance2(final boolean metric) {
+    // //     sonic2.ping();
+    // //     Timer.delay(0.005);
+    // //     if (metric)
+    // //         return sonic2.getRangeMM();
+    // //     else
+    // //         return sonic2.getRangeInches();
+    // // }
 
 
   
 
 
 
-    /**
-     * Sets the servo speed
-     * <p>
-     * 
-     * @param speed sets the speed of the servo in continous mode, range -1 to 1
-     */
-    public void setServoSpeed(final double speed) {
-        //servoC.set(speed);
-    }
+    // /**
+    //  * Sets the servo speed
+    //  * <p>
+    //  * 
+    //  * @param speed sets the speed of the servo in continous mode, range -1 to 1
+    //  */
+    // public void setServoSpeed(final double speed) {
+    //     //servoC.set(speed);
+    // }
 
-    public double getCobraTotal()
-    {
-        return (cobraValue[0]+cobraValue[1]+cobraValue[2]+cobraValue[3]);
-    }
+    // public double getCobraTotal()
+    // {
+    //     return (cobraValue[0]+cobraValue[1]+cobraValue[2]+cobraValue[3]);
+    // }
 
-    public double offset()
-    {
-        return (cobraValue[0]-30.0 + cobraValue[1]-5.0 + cobraValue[2]*5.0 + cobraValue[3]*30.0)/
-        (cobraValue[0]+ cobraValue[1]+ cobraValue[2]+ cobraValue[3]);
+    // public double offset()
+    // {
+    //     return (cobraValue[0]-30.0 + cobraValue[1]-5.0 + cobraValue[2]*5.0 + cobraValue[3]*30.0)/
+    //     (cobraValue[0]+ cobraValue[1]+ cobraValue[2]+ cobraValue[3]);
         
-    }
+    // }
 
     public boolean flag = false;
     

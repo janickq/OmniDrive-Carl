@@ -10,7 +10,6 @@ public class CommandID{
         CommandID = 0;
     }
     
-
     public void updateID(){
         SmartDashboard.putNumber("CommandID", CommandID);
     }

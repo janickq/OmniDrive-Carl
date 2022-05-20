@@ -21,7 +21,9 @@ public class MainSequence extends AutoCommand {
   public MainSequence() {
 
         super(
-
+              new MoveRobot(1, 0.1, 0, 0, 0.1),
+              new WaitCommand(5),
+              new MoveRobot(1, -0.1, 0, 0, 0.1)
 
 
         );
