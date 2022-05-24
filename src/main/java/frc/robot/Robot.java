@@ -13,8 +13,10 @@ import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import frc.robot.subsystems.Comms;
 import frc.robot.subsystems.OmniDrive;
 import frc.robot.subsystems.Vision;
+import frc.robot.utils.CommandID;
 
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to
@@ -25,10 +27,13 @@ import frc.robot.subsystems.Vision;
 public class Robot extends TimedRobot {
   private Command m_autonomousCommand;
   private Command m_teleopCommand;
+  private Command m_testCommand;
   private RobotContainer m_robotContainer;
   private OmniDrive m_omnidrive;
   private Notifier m_follower;
   private Vision m_vision;
+  private Comms m_comms;
+  private CommandID m_cmd;
 
   // private void generateEnabledDsPacket(byte[] data, short sendCount) {
   //   data[0] = (byte) (sendCount >> 8);
@@ -49,6 +54,8 @@ public class Robot extends TimedRobot {
     m_robotContainer = new RobotContainer();
     m_omnidrive = RobotContainer.m_omnidrive;
     m_vision = RobotContainer.m_vision;
+    m_comms = RobotContainer.m_comms;
+    // m_cmd = RobotContainer.m_ID;
     // m_drivetest = RobotContainer.m_drivetest;
 
     //Run PID in different thread at higher rate
@@ -115,13 +122,13 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void autonomousPeriodic() {
+    // m_cmd.updateID();
   }
 
   @Override
   public void teleopInit() {
 
     m_teleopCommand = m_robotContainer.getTeleopCommand();
-
 
     // schedule the autonomous command (example)
     if (m_teleopCommand != null) {
@@ -144,6 +151,13 @@ public class Robot extends TimedRobot {
   public void testInit() {
     // Cancels all running commands at the start of test mode.
     CommandScheduler.getInstance().cancelAll();
+    m_testCommand = m_robotContainer.getTestCommand();
+
+
+    // schedule the autonomous command (example)
+    if (m_testCommand != null) {
+      m_testCommand.schedule();
+    }
   }
 
   /**
@@ -151,6 +165,7 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void testPeriodic() {
+
   }
 
   /**

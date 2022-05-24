@@ -18,7 +18,7 @@ import frc.robot.RobotContainer;
 import frc.robot.commands.auto.MainSequence;
 import frc.robot.commands.auto.MoveArmXY;
 import frc.robot.commands.auto.Test;
-import frc.robot.commands.auto.PickCommands.GripperPick;
+
 import frc.robot.commands.gamepad.OI;
 
 public class Menu extends SubsystemBase
@@ -53,7 +53,7 @@ public class Menu extends SubsystemBase
                 new InstantCommand(m_points::resetMap),
                 new InstantCommand(m_omnidrive::resetGyro),
                 new InstantCommand(m_omnidrive::setZeroPose),
-                new GripperPick(4), 
+                 
                 new MoveArmXY(Constants.ARM2 - 0.1 , Constants.ARM1 + 0.1, 0, 0, 0.5)
             )
         );

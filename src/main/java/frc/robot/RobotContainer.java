@@ -41,7 +41,7 @@ public class RobotContainer {
   public final static CommandID m_ID = new CommandID();
   public final static Comms m_comms = new Comms();
   public final static AutoMainCmd m_autoCmd = new AutoMainCmd();
-  public final static MainSequence test = new MainSequence();
+  public final static Test test = new Test();
 
 
   //Create grid
@@ -73,5 +73,9 @@ public class RobotContainer {
   public Command getTeleopCommand() {
     // An ExampleCommand will run in autonomous
     return m_teleCmd;
+  }
+  public Command getTestCommand() {
+    // An ExampleCommand will run in autonomous
+    return test;
   }
 }
